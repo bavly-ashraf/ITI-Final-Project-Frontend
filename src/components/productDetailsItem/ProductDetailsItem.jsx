@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { useState } from "react";
 
-const ProductDetails = () => {
+const ProductDetailsItem = () => {
 
     const [counter,setCounter]=useState(0);
 
@@ -29,7 +29,7 @@ const ProductDetails = () => {
     }
 
   return (
-    <div className="block rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+    <div className="ms-10 w-max block rounded-lg bg-[#FBF8F5]  dark:bg-neutral-700">
       <h5 className="mb-2 text-5xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
         Geary Coffee Table
       </h5>
@@ -68,10 +68,10 @@ const ProductDetails = () => {
         </div>
       </div>
       <div className="my-14 font-medium leading-tight">
-        <button style={{backgroundColor:'#EA6C31'}} type="button" class=" text-xl w-80 h-14 text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2 mb-2">Add to Cart</button>
+        <button  type="button" class="bg-[#EA6C31] hover:bg-[#DE5312] text-xl w-80 h-14 text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2 mb-2">Add to Cart</button>
       </div>
     </div>
   );
 };
 
-export default ProductDetails;
+export default ProductDetailsItem;
