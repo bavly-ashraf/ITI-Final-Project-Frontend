@@ -1,0 +1,28 @@
+input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+/* .placeholder-up::-webkit-input-placeholder {
+  transition: all 0.2s;
+  transform: translateY(-100%);
+}
+
+.placeholder-up::-moz-placeholder {
+  transition: all 0.2s;
+  transform: translateY(-100%);
+}
+
+.placeholder-up:-ms-input-placeholder {
+  transition: all 0.2s;
+  transform: translateY(-100%);
+}
+
+.placeholder-up::placeholder {
+  transition: all 0.2s;
+  transform: translateY(-100%);
+} */
+input.placeholder-up::placeholder {
+  transition: all 0.2s;
+  transform: translateY(-100%);
+}
