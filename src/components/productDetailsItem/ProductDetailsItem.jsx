@@ -29,7 +29,7 @@ const ProductDetailsItem = () => {
     }
 
   return (
-    <div className="ms-10 w-max block rounded-lg bg-[#FBF8F5]  dark:bg-neutral-700">
+    <div className="ms-10 w-max block rounded-lg bg-[#FBF8F5]  dark:bg-neutral-700 ">
       <h5 className="mb-2 text-5xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
         Geary Coffee Table
       </h5>
@@ -68,7 +68,7 @@ const ProductDetailsItem = () => {
         </div>
       </div>
       <div className="my-14 font-medium leading-tight">
-        <button  type="button" class="bg-[#EA6C31] hover:bg-[#DE5312] text-xl w-80 h-14 text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2 mb-2">Add to Cart</button>
+        <button  type="button" className="bg-[#EA6C31] hover:bg-[#DE5312] text-xl w-80 h-14 text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2 mb-2">Add to Cart</button>
       </div>
     </div>
   );

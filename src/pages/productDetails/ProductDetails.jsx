@@ -5,7 +5,7 @@ import ProductDetailsItem from "../../components/productDetailsItem/ProductDetai
 
 const ProductDetails = () => {
   return (
-    <div className="flex justify-start bg-[#FBF8F5]">
+    <div className="md:flex justify-start bg-[#FBF8F5] sm:flex-column">
       <ImageSlider className="col-span-8 border border-red-600" />
       <ProductDetailsItem className="col-span-4" />
     </div>
