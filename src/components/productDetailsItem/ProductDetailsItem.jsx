@@ -7,13 +7,12 @@ const ProductDetailsItem = () => {
 
     const [counter,setCounter]=useState(0);
 
-    function increament()
+      function increament()
     {
         setCounter(counter+1);
         console.log(counter);
     }
-    
-    function decreament()
+      function decreament()
     {
         setCounter((prevCounter)=>{
             if(!prevCounter<=0)
@@ -39,8 +38,8 @@ const ProductDetailsItem = () => {
       <h2 className="my-6 text-md leading-tight text-neutral-800 dark:text-neutral-50">
         <strong>Color</strong> : Oak
       </h2>
-      <img
-        className="rounded-full w-14 h-14 outline outline-2 outline-black cursor-pointer border-4 border-white"
+      <img 
+        className="hover:outline-gray-400 rounded-full w-14 h-14 outline outline-2 outline-black cursor-pointer border-4 border-white"
         src="src\assets\Images\ProductDetails\Button\gea-cof-05_swatch.webp"
       />
       <h2 className="my-6 text-md leading-tight text-neutral-800 dark:text-neutral-50">
@@ -50,7 +49,7 @@ const ProductDetailsItem = () => {
         <div className="flex items-center border border-gray-200 w-fit">
           <button type="button"
             onClick={decreament}
-            className="w-14 h-14 text-2xl leading-10 text-gray-600 transition hover:opacity-75"
+            className={`bg-white ${counter > 0 ? 'hover:bg-gray-400' : ''} w-14 h-14 text-2xl leading-10 text-gray-600 `}
             >
             &minus;
           </button>
@@ -61,7 +60,7 @@ const ProductDetailsItem = () => {
             />
           <button type="button"
             onClick={increament}
-            className="w-14 h-14 text-2xl leading-10 text-gray-600 transition hover:opacity-75"
+            className={`bg-white  hover:bg-gray-400  w-14 h-14 text-2xl leading-10 text-gray-600 transition hover:opacity-75`}
           >
             <strong>+</strong>
           </button>

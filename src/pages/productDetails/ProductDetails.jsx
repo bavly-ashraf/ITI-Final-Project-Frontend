@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import ImageSlider from "../../components/imageSlider/ImageSlider";
 import ProductDetailsItem from "../../components/productDetailsItem/ProductDetailsItem";
 
+
 const ProductDetails = () => {
   return (
     <div className="md:flex justify-start bg-[#FBF8F5] sm:flex-column">
