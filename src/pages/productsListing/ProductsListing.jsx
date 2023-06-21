@@ -43,15 +43,15 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Item Type</summary>
                                 <ul>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Coffee Table</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Media Console</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Desk</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Desk Chair</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Console</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Table Lamp</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Floor Lamp</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Bookcase</p></li>
-                                    <li><p><input type='checkbox' className='cursor-pointer'></input>Rug</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Coffee Table</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Media Console</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Desk</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Desk Chair</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Console</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Table Lamp</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Floor Lamp</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Bookcase</p></li>
+                                    <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Rug</p></li>
                                 </ul>
                                 </details>
                             </li>
@@ -60,11 +60,11 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Brand</summary>
                                 <ul>
-                                <li><p><input type='checkbox' className='cursor-pointer'></input>Feather</p></li>
-                                <li><p><input type='checkbox' className='cursor-pointer'></input>West Elm</p></li>
-                                <li><p><input type='checkbox' className='cursor-pointer'></input>Floyd</p></li>
-                                <li><p><input type='checkbox' className='cursor-pointer'></input>Fully</p></li>
-                                <li><p><input type='checkbox' className='cursor-pointer'></input>Herman Miller</p></li>
+                                <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Feather</p></li>
+                                <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>West Elm</p></li>
+                                <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Floyd</p></li>
+                                <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Fully</p></li>
+                                <li><p><input type='checkbox' className='cursor-pointer accent-project-main-color'></input>Herman Miller</p></li>
                                 </ul>
                                 </details>
                             </li>
