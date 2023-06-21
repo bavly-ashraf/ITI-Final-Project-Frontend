@@ -19,7 +19,7 @@ const OrderStatus = () => {
                     </div>
                     </td>
                     <td>
-                    <span className='bg-gray-500 text-black rounded-xl p-2'>Pending admin approval</span>
+                    <span className='bg-gray-500 text-black rounded-xl p-2'>Pending</span>
                     </td>
                     <th>
                     <button className="btn hover:btn-error btn-xs">cancel order</button>
