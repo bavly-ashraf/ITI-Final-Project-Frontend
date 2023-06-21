@@ -6,7 +6,7 @@ const Product = () => {
         <>
         {/* hover:-translate-y-6 */}
         <div className='w-72 bg-white pb-2 rounded-xl hover:scale-105 ease-in-out duration-300'> 
-            <figure><img src='https://cb.scene7.com/is/image/Crate/OjaiUphWFAcntChrBCSOSSS22_3D/$web_pdp_main_carousel_med$/220118124451/ojai-upholstered-wood-frame-accent-chair.jpg' alt='Chair' /></figure>
+            <figure><img className='rounded-xl' src='https://cb.scene7.com/is/image/Crate/OjaiUphWFAcntChrBCSOSSS22_3D/$web_pdp_main_carousel_med$/220118124451/ojai-upholstered-wood-frame-accent-chair.jpg' alt='Chair' /></figure>
             <h2 className="card-title px-2 text-black">
                 Chair!
                 <div className="badge badge-secondary">NEW</div>
