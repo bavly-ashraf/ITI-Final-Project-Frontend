@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./pages/Home/Home";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import ProductListing from "./pages/productsListing/ProductsListing";
+import OrderStatus from "./components/orderStatus/OrderStatus";
 function App() {
   return (
     // <div>
@@ -43,7 +43,7 @@ function App() {
     //   <button class="btn btn-accent btn-outline">Three</button>
     //   <Footer />
     // </div>
-    <ProductListing />
+    <OrderStatus />
   );
 }
 export default App;
