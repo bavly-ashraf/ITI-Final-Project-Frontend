@@ -3,17 +3,6 @@ import React from 'react'
 const OrderStatus = () => {
     return ( 
         <>
-            <div className="overflow-x-auto">
-            <table className="table">
-                {/* head */}
-                <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Order Status</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
                 {/* row 1 */}
                 <tr>
                     <td>
@@ -78,9 +67,6 @@ const OrderStatus = () => {
                     <button className="btn hover:btn-info btn-xs">order another product?</button>
                     </th>
                 </tr>
-                </tbody>
-            </table>
-            </div>
         </>
      );
 }
