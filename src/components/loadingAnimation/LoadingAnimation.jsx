@@ -1,5 +1,6 @@
 import React from "react";
 import "./LoadingAnimation.css";
+import "../../index.css";
 export default function LoadingAnimation() {
   return (
     <div
@@ -10,7 +11,8 @@ export default function LoadingAnimation() {
         <div></div>
         <div></div>
       </div>
-      <p className="text-2xl font-bold text-orange-500">Loading...</p>
+      {/* <p className="text-2xl font-bold text-orange-500">Loading...</p> */}
+      <span className="custom-font custom-font-bookitalic loader">Loading</span>
     </div>
   );
 }
