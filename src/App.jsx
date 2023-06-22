@@ -8,7 +8,6 @@ import SignUp from "./pages/signUp/SignUp";
 import NotFound from "./pages/errorpage/Error.jsx";
 import LoadingAnimation from "./components/loadingAnimation/LoadingAnimation";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 
@@ -24,6 +23,40 @@ function App() {
         <Route path="/loading" element={<LoadingAnimation />} />
         <Route path="/notfound" element={<NotFound />} />
       </Routes>
+      <h1 className="custom-font custom-font-black">Heading 1 - Black</h1>
+      <h1 className="custom-font custom-font-blackitalic">
+        Heading 1 - Black Italic
+      </h1>
+      <h1 className="custom-font custom-font-bold">Heading 1 - Bold</h1>
+      <h1 className="custom-font custom-font-bolditalic">
+        Heading 1 - Bold Italic
+      </h1>
+      <h1 className="custom-font custom-font-book">Heading 1 - Book</h1>
+      <h1 className="custom-font custom-font-bookitalic">
+        Heading 1 - Book Italic
+      </h1>
+      <h1 className="custom-font custom-font-extrabold">
+        Heading 1 - Extra Bold
+      </h1>
+      <h1 className="custom-font custom-font-extrabolditalic">
+        Heading 1 - Extra Bold Italic
+      </h1>
+      <h1 className="custom-font custom-font-hairline">Heading 1 - Hairline</h1>
+      <h1 className="custom-font custom-font-hairlineitalic">
+        Heading 1 - Hairline Italic
+      </h1>
+      <h1 className="custom-font custom-font-light">Heading 1 - Light</h1>
+      <h1 className="custom-font custom-font-lightitalic">
+        Heading 1 - Light Italic
+      </h1>
+      <h1 className="custom-font custom-font-medium">Heading 1 - Medium</h1>
+      <h1 className="custom-font custom-font-mediumitalic">
+        Heading 1 - Medium Italic
+      </h1>
+      <h1 className="custom-font custom-font-thin">Heading 1 - Thin</h1>
+      <h1 className="custom-font custom-font-thinitalic">
+        Heading 1 - Thin Italic
+      </h1>
     </div>
   );
 }
