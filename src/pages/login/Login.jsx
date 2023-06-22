@@ -18,6 +18,19 @@ export default function App() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
 
+  // const onSubmit = (data) => {
+  //   const { error } = schema.validate(data, { abortEarly: false });
+  //   if (error) {
+  //     const validationErrors = {};
+  //     error.details.forEach((detail) => {
+  //       validationErrors[detail.context.key] = detail.message;
+  //     });
+  //     setValidationErrors(validationErrors);
+  //   } else {
+  //     console.log("Form submitted:", data);
+  //     setValidationErrors({});
+  //   }
+  // };
   const onSubmit = (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
@@ -29,6 +42,7 @@ export default function App() {
     } else {
       console.log("Form submitted:", data);
       setValidationErrors({});
+      console.log(data);
     }
   };
 
@@ -40,76 +54,99 @@ export default function App() {
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black"
+          className="flex items-center mb-6 text-2xl font-bold  text-gray-900 dark:text-black"
         >
-          <p>Login to Feather</p>
+          <p> Sign in to your Account</p>
         </a>
 
         <div
           style={{ backgroundColor: "#fbf8f5" }}
-          className="w-full bg-black rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-blue-800 dark:border-gray-700"
+          className="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0"
         >
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
+            {/* <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
               Sign in to your account
-            </h1>
+            </h1> */}
             <form
               className="space-y-4 md:space-y-6"
               action="#"
               onSubmit={handleSubmit(onSubmit)}
               noValidate
             >
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                >
-                  Your email
-                </label>
+              <div
+                className={`relative border-b-2 ${
+                  validationErrors.email ? "border-red-500" : "border-zinc-950"
+                }`}
+              >
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  className={`border-b border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
-                    validationErrors.email ? "border-red-500" : ""
+                  ref={register}
+                  className={`active:bg-transparent focus:ring-0 peer h-10 w-full border-b-2 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none mr-3 py-1 px-2 leading-tight focus:outline-none  ${
+                    validationErrors.email
+                      ? "border-red-500  text-red-500 "
+                      : ""
                   }`}
-                  placeholder="name@company.com"
+                  style={{
+                    backgroundColor: "fbf8f5",
+                    transition: "background-color 0.66s",
+                  }}
+                  placeholder="Email"
                   required
                   {...register("email")}
                 />
+                <label
+                  htmlFor="email"
+                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${
+                    validationErrors.email ? "text-red-500" : ""
+                  }`}
+                >
+                  Your email
+                </label>
               </div>
               {validationErrors.email && (
                 <p className="text-red-500 text-sm">{validationErrors.email}</p>
               )}
 
-              <div className="border-b border-b-2  border-teal-500">
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                >
-                  Password
-                </label>
+              <div
+                className={`relative border-b-2 ${
+                  validationErrors.password
+                    ? "border-red-500"
+                    : "border-zinc-950"
+                }`}
+              >
                 <input
                   type="password"
                   name="password"
                   id="password"
+                  ref={register}
                   placeholder="Password"
-                  className={`  appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none ${
-                    validationErrors.password ? "border-red-500" : ""
+                  className={`focus:ring-0 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none  mr-3 py-1 px-2 leading-tight focus:outline-none   ${
+                    validationErrors.password ? "border-blue-500" : ""
                   }`}
+                  style={{
+                    backgroundColor: "fbf8f5",
+                    transition: "background-color 0.66s",
+                  }}
                   required
                   {...register("password")}
-                  onFocus={(e) => e.target.classList.add("placeholder-up")}
-                  onBlur={(e) => e.target.classList.remove("placeholder-up")}
-                  // onFocus={(e) => e.target.classList.add("placeholder-up")}
-                  // onBlur={(e) => e.target.classList.remove("placeholder-up")}
-                />
+                />{" "}
+                <label
+                  htmlFor="password"
+                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${
+                    validationErrors.password ? "text-red-500" : ""
+                  }`}
+                >
+                  Password
+                </label>
               </div>
               {validationErrors.password && (
                 <p className="text-red-500 text-sm">
                   {validationErrors.password}
                 </p>
               )}
+
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
@@ -117,7 +154,7 @@ export default function App() {
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-black focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                      className="w-4 h-4 border border-gray-300 rounded bg-black dark:bg-gray-700 dark:border-gray-600 dark:"
                       required
                     />
                   </div>
@@ -138,21 +175,25 @@ export default function App() {
                   Forgot password?
                 </a>
               </div>
-              <button
-                type="submit"
-                className=" w-full text-black bg-stone-400 hover:bg-brown-dark focus:ring-4 focus:outline-none focus:ring-brown-light font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-brown dark:hover:bg-brown-dark dark:focus:ring-brown-light"
-              >
-                {/* transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ... */}
-                Sign in
-              </button>
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  style={{ backgroundColor: "#E9672B" }}
+                  className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center"
+                >
+                  Sign in
+                </button>
+              </div>
 
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+              <p
+                style={{ color: "#E9672B" }}
+                className="text-center text-lg text-gray-500 dark:text-gray-400"
+              >
                 <a
                   href="#"
-                  className=" font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  className="font-bold underline  text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Sign up
+                  Create an Account
                 </a>
               </p>
             </form>

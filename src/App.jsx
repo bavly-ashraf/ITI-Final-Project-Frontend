@@ -4,6 +4,10 @@ import Home from "./pages/Home/Home";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Login from "./pages/login/Login";
+import SignUp from "./pages/signUp/SignUp";
+import NotFound from "./pages/errorpage/Error.jsx";
+import "./index.css";
+
 function App() {
   return (
     <div>
@@ -42,6 +46,11 @@ function App() {
       <button className="btn btn-accent btn-outline">Three</button>
       <Footer />  */}
       <Login />
+      <SignUp />
+      {/* <h1 className="custom-font">This is a sample text using the custom font</h1>
+      <h1 >This is a sample text using the custom font.</h1> */}
+{/* 
+     <NotFound />  */}
     </div>
   );
 }
