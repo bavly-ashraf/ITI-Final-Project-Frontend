@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [count, setCount] = useState(0);
@@ -41,6 +42,20 @@ function Home() {
           className="mask mask-star-2 bg-orange-400"
         />
       </div>
+      <ul>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/signup">SignUp</Link>
+        </li>
+        <li>
+          <Link to="/loading">Loading</Link>
+        </li>
+        <li>
+          <Link to="/notfound">NotFound</Link>
+        </li>
+      </ul>
     </div>
   );
 }

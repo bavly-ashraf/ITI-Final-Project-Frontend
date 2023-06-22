@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -189,12 +190,12 @@ export default function App() {
                 style={{ color: "#E9672B" }}
                 className="text-center text-lg text-gray-500 dark:text-gray-400"
               >
-                <a
-                  href="#"
-                  className="font-bold underline  text-primary-600 hover:underline dark:text-primary-500"
+                <Link
+                  to="/signup"
+                  className="font-bold underline text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Create an Account
-                </a>
+                </Link>
               </p>
             </form>
           </div>
