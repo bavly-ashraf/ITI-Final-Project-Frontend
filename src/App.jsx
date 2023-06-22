@@ -6,6 +6,7 @@ import Footer from "./components/footer/Footer";
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
 import NotFound from "./pages/errorpage/Error.jsx";
+import LoadingAnimation from "./components/loadingAnimation/LoadingAnimation";
 import "./index.css";
 
 function App() {
@@ -45,11 +46,12 @@ function App() {
       <button className="btn btn-secondary">Two</button>
       <button className="btn btn-accent btn-outline">Three</button>
       <Footer />  */}
-      <Login />
-      <SignUp />
+      {/* <Login /> */}
+      {/* <SignUp /> */}
+      <LoadingAnimation />
       {/* <h1 className="custom-font">This is a sample text using the custom font</h1>
       <h1 >This is a sample text using the custom font.</h1> */}
-{/* 
+      {/* 
      <NotFound />  */}
     </div>
   );
