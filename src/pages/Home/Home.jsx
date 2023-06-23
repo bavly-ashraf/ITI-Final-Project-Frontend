@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { Outlet, Link } from "react-router-dom";
 import Slider from "../../components/slider/Slider";
 import Header from "../../components/header/Header";
+
 import "./Home.css";
 
 function Home() {
@@ -27,7 +28,25 @@ function Home() {
     <>
       <Header />
       {/* imageSlider start */}
-      <Slider autoSlide={true} imgSlides={slides}></Slider>
+      {/* <Slider autoSlide={true} imgSlides={slides}></Slider> */}
+
+      <video  autoPlay loop>
+      <source src="src/assets/videos/pexels-taryn-elliott-3770017-1920x1080-25fps.mp4" type="video/mp4"/>
+      </video>
+      <svg
+  data-te-animation-init
+  data-te-animation-start="onHover"
+  data-te-animation-reset="true"
+  data-te-animation="[fade-in_1s_ease-in-out]"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="h-11 w-11">
+  <path
+    d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+</svg>
+
+
       {/* imageSlider end */}
 
       {/* RoomCategory section start */}
