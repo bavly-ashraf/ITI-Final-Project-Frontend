@@ -122,7 +122,7 @@ export default function VideoSlider() {
             <video className="" playsInline autoPlay muted loop>
               <source
                 className=""
-                src="src/assets/videos/pexels-taryn-elliott-3770034-1920x1080-25fps.mp4"
+                src="src/assets/videos/pexels-artem-podrez-4492795-3840x2160-50fps.mp4"
                 type="video/mp4"
               />
             </video>
@@ -143,7 +143,7 @@ export default function VideoSlider() {
                     data-te-ripple-init
                     data-te-ripple-color="light"
                   >
-                    Learn more
+                    Get Started
                   </a>
                 </div>
               </div>

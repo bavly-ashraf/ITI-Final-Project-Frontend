@@ -106,7 +106,7 @@ body {
   width: 0;
   height: 0;
   left: 50%;
-  top: 34px;
+  top: 30px;
   transition: width .5s;
 }
 .product-name::before{
@@ -115,7 +115,7 @@ body {
   width: 0;
   height: 0;
   right: 50%;
-  top: 34px;
+  top: 30px;
   transition: width .5s;
 }
 .product-name:hover::after{

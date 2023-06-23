@@ -7,40 +7,35 @@ import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
 
 function Home() {
-  const slides = [
+  const [products,setProducts]=useState([
     {
-      id: 1,
-      // src: "src/assets/images/toa-heftiba-FV3GConVSss-unsplash.jpg",
-      src: "src/assets/images/Untitled-1.png",
+      pImage:"https://img.livefeather.com/products/cooper-dining-table/images/coo-dtb-01_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName:"Cooper Dining Table",
+      pPrice:"$15",
     },
     {
-      id: 2,
-      // src: "src/assets/images/curology-6CJg-fOTYs4-unsplash.jpg",
-      src: "src/assets/images/Untitled-1.png",
+      pImage:"https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName:" Croft Media Console",
+      pPrice:"$35",
     },
     {
-      id: 3,
-      // src:"src/assets/images/sidekix-media-LPk9luwemT0-unsplash.jpg",
-      src: "src/assets/images/Untitled-1.png",
+      pImage:"https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName:"Essex Dining Chair",
+      pPrice:"$18",
     },
-  ];
+    {
+      pImage:"https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName:"Ludlow Sofa",
+      pPrice:"$52",
+    },
+  ])
 
   return (
     <>
-      <Header />
-      <VideoSlider/>
-      {/* imageSlider start */}
-      {/* <Slider autoSlide={true} imgSlides={slides}></Slider> */}
 
-      {/* <video autoPlay loop>
-        <source
-          src="src/assets/videos/pexels-taryn-elliott-3770017-1920x1080-25fps.mp4"
-          type="video/mp4"
-        />
-      </video> */}
-     
- 
-      {/* imageSlider end */}
+      {/* videoSlider start */}
+      <VideoSlider/>
+      {/* videoSlider end */}
 
       {/* RoomCategory section start */}
       <section className="flex flex-col items-center  ">
@@ -127,7 +122,6 @@ function Home() {
           </h6>
         </div>
       </section>
-
       <section className="bg-white ">
         <div className="flex justify-center items-center py-8">
           <div
@@ -241,23 +235,24 @@ function Home() {
 
       {/* Shop our Bestsellers  */}
       <section className="flex flex-col items-center   ">
-        <h1 className="text-5xl	font-medium mt-12 mb-10 leading-10	">
+        <h1 className="text-3xl	font-medium mt-12 mb-10 leading-10	">
           Shop our Bestsellers
         </h1>
-        <div className="flex flex-row  mb-16 overflow-hidden">
-          <div className="product-card living bg-white">
+        <div className="flex flex-row mb-16 overflow-hidden">
+          {products.map((product,index)=>(
+          <div key={index} className="product-card living bg-white">
             <a to="/" className="text-center">
               <div>
                 <div className="mb-5">
                   <img
                     className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/cooper-dining-table/images/coo-dtb-01_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
+                    src={product.pImage}
                   />
                 </div>
               </div>
               <div>
                 <span className="my-4 text-lg text-black product-name 	">
-                  Cooper Dining Table
+                  {product.pName}
                 </span>
               </div>
               <div>
@@ -268,99 +263,13 @@ function Home() {
                     style={{ color: " rgb(233, 103, 43)" }}
                   >
                     {" "}
-                    $15
+                   {product.pPrice}
                   </span>
                 </p>
               </div>
             </a>
           </div>
-          <div className="product-card living bg-white">
-            <a to="/" className="text-center">
-              <div>
-                <div className="mb-5">
-                  <img
-                    className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
-                  />
-                </div>
-              </div>
-              <div>
-                <span className=" text-lg text-black product-name	">
-                  Croft Media Console
-                </span>
-              </div>
-              <div>
-                <p className="mb-4 mt-2 text-lg text-black	">
-                  buy for{" "}
-                  <span
-                    className="text-xl font-bold"
-                    style={{ color: " rgb(233, 103, 43)" }}
-                  >
-                    {" "}
-                    $35
-                  </span>
-                </p>
-              </div>
-            </a>
-          </div>
-          <div className="product-card living bg-white">
-            <a to="/" className="text-center">
-              <div>
-                <div className="mb-5">
-                  <img
-                    className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
-                  />
-                </div>
-              </div>
-              <div>
-                <span className="my-4 text-lg text-black	product-name">
-                  Essex Dining Chair
-                </span>
-              </div>
-              <div>
-                <p className="mb-4 mt-2 text-lg text-black	">
-                  buy for{" "}
-                  <span
-                    className="text-xl font-bold"
-                    style={{ color: " rgb(233, 103, 43)" }}
-                  >
-                    {" "}
-                    $18
-                  </span>
-                </p>
-              </div>
-            </a>
-          </div>
-          <div className="product-card living bg-white">
-            <a to="/" className="text-center">
-              <div>
-                <div className="mb-5">
-                  <img
-                    className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
-                  />
-                </div>
-              </div>
-              <div>
-                <span className=" text-lg text-black product-name	">
-                  Ludlow Sofa
-                </span>
-              </div>
-              <div>
-                <p className="mb-4 mt-2 text-lg text-black	">
-                  buy for{" "}
-                  <span
-                    className="text-xl font-bold"
-                    style={{ color: " rgb(233, 103, 43)" }}
-                  >
-                    {" "}
-                    $52
-                  </span>
-                </p>
-              </div>
-            </a>
-          </div>
+          ))}
         </div>
         <a to="/" className="All-Btn mb-16" href="">
           Shop All Furniture
