@@ -73,7 +73,7 @@ function Home() {
         </h1>
         <div className="flex flex-row gap-x-7 mb-16 ">
           {roomCards.map((card, index) => (
-            <div
+            <div key={index}
               className="room-card "
               style={{ border: card.border, boxShadow: card.shadowColor }}
             >

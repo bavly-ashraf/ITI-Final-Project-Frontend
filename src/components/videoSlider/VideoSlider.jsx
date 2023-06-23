@@ -87,41 +87,6 @@ export default function VideoSlider() {
             <video className="" playsInline autoPlay muted loop>
               <source
                 className=""
-                src="src/assets/videos/pexels-rdne-stock-project-8580866-1920x1080-30fps.mp4"
-                type="video/mp4"
-              />
-            </video>
-            <div
-              className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
-
-            >
-              <div className="flex h-full items-center justify-center">
-                <div className="px-md-0 px-14 text-center text-white">
-                  <h2 className="mb-4 text-3xl font-semibold">
-                  We are <span style={{color:"rgb(233, 103, 43)"}}> smart</span> 
-                  </h2>
-                  <a
-                    type="button"
-                    className="inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-                    href="#!"
-                    role="button"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                  >
-                    Get Started
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="relative float-left -mr-[100%] hidden w-full !transform-none bg-cover bg-center bg-no-repeat opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
-            data-te-carousel-fade
-            data-te-carousel-item
-          >
-            <video className="" playsInline autoPlay muted loop>
-              <source
-                className=""
                 src="src/assets/videos/pexels-artem-podrez-4492795-3840x2160-50fps.mp4"
                 type="video/mp4"
               />
@@ -149,6 +114,42 @@ export default function VideoSlider() {
               </div>
             </div>
           </div>
+          <div
+            className="relative float-left -mr-[100%] hidden w-full !transform-none bg-cover bg-center bg-no-repeat opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
+            data-te-carousel-fade
+            data-te-carousel-item
+          >
+            <video className="" playsInline autoPlay muted loop>
+              <source
+                className=""
+                src="src/assets/videos/pexels-rdne-stock-project-8580866-1920x1080-30fps.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
+
+            >
+              <div className="flex h-full items-center justify-center">
+                <div className="px-md-0 px-14 text-center text-white">
+                  <h2 className="mb-4 text-3xl font-semibold">
+                  We are <span style={{color:"rgb(233, 103, 43)"}}> smart</span> 
+                  </h2>
+                  <a
+                    type="button"
+                    className="inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                    href="#!"
+                    role="button"
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                  >
+                    Get Started
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <button
           className="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
