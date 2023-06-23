@@ -21,7 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/loading" element={<LoadingAnimation />} />
-        <Route path="/notfound" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <h1 className="custom-font custom-font-black">Heading 1 - Black</h1>
       <h1 className="custom-font custom-font-blackitalic">
