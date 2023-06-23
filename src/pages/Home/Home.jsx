@@ -350,7 +350,7 @@ function Home() {
             </a>
           </div>
         </div>
-        <a to="/" className="Btn mb-16" href="">
+        <a to="/" className="All-Btn mb-16" href="">
         Shop All Furniture
               </a>
       </section>
