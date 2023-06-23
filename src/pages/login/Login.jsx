@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -18,7 +19,10 @@ const schema = Joi.object({
 export default function App() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   // const onSubmit = (data) => {
   //   const { error } = schema.validate(data, { abortEarly: false });
   //   if (error) {
@@ -118,7 +122,8 @@ export default function App() {
                 }`}
               >
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  // type="password"
                   name="password"
                   id="password"
                   ref={register}
@@ -141,6 +146,16 @@ export default function App() {
                 >
                   Password
                 </label>
+                <span
+                  onClick={togglePasswordVisibility}
+                  className="password-toggle-icon absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                >
+                  {showPassword ? (
+                    <EyeIcon className="h-5 w-5 text-gray-500" />
+                  ) : (
+                    <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                  )}
+                </span>
               </div>
               {validationErrors.password && (
                 <p className="text-red-500 text-sm">
