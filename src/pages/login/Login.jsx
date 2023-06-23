@@ -4,6 +4,7 @@ import Joi from "joi";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -23,6 +24,7 @@ export default function App() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   // const onSubmit = (data) => {
   //   const { error } = schema.validate(data, { abortEarly: false });
   //   if (error) {
@@ -34,9 +36,10 @@ export default function App() {
   //   } else {
   //     console.log("Form submitted:", data);
   //     setValidationErrors({});
+  //     console.log(data);
   //   }
   // };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
       const validationErrors = {};
@@ -45,18 +48,24 @@ export default function App() {
       });
       setValidationErrors(validationErrors);
     } else {
-      console.log("Form submitted:", data);
-      setValidationErrors({});
-      console.log(data);
+      try {
+        const response = await axios.post("http://localhost:3000/login", data);
+        console.log("Login successful:", response.data);
+        setValidationErrors({});
+      } catch (error) {
+        console.error("An error occurred:", error);
+        if (error.response && error.response.data) {
+          setValidationErrors({ error: error.response.data.error });
+        }
+      }
     }
   };
-
   return (
     <section
       className="bg-gray-50 dark:bg-gray-900"
       style={{ backgroundColor: "#fbf8f5" }}
     >
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
           className="flex items-center mb-6 text-2xl font-bold  text-gray-900 dark:text-black"
@@ -184,12 +193,44 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Open the modal using ID.showModal() method */}
+
                 <a
                   href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  onClick={() => window.my_modal_2.showModal()}
+                  className="modal-link"
                 >
                   Forgot password?
                 </a>
+
+                <dialog id="my_modal_2" className="modal">
+                  <form
+                    style={{ backgroundColor: "#fbf8f5" }}
+                    method="dialog"
+                    className="modal-box bg-gray-50 dark:bg-gray-900 p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24"
+                  >
+                    {/* Links */}
+                    <div className="flex flex-col  items-center space-y-10 text-center">
+                      <p className="text-black text-3xl font-bold">
+                        Need help signing in?
+                      </p>
+                      <Link
+                        to="/ForgotPassword"
+                        className="text-black text-lg hover:underline dark:text-primary-500"
+                      >
+                        <button
+                          style={{ backgroundColor: "#E9672B" }}
+                          className="rounded-full w-full text-lg font-bold px-6 py-3 text-center whitespace-nowrap overflow-hidden"
+                        >
+                          Reset Your password
+                        </button>
+                      </Link>
+                    </div>
+                  </form>
+                  <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                  </form>
+                </dialog>
               </div>
               <div className="flex justify-center">
                 <button

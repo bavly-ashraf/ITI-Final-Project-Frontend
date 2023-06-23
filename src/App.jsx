@@ -7,6 +7,7 @@ import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
 import NotFound from "./pages/errorpage/Error.jsx";
 import LoadingAnimation from "./components/loadingAnimation/LoadingAnimation";
+import ForgotPassword from "./pages/forgetPassword/ForgetPassword";
 import "./index.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/loading" element={<LoadingAnimation />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Routes>
       <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
       <h1 className="custom-font custom-font-blackitalic">
