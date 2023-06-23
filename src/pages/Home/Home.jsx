@@ -239,37 +239,41 @@ function Home() {
           Shop our Bestsellers
         </h1>
         <div className="flex flex-row mb-16 overflow-hidden">
-          {products.map((product,index)=>(
-          <div key={index} className="product-card living bg-white">
-            <a to="/" className="text-center">
-              <div>
-                <div className="mb-5">
-                  <img
-                    className="h-52 object-cover"
-                    src={product.pImage}
-                  />
-                </div>
+          {products.length?(
+             products.map((product,index)=>(
+              <div key={index} className="product-card living bg-white">
+                <a to="/" className="text-center">
+                  <div>
+                    <div className="mb-5">
+                      <img
+                        className="h-52 object-cover"
+                        src={product.pImage}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <span className="my-4 text-lg text-black product-name 	">
+                      {product.pName}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="mb-4 mt-2 text-lg text-black	">
+                      buy for{" "}
+                      <span
+                        className="text-xl font-bold"
+                        style={{ color: " rgb(233, 103, 43)" }}
+                      >
+                        {" "}
+                       {product.pPrice}
+                      </span>
+                    </p>
+                  </div>
+                </a>
               </div>
-              <div>
-                <span className="my-4 text-lg text-black product-name 	">
-                  {product.pName}
-                </span>
-              </div>
-              <div>
-                <p className="mb-4 mt-2 text-lg text-black	">
-                  buy for{" "}
-                  <span
-                    className="text-xl font-bold"
-                    style={{ color: " rgb(233, 103, 43)" }}
-                  >
-                    {" "}
-                   {product.pPrice}
-                  </span>
-                </p>
-              </div>
-            </a>
-          </div>
-          ))}
+              ))
+
+          ):(<h1>Data Not found</h1>)}
+         
         </div>
         <a to="/" className="All-Btn mb-16" href="">
           Shop All Furniture
