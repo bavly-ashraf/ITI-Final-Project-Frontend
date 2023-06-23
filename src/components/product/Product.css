@@ -1,0 +1,11 @@
+/* :root{
+--mainColorForProject: #E9672B
+}
+
+.bg-project-main-color{
+    background-color: var(--mainColorForProject);
+}
+
+.border-project-main-color{
+    border-color: var(--mainColorForProject);
+} */
