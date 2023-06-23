@@ -7,34 +7,63 @@ import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
 
 function Home() {
-  const [products,setProducts]=useState([
+  const [products, setProducts] = useState([
     {
-      pImage:"https://img.livefeather.com/products/cooper-dining-table/images/coo-dtb-01_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName:"Cooper Dining Table",
-      pPrice:"$15",
+      pImage:
+        "https://img.livefeather.com/products/cooper-dining-table/images/coo-dtb-01_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName: "Cooper Dining Table",
+      pPrice: "$15",
     },
     {
-      pImage:"https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName:" Croft Media Console",
-      pPrice:"$35",
+      pImage:
+        "https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName: " Croft Media Console",
+      pPrice: "$35",
     },
     {
-      pImage:"https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName:"Essex Dining Chair",
-      pPrice:"$18",
+      pImage:
+        "https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName: "Essex Dining Chair",
+      pPrice: "$18",
     },
     {
-      pImage:"https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName:"Ludlow Sofa",
-      pPrice:"$52",
+      pImage:
+        "https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
+      pName: "Ludlow Sofa",
+      pPrice: "$52",
     },
-  ])
+  ]);
+  const roomCards = [
+    {
+      img: "//images.ctfassets.net/n33pk8ulkyi3/7xX6oxvlzrv7OybE8rBXo8/d0b4371a818f1fb670a66e140d6f4026/livingsketch.jpg",
+      border: "3px solid rgb(233, 103, 43)",
+      shadowColor: "rgb(203, 198, 244) 8px 8px 0px",
+      title: "Living Room",
+    },
+    {
+      img: "//images.ctfassets.net/n33pk8ulkyi3/3203Qw23mDxpIYpqIBS95V/23e17074c629e8ecd3cad303a6f1152f/bedroomsketch.jpg",
+      border: "3px solid rgb(34, 93, 202)",
+      shadowColor: " rgb(231, 203, 67) 8px 8px 0px",
+      title: "Bedroom",
+    },
+    {
+      img: "//images.ctfassets.net/n33pk8ulkyi3/cbYQljbtXW7uJudehfsyT/b566e49dc43231b55e44b4424a2645f8/office.jpg",
+      border: "3px solid rgb(36, 41, 71)",
+      shadowColor: " rgb(162, 212, 197) 8px 8px 0px",
+      title: "Home Office",
+    },
+    {
+      img: "//images.ctfassets.net/n33pk8ulkyi3/3kbUnRi1ibVBNyOXLp0Lcn/c2f1579544f07e2fdee1ed9bded9dab4/diningsketch.jpg",
+      border: "3px solid rgb(222, 67, 51)",
+      shadowColor: "rgb(175, 73, 32) 8px 8px 0px",
+      title: "Dining Room",
+    },
+  ];
 
   return (
     <>
-
       {/* videoSlider start */}
-      <VideoSlider/>
+      <VideoSlider />
       {/* videoSlider end */}
 
       {/* RoomCategory section start */}
@@ -43,66 +72,23 @@ function Home() {
           Shop by Room
         </h1>
         <div className="flex flex-row gap-x-7 mb-16 ">
-          <div className="room-card living">
-            <a to="/" className="text-center">
-              <div>
-                <div className="">
-                  <img
-                    className="h-52 object-cover"
-                    src="//images.ctfassets.net/n33pk8ulkyi3/7xX6oxvlzrv7OybE8rBXo8/d0b4371a818f1fb670a66e140d6f4026/livingsketch.jpg"
-                  />
-                </div>
-              </div>
-              <strong>
-                <p className="my-4 text-lg	">Living Room</p>
-              </strong>
-            </a>
-          </div>
-          <div className="room-card  bedroom">
-            <a to="/" className="text-center">
-              <div>
+          {roomCards.map((card, index) => (
+            <div
+              className="room-card "
+              style={{ border: card.border, boxShadow: card.shadowColor }}
+            >
+              <a to="/" className="text-center">
                 <div>
-                  <img
-                    className="h-52 object-cover"
-                    src="//images.ctfassets.net/n33pk8ulkyi3/3203Qw23mDxpIYpqIBS95V/23e17074c629e8ecd3cad303a6f1152f/bedroomsketch.jpg"
-                  />
+                  <div className="">
+                    <img className="h-52 object-cover" src={card.img} />
+                  </div>
                 </div>
-              </div>
-              <strong>
-                <p className="my-4 text-lg	">Bedroom</p>
-              </strong>
-            </a>
-          </div>
-          <div className="room-card  office">
-            <a to="/" className="text-center">
-              <div>
-                <div className="">
-                  <img
-                    className="h-52"
-                    src="//images.ctfassets.net/n33pk8ulkyi3/cbYQljbtXW7uJudehfsyT/b566e49dc43231b55e44b4424a2645f8/office.jpg"
-                  />
-                </div>
-              </div>
-              <strong>
-                <p className="my-4 text-lg	">Home Office</p>
-              </strong>
-            </a>
-          </div>
-          <div className="room-card  dining">
-            <a to="/" className="text-center">
-              <div>
-                <div className="">
-                  <img
-                    className="h-52 object-cover"
-                    src="//images.ctfassets.net/n33pk8ulkyi3/3kbUnRi1ibVBNyOXLp0Lcn/c2f1579544f07e2fdee1ed9bded9dab4/diningsketch.jpg"
-                  />
-                </div>
-              </div>
-              <strong>
-                <p className="my-4 text-lg	">Dining Room</p>
-              </strong>
-            </a>
-          </div>
+                <strong>
+                  <p className="my-4 text-lg	">{card.title}</p>
+                </strong>
+              </a>
+            </div>
+          ))}
         </div>
       </section>
       {/* RoomCategory section end */}
@@ -239,16 +225,13 @@ function Home() {
           Shop our Bestsellers
         </h1>
         <div className="flex flex-row mb-16 overflow-hidden">
-          {products.length?(
-             products.map((product,index)=>(
+          {products.length ? (
+            products.map((product, index) => (
               <div key={index} className="product-card living bg-white">
                 <a to="/" className="text-center">
                   <div>
                     <div className="mb-5">
-                      <img
-                        className="h-52 object-cover"
-                        src={product.pImage}
-                      />
+                      <img className="h-52 object-cover" src={product.pImage} />
                     </div>
                   </div>
                   <div>
@@ -264,16 +247,16 @@ function Home() {
                         style={{ color: " rgb(233, 103, 43)" }}
                       >
                         {" "}
-                       {product.pPrice}
+                        {product.pPrice}
                       </span>
                     </p>
                   </div>
                 </a>
               </div>
-              ))
-
-          ):(<h1>Data Not found</h1>)}
-         
+            ))
+          ) : (
+            <h1>Data Not found</h1>
+          )}
         </div>
         <a to="/" className="All-Btn mb-16" href="">
           Shop All Furniture

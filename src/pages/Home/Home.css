@@ -20,22 +20,7 @@ body {
   position: relative;
   transform: translateY(-9px);
 }
-.room-card.living {
-  border: 3px solid rgb(233, 103, 43);
-  box-shadow: rgb(203, 198, 244) 8px 8px 0px;
-}
-.room-card.bedroom {
-  border: 3px solid rgb(34, 93, 202);
-  box-shadow: rgb(231, 203, 67) 8px 8px 0px;
-}
-.room-card.office {
-  border: 3px solid rgb(36, 41, 71);
-  box-shadow: rgb(162, 212, 197) 8px 8px 0px;
-}
-.room-card.dining {
-  border: 3px solid rgb(222, 67, 51);
-  box-shadow: rgb(175, 73, 32) 8px 8px 0px;
-}
+
 .Btn,.All-Btn {
   white-space: nowrap;
   position: relative;
