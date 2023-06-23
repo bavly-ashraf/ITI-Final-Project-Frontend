@@ -1,16 +1,9 @@
-import React, { useEffect } from "react";
-import {
-    Carousel,
-    Ripple,
-    initTE,
-} from "tw-elements";
+import React, { useEffect, useState } from "react";
+import { Carousel, Ripple, initTE } from "tw-elements";
 
 export default function VideoSlider() {
-  //   useEffect(() => {
-  //     initTE({ Carousel, Ripple });
-  //   }, []);
   useEffect(() => {
-    initTE({Carousel, Ripple });
+    initTE({ Carousel, Ripple });
   }, []);
 
   return (
@@ -59,44 +52,29 @@ export default function VideoSlider() {
             <video className="" playsInline autoPlay muted loop>
               <source
                 className=""
-                src="src/assets/videos/pexels-taryn-elliott-3770017-1920x1080-25fps.mp4"
+                src="src/assets/videos/pexels-artem-podrez-4492794-3840x2160-50fps.mp4"
                 type="video/mp4"
               />
             </video>
             <div
               className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
-              style={{backgroundColor: "rgba(0, 0, 0, 0.6)"}}
+             
             >
               <div className="flex h-full items-center justify-center">
                 <div className="px-md-0 px-14 text-center text-white">
                   <h2 className="mb-4 text-3xl font-semibold">
-                    Learn Tailwind Elements
+                  We are <span style={{color:"rgb(233, 103, 43)"}}> creative</span> 
                   </h2>
-                  <h5 className="mb-6 text-lg font-semibold">
-                    Best & free guide of responsive web design
-                  </h5>
-                  <div className="md:space-x-2">
-                    <a
-                      type="button"
-                      className="mb-2 inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 md:mb-0"
-                      href="#!"
-                      role="button"
-                      data-te-ripple-init
-                      data-te-ripple-color="light"
-                    >
-                      Start tutorial
-                    </a>
-                    <a
-                      type="button"
-                      className="inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-                      href="#!"
-                      role="button"
-                      data-te-ripple-init
-                      data-te-ripple-color="light"
-                    >
-                      Read more
-                    </a>
-                  </div>
+                  <a
+                    type="button"
+                    className="inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                    href="#!"
+                    role="button"
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                  >
+                    Get Started
+                  </a>
                 </div>
               </div>
             </div>
@@ -109,46 +87,53 @@ export default function VideoSlider() {
             <video className="" playsInline autoPlay muted loop>
               <source
                 className=""
-                src="https://tecdn.b-cdn.net/img/video/forest.mp4"
+                src="src/assets/videos/pexels-rdne-stock-project-8580866-1920x1080-30fps.mp4"
                 type="video/mp4"
               />
             </video>
             <div
               className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
-              style={{backgroundColor: "rgba(0, 0, 0, 0.3"}}
-            >
-              <div className="flex h-full items-center justify-center">
-                <div className="px-md-0 px-14 text-center text-white">
-                  <h2 className="mb-4 text-3xl font-semibold">
-                    You can place here any content
-                  </h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="relative float-left -mr-[100%] hidden w-full !transform-none bg-cover bg-center bg-no-repeat opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
-            data-te-carousel-fade
-            data-te-carousel-item
-          >
-            <video className="" playsInline autoPlay muted loop>
-              <source
-                className=""
-                src="https://tecdn.b-cdn.net/img/video/Tropical.mp4"
-                type="video/mp4"
-              />
-            </video>
-            <div
-              className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
-              style={{
-            background: 'linear-gradient(45deg, rgba(29, 236, 197, 0.7), rgba(91, 14, 214, 0.7) 100%)',
 
-          }}
             >
               <div className="flex h-full items-center justify-center">
                 <div className="px-md-0 px-14 text-center text-white">
                   <h2 className="mb-4 text-3xl font-semibold">
-                    And cover it with any mask
+                  We are <span style={{color:"rgb(233, 103, 43)"}}> smart</span> 
+                  </h2>
+                  <a
+                    type="button"
+                    className="inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                    href="#!"
+                    role="button"
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                  >
+                    Get Started
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="relative float-left -mr-[100%] hidden w-full !transform-none bg-cover bg-center bg-no-repeat opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
+            data-te-carousel-fade
+            data-te-carousel-item
+          >
+            <video className="" playsInline autoPlay muted loop>
+              <source
+                className=""
+                src="src/assets/videos/pexels-taryn-elliott-3770034-1920x1080-25fps.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
+
+            >
+              <div className="flex h-full items-center justify-center">
+                <div className="px-md-0 px-14 text-center text-white">
+                  <h2 className="mb-4 text-3xl font-semibold">
+                  We are <span style={{color:"rgb(233, 103, 43)"}}> amazing</span> 
                   </h2>
                   <a
                     type="button"
@@ -218,7 +203,6 @@ export default function VideoSlider() {
           </span>
         </button>
       </div>
-     
     </>
   );
 }
