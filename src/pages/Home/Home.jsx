@@ -4,7 +4,6 @@ import Slider from "../../components/slider/Slider";
 import Header from "../../components/header/Header";
 import "./Home.css";
 
-
 function Home() {
   const slides = [
     {
@@ -106,7 +105,10 @@ function Home() {
           <h2 className="p-4 text-4xl	leading-10 font-medium	text-black	">
             <span>“Keeping Furniture in Homes and out of Landfills."</span>
           </h2>
-          <h6 className="	text-center font-normal	 leading-8 text-black	" style={{fontSize:" 25px"}}>
+          <h6
+            className="	text-center font-normal	 leading-8 text-black	"
+            style={{ fontSize: " 25px" }}
+          >
             This isn’t just another rental company - We’re elevating the future
             of furniture by replacing the commitment of ownership with a culture
             of sharing in a way that’s curated, convenient, and sustainable.
@@ -116,71 +118,125 @@ function Home() {
 
       <section className="bg-white ">
         <div className="flex justify-center items-center py-8">
-          <div className="w-6/12 p-6 flex justify-center " style={{paddingLeft: "72px"}}>
+          <div
+            className="w-6/12 p-6 flex justify-center "
+            style={{ paddingLeft: "72px" }}
+          >
             <div className="flex flex-col max-w-md	justify-center items-start ">
-            <h2 className="text-4xl	font-medium	leading-10	">Enjoy a fully furnished space in less than week</h2>
-            <div className="mt-5 mb-9	text-lg	text-black		">
-              <p>Feather furniture is available to be delivered and assembled in New York City, Los Angeles and San Francisco.</p>
-            </div>
-            <a to="/" className="Btn" href="">Explore Furniture</a>
+              <h2 className="text-4xl	font-medium	leading-10	">
+                Enjoy a fully furnished space in less than week
+              </h2>
+              <div className="mt-5 mb-9	text-lg	text-black		">
+                <p>
+                  Feather furniture is available to be delivered and assembled
+                  in New York City, Los Angeles and San Francisco.
+                </p>
+              </div>
+              <a to="/" className="Btn" href="">
+                Explore Furniture
+              </a>
             </div>
           </div>
-          <div className="w-6/12"><img  src="https://img.livefeather.com/pages-new/Homepage/section-1-flexibility.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=800&q=80&w=1200"/></div>
+          <div className="w-6/12">
+            <img src="https://img.livefeather.com/pages-new/Homepage/section-1-flexibility.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=800&q=80&w=1200" />
+          </div>
         </div>
       </section>
       <section className="bg-white ">
         <div className="flex flex-row-reverse	justify-center items-center py-8">
           <div className="w-6/12 p-6 flex justify-center ">
             <div className="flex flex-col max-w-md	justify-center items-start ">
-            <h2 className="text-4xl	font-medium	leading-10	">Garage Sale - 35% & Up</h2>
-            <div className="mt-5 mb-9	text-lg	text-black		">
-              <p>Our Garage Sale is open! Savings start at 35% on favorite retired pieces. Find dressers, sofas, decor, and more to make the year one to remember.</p>
-            </div>
-            <a to="/" className="Btn" href="">Shop Now</a>
+              <h2 className="text-4xl	font-medium	leading-10	">
+                Garage Sale - 35% & Up
+              </h2>
+              <div className="mt-5 mb-9	text-lg	text-black		">
+                <p>
+                  Our Garage Sale is open! Savings start at 35% on favorite
+                  retired pieces. Find dressers, sofas, decor, and more to make
+                  the year one to remember.
+                </p>
+              </div>
+              <a to="/" className="Btn" href="">
+                Shop Now
+              </a>
             </div>
           </div>
-          <div className="w-6/12 flex justify-center "><img style={{maxWidth:"63%"}}  className="object-contain	" src="https://img.livefeather.com/pages/homepage/garagesale-campaign-20230531.png?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"/></div>
+          <div className="w-6/12 flex justify-center ">
+            <img
+              style={{ maxWidth: "63%" }}
+              className="object-contain	"
+              src="https://img.livefeather.com/pages/homepage/garagesale-campaign-20230531.png?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"
+            />
+          </div>
         </div>
       </section>
       <section className="bg-white ">
         <div className="flex justify-center items-center py-8">
-          <div className="w-6/12 p-6 flex justify-center " style={{paddingLeft: "72px"}}>
+          <div
+            className="w-6/12 p-6 flex justify-center "
+            style={{ paddingLeft: "72px" }}
+          >
             <div className="flex flex-col max-w-md	justify-center items-start ">
-            <h2 className="text-4xl	font-medium	leading-10	">Furniture for business, made simple.</h2>
-            <div className="mt-5 mb-9	text-lg	text-black		">
-              <p>Say goodbye to cost, complexity, and commitment of furniture. Feather makes it easy with affordable rental plans, white glove delivery and best-in-class account service.</p>
-            </div>
-            <a to="/" className="Btn" href="">Visit Feather For Business</a>
+              <h2 className="text-4xl	font-medium	leading-10	">
+                Furniture for business, made simple.
+              </h2>
+              <div className="mt-5 mb-9	text-lg	text-black		">
+                <p>
+                  Say goodbye to cost, complexity, and commitment of furniture.
+                  Feather makes it easy with affordable rental plans, white
+                  glove delivery and best-in-class account service.
+                </p>
+              </div>
+              <a to="/" className="Btn" href="">
+                Visit Feather For Business
+              </a>
             </div>
           </div>
-          <div className="w-6/12"><img src="https://img.livefeather.com/pages-new/Homepage/FeatherforBusiness.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=800&q=80&w=1200"/></div>
+          <div className="w-6/12">
+            <img src="https://img.livefeather.com/pages-new/Homepage/FeatherforBusiness.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=800&q=80&w=1200" />
+          </div>
         </div>
       </section>
       <section className="bg-white pb-48 ">
         <div className="flex flex-row-reverse	justify-center items-center py-8">
           <div className="w-6/12 p-6 flex justify-center ">
             <div className="flex flex-col max-w-md	justify-center items-start ">
-            <h2 className="text-4xl	font-medium	leading-10	">Never assemble furniture again.</h2>
-            <div className="mt-5 mb-9	text-lg	text-black		">
-              <p>We move a lot. There are countless floor plans and roommates (oh, and your evolving tastes) between here and there. With Feather, furnish your space without breaking a sweat or reaching for a screwdriver.</p>
-            </div>
-            <a to="/" className="Btn" href="">How Feather Works</a>
+              <h2 className="text-4xl	font-medium	leading-10	">
+                Never assemble furniture again.
+              </h2>
+              <div className="mt-5 mb-9	text-lg	text-black		">
+                <p>
+                  We move a lot. There are countless floor plans and roommates
+                  (oh, and your evolving tastes) between here and there. With
+                  Feather, furnish your space without breaking a sweat or
+                  reaching for a screwdriver.
+                </p>
+              </div>
+              <a to="/" className="Btn" href="">
+                How Feather Works
+              </a>
             </div>
           </div>
-          <div className="w-6/12 flex justify-center "><img style={{maxWidth:"63%"}}  className="object-contain	" src="https://img.livefeather.com/pages-new/Homepage/section-2.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"/></div>
+          <div className="w-6/12 flex justify-center ">
+            <img
+              style={{ maxWidth: "63%" }}
+              className="object-contain	"
+              src="https://img.livefeather.com/pages-new/Homepage/section-2.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"
+            />
+          </div>
         </div>
       </section>
 
-            {/* Shop our Bestsellers  */}
-            <section className="flex flex-col items-center   ">
+      {/* Shop our Bestsellers  */}
+      <section className="flex flex-col items-center   ">
         <h1 className="text-5xl	font-medium mt-12 mb-10 leading-10	">
-        Shop our Bestsellers
+          Shop our Bestsellers
         </h1>
-        <div className="flex flex-row  mb-16 overflow-hidden	">
+        <div className="flex flex-row  mb-16 overflow-hidden">
           <div className="product-card living bg-white">
             <a to="/" className="text-center">
               <div>
-                <div className="">
+                <div className="mb-5">
                   <img
                     className="h-52 object-cover"
                     src="https://img.livefeather.com/products/cooper-dining-table/images/coo-dtb-01_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
@@ -188,65 +244,111 @@ function Home() {
                 </div>
               </div>
               <div>
-                <p className="my-4 text-lg text-black product-name	">Cooper Dining Table</p>
+                <span className="my-4 text-lg text-black product-name 	">
+                  Cooper Dining Table
+                </span>
               </div>
               <div>
-                <p className="my-4 text-lg text-black	">buy for <span className="text-xl font-bold" style={{color:" rgb(233, 103, 43)"}}> $15</span></p>
+                <p className="mb-4 mt-2 text-lg text-black	">
+                  buy for{" "}
+                  <span
+                    className="text-xl font-bold"
+                    style={{ color: " rgb(233, 103, 43)" }}
+                  >
+                    {" "}
+                    $15
+                  </span>
+                </p>
               </div>
             </a>
           </div>
           <div className="product-card living bg-white">
             <a to="/" className="text-center">
               <div>
-                <div className="">
+                <div className="mb-5">
                   <img
                     className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"                  />
+                    src="https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
+                  />
                 </div>
               </div>
               <div>
-                <p className="my-4 text-lg text-black product-name	">Croft Media Console</p>
+                <span className=" text-lg text-black product-name	">
+                  Croft Media Console
+                </span>
               </div>
               <div>
-                <p className="my-4 text-lg text-black	">buy for <span className="text-xl font-bold" style={{color:" rgb(233, 103, 43)"}}> $35</span></p>
+                <p className="mb-4 mt-2 text-lg text-black	">
+                  buy for{" "}
+                  <span
+                    className="text-xl font-bold"
+                    style={{ color: " rgb(233, 103, 43)" }}
+                  >
+                    {" "}
+                    $35
+                  </span>
+                </p>
               </div>
             </a>
           </div>
           <div className="product-card living bg-white">
             <a to="/" className="text-center">
               <div>
-                <div className="">
+                <div className="mb-5">
                   <img
                     className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"                  />
+                    src="https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
+                  />
                 </div>
               </div>
               <div>
-                <p className="my-4 text-lg text-black	product-name">Essex Dining Chair</p>
+                <span className="my-4 text-lg text-black	product-name">
+                  Essex Dining Chair
+                </span>
               </div>
               <div>
-                <p className="my-4 text-lg text-black	">buy for <span className="text-xl font-bold" style={{color:" rgb(233, 103, 43)"}}> $18</span></p>
+                <p className="mb-4 mt-2 text-lg text-black	">
+                  buy for{" "}
+                  <span
+                    className="text-xl font-bold"
+                    style={{ color: " rgb(233, 103, 43)" }}
+                  >
+                    {" "}
+                    $18
+                  </span>
+                </p>
               </div>
             </a>
           </div>
           <div className="product-card living bg-white">
             <a to="/" className="text-center">
               <div>
-                <div className="">
+                <div className="mb-5">
                   <img
                     className="h-52 object-cover"
-                    src="https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"                  />
+                    src="https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211"
+                  />
                 </div>
               </div>
               <div>
-                <p className="my-4 text-lg text-black product-name	">Ludlow Sofa</p>
+                <span className=" text-lg text-black product-name	">
+                  Ludlow Sofa
+                </span>
               </div>
               <div>
-                <p className="my-4 text-lg text-black	">buy for <span className="text-xl font-bold" style={{color:" rgb(233, 103, 43)"}}> $52</span></p>
+                <p className="mb-4 mt-2 text-lg text-black	">
+                  buy for{" "}
+                  <span
+                    className="text-xl font-bold"
+                    style={{ color: " rgb(233, 103, 43)" }}
+                  >
+                    {" "}
+                    $52
+                  </span>
+                </p>
               </div>
             </a>
           </div>
-   
         </div>
       </section>
       {/* RoomCategory section end */}
