@@ -7,8 +7,8 @@ import AdminDashBoard from './pages/adminDashboard/AdminDashboard'
 function App() {
   return (
     <>
-      {/* <ProductDetails/> */}
-      <AdminDashBoard/>
+      <ProductDetails/>
+      {/* <AdminDashBoard/> */}
     </>
   )
 }

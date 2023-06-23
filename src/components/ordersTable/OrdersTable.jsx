@@ -26,8 +26,8 @@ const OrdersTable = (props) => {
   return (
     <>
       {orders.length != 0 ? (
-        <>
-          <div className=" bg-[#FBF8F5] overflow-x-auto h-4/5">
+        <div className="grid grid-rows-8 h-screen">
+          <div className=" bg-[#FBF8F5] overflow-x-auto row-start-1 row-end-7 ">
             <table className="table">
               <thead className="bg-[#F3F0EC]">
                 <tr>
@@ -94,7 +94,7 @@ const OrdersTable = (props) => {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-10  row-start-7 row-end-8">
             <div className="join">
               {Array.from({ length: pages }).map((_, index) => (
                 <input
@@ -109,7 +109,7 @@ const OrdersTable = (props) => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <div className="flex justify-center align-middle h-screen w-full">
           <div className="loading loading-lg loading-spinner text-[#E9672B] "></div>
