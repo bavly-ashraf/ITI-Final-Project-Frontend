@@ -24,7 +24,10 @@ export default function NotFound() {
           But don't worry, you can find plenty of other things on our homepage.
         </p>
 
-        <button className="px-4 py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-yellow-600 active:bg-blue-600 hover:bg-blue-700">
+        <button
+          style={{ backgroundColor: "#E9672B" }}
+          className="px-4 py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-yellow-600 active:bg-blue-600 hover:bg-blue-700"
+        >
           <Link
             to="/"
             className="font-bold underline text-primary-600 hover:underline dark:text-primary-500"
