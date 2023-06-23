@@ -350,6 +350,9 @@ function Home() {
             </a>
           </div>
         </div>
+        <a to="/" className="Btn mb-16" href="">
+        Shop All Furniture
+              </a>
       </section>
       {/* RoomCategory section end */}
     </>
