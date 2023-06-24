@@ -106,7 +106,7 @@ export default function ForgotPassword() {
                 <button
                   type="submit"
                   style={{ backgroundColor: "#E9672B" }}
-                  className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center"
+                  className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center transform hover:scale-105 active:scale-100"
                 >
                   Submit
                 </button>
