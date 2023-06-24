@@ -1,0 +1,113 @@
+.navElements::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0px;
+  background-color: rgb(233, 103, 43);
+  transition: width 0.3s ease-in-out 0.2s, linear 0.2s;
+}
+
+.navElements:hover::after {
+  width: 100%;
+  transition-delay: 0s;
+}
+.navElements {
+  z-index: 2000000px;
+}
+
+.navElements:hover {
+  color: rgb(233, 103, 43);
+}
+
+.navbar,
+.card-body,
+.productsList,
+.account,
+.profile {
+  background-color: #fbf8f5;
+}
+
+.productsList h1 {
+  font-weight: bold;
+}
+
+.productsList .list {
+  position: relative;
+}
+
+.productsList .list::after {
+  content: "";
+  /* display: flex; */
+  position: absolute;
+  left: 3px;
+  bottom: 0px;
+  height: 2px;
+  width: 0px;
+
+  background-color: black;
+  transition: width 0.3s ease-in-out 0.2s, linear 0.2s;
+}
+
+.list {
+  text-decoration-line: none;
+}
+
+.productsList .list:hover::after {
+  width: 50%;
+  transition-delay: 0s;
+}
+
+.menu {
+  border: none;
+}
+
+.profile .icon:hover svg {
+  fill: orangered;
+}
+
+.part1 {
+  position: relative;
+}
+
+.part1::after {
+  content: "";
+  /* display: block; */
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  width: 1px;
+  background-color: rgb(147, 145, 145);
+}
+
+.productsList {
+  width: 80vw;
+  /* overflow: hidden; */
+}
+
+.productsList .list {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .dropdown-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .part1::after {
+    height: 1px;
+    width: 100%;
+    top: 100%;
+  }
+
+  .flex-1 {
+    margin-bottom: 1rem;
+  }
+
+  .list {
+    margin: 0.5rem 0;
+    font-size: 15px;
+  }
+}
