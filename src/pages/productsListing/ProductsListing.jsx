@@ -20,7 +20,7 @@ const ProductListing = () => {
 
     // pagination
     const PAGE_SIZE = 9;
-    const noOfItems = 30;
+    const noOfItems = products.length;
     const noOfPages = Math.ceil(noOfItems/PAGE_SIZE);
     const pageArr = range(noOfPages);
 
@@ -37,7 +37,7 @@ const ProductListing = () => {
             </ul>
         </details>
         </div>
-        <div className='flex justify-between'>
+        <div className='flex gap-6 mb-5'>
             <aside className='ms-3'>
                 <div className="drawer h-full lg:drawer-open">
                     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -114,9 +114,9 @@ const ProductListing = () => {
                 <div className='flex flex-wrap justify-center gap-4'>
                 {products.map((product)=><Product key={product.id} product={product} />)}
                 </div>
-                <div className="join my-4">
+                {pageArr.length > 1 && <div className="join my-4">
                     {pageArr.map((page)=><input key={page} className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label={page} />)}
-                </div>
+                </div>}
             </main>
         </div>
         </>
