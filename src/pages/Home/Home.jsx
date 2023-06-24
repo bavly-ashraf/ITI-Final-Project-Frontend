@@ -277,7 +277,7 @@ function Home() {
     <div className="forbreak text-center">
     <h1 className=' text-white font-bold p-5'>Floyd Furniture Meets Feather Flexibility</h1>
     </div>
-    <button className="sideBtn font-bold py-4 px-7 text-black rounded-full hover:bg-slate-200">
+    <button className="sideBtn font-bold py-5 px-10 text-black rounded-full hover:bg-slate-200">
   Explore Floyd Furniture
 </button>    
   </div>
