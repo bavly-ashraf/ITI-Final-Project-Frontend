@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./pages/Home/Home";
 
 import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+// import Footer from "./components/footer/Footer";
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
 import NotFound from "./pages/errorpage/Error.jsx";
@@ -66,11 +66,11 @@ function App() {
       <h1 className="custom-font custom-font-thinitalic">
         Feather 1 - Thin Italic
       </h1> */}
-        <ProductDetails />
+        {/* <ProductDetails /> */}
         {/* <AdminDashBoard/> */}
-        <CartItem />
+        {/* <CartItem /> */}
         <Home />
-        <UserProfile />
+        {/* <UserProfile /> */}
       </div>
     </>
   );
