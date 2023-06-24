@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 // import { Outlet, Link } from "react-router-dom";
 import Slider from "../../components/slider/Slider";
@@ -268,3 +269,4 @@ function Home() {
 }
 
 export default Home;
+
