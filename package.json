@@ -10,14 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "axios": "^1.4.0",
+    "joi": "^17.9.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-
-
-    "tw-elements": "^1.0.0-beta2"
-
+    "tw-elements": "^1.0.0-beta2",
+    "react-hook-form": "^7.45.0",
+    "react-router-dom": "^6.13.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",

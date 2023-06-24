@@ -1,3 +1,201 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-BookItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Extrabold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-ExtraboldItalic.ttf")
+    format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Hairline.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-HairlineItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-Thin.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Centra No2";
+  src: url("./fonts/centra No2/CentraNo2-ThinItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+.custom-font {
+  font-family: "Centra No2", sans-serif;
+  font-size: 24px; /* Adjust the font size as needed */
+}
+
+.custom-font-black {
+  font-weight: 900;
+  font-style: normal;
+}
+
+.custom-font-blackitalic {
+  font-weight: 900;
+  font-style: italic;
+}
+
+.custom-font-bold {
+  font-weight: 700;
+  font-style: normal;
+}
+
+.custom-font-bolditalic {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.custom-font-book {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.custom-font-bookitalic {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.custom-font-extrabold {
+  font-weight: 800;
+  font-style: normal;
+}
+
+.custom-font-extrabolditalic {
+  font-weight: 800;
+  font-style: italic;
+}
+
+.custom-font-hairline {
+  font-weight: 100;
+  font-style: normal;
+}
+
+.custom-font-hairlineitalic {
+  font-weight: 100;
+  font-style: italic;
+}
+
+.custom-font-light {
+  font-weight: 300;
+  font-style: normal;
+}
+
+.custom-font-lightitalic {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.custom-font-medium {
+  font-weight: 500;
+  font-style: normal;
+}
+
+.custom-font-mediumitalic {
+  font-weight: 500;
+  font-style: italic;
+}
+
+.custom-font-thin {
+  font-weight: 200;
+  font-style: normal;
+}
+
+.custom-font-thinitalic {
+  font-weight: 200;
+  font-style: italic;
+}

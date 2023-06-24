@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 // import { Outlet, Link } from "react-router-dom";
 import Slider from "../../components/slider/Slider";
@@ -74,7 +73,8 @@ function Home() {
         </h1>
         <div className="flex flex-row gap-x-7 mb-16 ">
           {roomCards.map((card, index) => (
-            <div key={index}
+            <div
+              key={index}
               className="room-card "
               style={{ border: card.border, boxShadow: card.shadowColor }}
             >
@@ -269,4 +269,3 @@ function Home() {
 }
 
 export default Home;
-

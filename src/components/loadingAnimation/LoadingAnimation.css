@@ -1,0 +1,131 @@
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #e1aa06;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgb(233, 103, 43) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.load-text {
+  padding-top: 15px;
+  text-align: center;
+  font: 14pt "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: lighten(#6767fa, 75%);
+}
+
+/* .loader {
+  position: relative;
+  width: 164px;
+  height: 164px;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  animation: rotate 1s ease-in infinite;
+}
+.loader::after {
+  width: 20px;
+  height: 20px;
+  background-color: #ff3d00;
+  animation: rotate 1s ease-in infinite, moveY 1s ease-in infinite;
+}
+
+@keyframes moveY {
+  0%,
+  100% {
+    top: 10%;
+  }
+  45%,
+  55% {
+    top: 59%;
+  }
+  60% {
+    top: 40%;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -100%) rotate(0deg) scale(1, 1);
+  }
+  25% {
+    transform: translate(-50%, 0%) rotate(180deg) scale(1, 1);
+  }
+  45%,
+  55% {
+    transform: translate(-50%, 100%) rotate(180deg) scale(3, 0.5);
+  }
+  60% {
+    transform: translate(-50%, 100%) rotate(180deg) scale(1, 1);
+  }
+  75% {
+    transform: translate(-50%, 0%) rotate(270deg) scale(1, 1);
+  }
+  100% {
+    transform: translate(-50%, -100%) rotate(360deg) scale(1, 1);
+  }
+} */
+.loader {
+  font-size: 48px;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #263238;
+  box-sizing: border-box;
+  text-shadow: 0 0 2px #fff, 0 0 1px #fff, 0 0 1px #fff;
+  letter-spacing: 2px;
+  position: relative;
+}
+.loader::after {
+  content: "Loading";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #e9672b;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: animloader 6s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
