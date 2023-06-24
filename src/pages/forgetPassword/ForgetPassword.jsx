@@ -50,19 +50,17 @@ export default function ForgotPassword() {
           style={{ backgroundColor: "#fbf8f5" }}
           className="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0"
         >
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <div className=" p-6 space-y-4 md:space-y-6 sm:p-8">
             <form
-              className="space-y-4 md:space-y-6"
+              className=" space-y-4 md:space-y-6"
               onSubmit={handleSubmit(onSubmit)}
               noValidate
             >
-              <a
-                href="#"
-                className="flex items-center mb-6 text-3xl font-bold text-gray-900 dark:text-black"
-              >
-                <p>Help Signing In</p>
-              </a>
-              <p className="text-lg text-black text-center">
+              <p className="items-center text-center mb-6 text-3xl font-bold text-blue-900 dark:text-black">
+                Help Signing In
+              </p>
+
+              <p className="text-justify text-lg text-black ">
                 Enter the email address associated with your account. Remember
                 your Feather account can only be linked to the email you checked
                 out with. We will send you an email with a link to verify your
