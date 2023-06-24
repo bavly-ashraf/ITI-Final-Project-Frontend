@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-// import { Outlet, Link } from "react-router-dom";
 import Slider from "../../components/slider/Slider";
 import Header from "../../components/header/Header";
-
 import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
 
 function Home() {
+  
   const [products, setProducts] = useState([
     {
       pImage:
@@ -64,6 +63,7 @@ function Home() {
     <>
       {/* videoSlider start */}
       <VideoSlider />
+
       {/* videoSlider end */}
 
       {/* RoomCategory section start */}
