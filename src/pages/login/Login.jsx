@@ -52,6 +52,8 @@ export default function App() {
         console.log("helllo world");
         const response = await axios.post("http://localhost:3000/login", data);
         console.log("Login successful:", response.data, response.data.message);
+        <Link to="/">Redirecting...</Link>;
+
         setValidationErrors({});
       } catch (error) {
         console.error("An error occurred:", error);
