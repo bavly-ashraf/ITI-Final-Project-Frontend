@@ -15,7 +15,6 @@ export default {
 
   plugins: [
     require("daisyui"),
-    require("tw-elements/dist/plugin.cjs"),
-    require("@tailwindcss/forms"),
+    require("tw-elements/dist/plugin.cjs")
   ],
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
-import "./SignUP.css";
+// import "./SignUP.css";
 
 const schema = Joi.object({
   name: Joi.string().required().messages({

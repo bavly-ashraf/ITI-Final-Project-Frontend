@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Product from '../../components/product/Product'
 import {range} from '../../utils/range';
+import axios from 'axios';
 
 const ProductListing = () => {
+    const [products, setProducts] = useState([]);
+    useEffect(()=>{
+        (async()=>{
+            const {data} = await axios.get('http://localhost:3000/products');
+            setProducts(data);
+        })()
+    }
+    ,[]);
+    const [currentPage,setCurrentPage] = useState(1);
 
     // filteration
 
@@ -12,7 +22,7 @@ const ProductListing = () => {
     const PAGE_SIZE = 9;
     const noOfItems = 30;
     const noOfPages = Math.ceil(noOfItems/PAGE_SIZE);
-    console.log(range(noOfPages));
+    const pageArr = range(noOfPages);
 
 
     return ( 
@@ -102,21 +112,10 @@ const ProductListing = () => {
             </aside>
             <main className='flex flex-col items-center mx-4'>
                 <div className='flex flex-wrap justify-center gap-4'>
-                <Product />
-                <Product />
-                <Product />
-                <Product />
-                <Product />
-                <Product />
-                <Product />
-                <Product />
-                <Product />
+                {products.map((product)=><Product key={product.id} product={product} />)}
                 </div>
                 <div className="join my-4">
-                    <input className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label="1" />
-                    <input className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label="2" />
-                    <input className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label="3" />
-                    <input className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label="4" />
+                    {pageArr.map((page)=><input key={page} className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label={page} />)}
                 </div>
             </main>
         </div>

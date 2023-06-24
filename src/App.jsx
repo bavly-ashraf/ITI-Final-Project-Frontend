@@ -19,6 +19,7 @@ import ProductDetails from "./pages/productDetails/ProductDetails";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 import Slider from "./components/slider/Slider";
 import CartItem from "./components/cartItem/CartItem";
+import ProductListing from "./pages/productsListing/ProductsListing";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/loading" element={<LoadingAnimation />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
+          <Route path="/ProductListing" element={<ProductListing />} />
           <Route path="/ProductDetails" element={<ProductDetails />} />
           <Route path="/CartItem" element={<CartItem />} />
           <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
