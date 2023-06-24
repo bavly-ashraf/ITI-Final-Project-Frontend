@@ -16,6 +16,9 @@ import ProductDetails from "./pages/productDetails/ProductDetails";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 import Slider from "./components/slider/Slider";
 import CartItem from "./components/cartItem/CartItem";
+import OrderStatus from "./components/orderStatus/OrderStatus";
+import FavouriteList from "./components/favouriteList/FavouriteList";
+
 import ProductListing from "./pages/productsListing/ProductsListing";
 
 function App() {
@@ -29,6 +32,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+
+          <Route path="/home" element={<Home />} />
+          <Route path="/orderStatus" element={<OrderStatus />} />
+          <Route path="/favouriteList" element={<FavouriteList />} />
+          <Route path="/productListing" element={<ProductListing />} />
+
           <Route path="/loading" element={<LoadingAnimation />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />

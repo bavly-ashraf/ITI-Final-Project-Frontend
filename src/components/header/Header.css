@@ -23,6 +23,7 @@
 .card-body,
 .productsList,
 .account,
+.card,
 .profile {
   background-color: #fbf8f5;
 }
@@ -31,29 +32,24 @@
   font-weight: bold;
 }
 
-.productsList .list {
+.list {
   position: relative;
 }
 
-.productsList .list::after {
+.list::after {
   content: "";
-  /* display: flex; */
   position: absolute;
-  left: 3px;
-  bottom: 0px;
-  height: 2px;
+  left: 0px;
+  bottom: -2px;
+  height: 1px;
   width: 0px;
 
   background-color: black;
   transition: width 0.3s ease-in-out 0.2s, linear 0.2s;
 }
 
-.list {
-  text-decoration-line: none;
-}
-
 .productsList .list:hover::after {
-  width: 50%;
+  width: 100%;
   transition-delay: 0s;
 }
 
@@ -87,6 +83,12 @@
 
 .productsList .list {
   cursor: pointer;
+}
+
+@media (max-width: 1000px) and (min-width: 769px) {
+  .list {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 768px) {
