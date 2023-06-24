@@ -29,7 +29,7 @@ const ProductListing = () => {
         <>
         <h1 className='text-5xl text-center text-black m-3 dark:text-white'>Category Name</h1>
         <div className='flex justify-end me-32'>
-        <details className="dropdown">
+        <details className="dropdown z-0">
             <summary className="m-1 btn hover:bg-project-main-color hover:text-black">sort by</summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                 <li><a>Item 1</a></li>
