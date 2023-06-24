@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
@@ -27,7 +28,7 @@ const OrdersTable = (props) => {
     <>
       {orders.length != 0 ? (
         <div className="grid grid-rows-8 h-screen">
-          <div className=" bg-[#FBF8F5] overflow-x-auto row-start-1 row-end-7 ">
+          <div style={{height: "650px"}} className=" bg-[#FBF8F5] overflow-x-auto row-start-1 row-end-7 ">
             <table className="table">
               <thead className="bg-[#F3F0EC]">
                 <tr>
@@ -94,12 +95,13 @@ const OrdersTable = (props) => {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-center mb-10  row-start-7 row-end-8">
+          <div className="flex justify-center mb-10 row-start-7 row-end-8">
             <div className="join">
               {Array.from({ length: pages }).map((_, index) => (
                 <input
                   key={index}
-                  className="join-item btn btn-square"
+                  style={{border:'none',backgroundImage:'none',outline:'none'}}
+                  className="!join-item btn focus:!ring-0 !outline-0 !border-none btn-square !bg-[#F3F0EC] !hover:bg-[#EA6C31] checked:!bg-[#EA6C31]"
                   type="radio"
                   name="options"
                   onClick={(event) => paginate(event, index)}

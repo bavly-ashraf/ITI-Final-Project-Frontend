@@ -15,6 +15,6 @@ export default {
 
   plugins: [
     require("daisyui"),
-    require("tw-elements/dist/plugin.cjs")
+    require("tw-elements/dist/plugin.cjs"),
   ],
 };

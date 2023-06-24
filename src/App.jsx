@@ -1,10 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import Home from "./pages/Home/Home";
-
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
 import NotFound from "./pages/errorpage/Error.jsx";
@@ -12,26 +10,34 @@ import LoadingAnimation from "./components/loadingAnimation/LoadingAnimation";
 import ForgotPassword from "./pages/forgetPassword/ForgetPassword";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
-// import ReactDOM from "react-dom";
 import UserProfile from "./pages/userProfile/UserProfile";
 import "./App.css";
 import ProductDetails from "./pages/productDetails/ProductDetails";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 import Slider from "./components/slider/Slider";
 import CartItem from "./components/cartItem/CartItem";
+import OrderStatus from "./components/orderStatus/OrderStatus";
+import FavouriteList from "./components/favouriteList/FavouriteList";
+
 import ProductListing from "./pages/productsListing/ProductsListing";
 
 function App() {
   return (
     <>
       <div>
-        <Header />
+        {/* <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+
+          <Route path="/home" element={<Home />} />
+          <Route path="/orderStatus" element={<OrderStatus />} />
+          <Route path="/favouriteList" element={<FavouriteList />} />
+          <Route path="/productListing" element={<ProductListing />} />
+
           <Route path="/loading" element={<LoadingAnimation />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
@@ -39,12 +45,13 @@ function App() {
           <Route path="/ProductDetails" element={<ProductDetails />} />
           <Route path="/CartItem" element={<CartItem />} />
           <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-        </Routes>
-        <Footer />
+        </Routes> */}
+        {/* <UserProfile/> */}
+        {/* <Footer /> */}
         {/* <ProductDetails /> */}
-        {/* <AdminDashBoard/> */}
+        <AdminDashBoard/>
+        {/* <ProductListing/> */}
         {/* <CartItem /> */}
-
         {/* <UserProfile /> */}
         {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
       <h1 className="custom-font custom-font-blackitalic">
