@@ -25,7 +25,7 @@ function App() {
   return (
     <>
       <div>
-        {/* <Header />
+        <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
@@ -44,11 +44,11 @@ function App() {
           <Route path="/ProductDetails" element={<ProductDetails />} />
           <Route path="/CartItem" element={<CartItem />} />
           <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-        </Routes> */}
+        </Routes>
         {/* <UserProfile/> */}
         {/* <Footer /> */}
         {/* <ProductDetails /> */}
-        <AdminDashBoard/>
+        {/* <AdminDashBoard/> */}
         {/* <ProductListing/> */}
         {/* <CartItem /> */}
         {/* <UserProfile /> */}
