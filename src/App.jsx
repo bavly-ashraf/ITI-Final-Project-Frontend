@@ -3,7 +3,8 @@ import React from "react";
 import Home from "./pages/Home/Home";
 
 import Header from "./components/header/Header";
-// import Footer from "./components/footer/Footer";
+import Footer from "./components/footer/Footer";
+
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
 import NotFound from "./pages/errorpage/Error.jsx";
@@ -15,13 +16,15 @@ import { Routes, Route } from "react-router-dom";
 import UserProfile from "./pages/userProfile/UserProfile";
 import "./App.css";
 import ProductDetails from "./pages/productDetails/ProductDetails";
-// import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
-// import Slider from "./components/slider/Slider";
+import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
+import Slider from "./components/slider/Slider";
 import CartItem from "./components/cartItem/CartItem";
+
 function App() {
   return (
     <>
       <div>
+        <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
@@ -31,7 +34,16 @@ function App() {
           <Route path="/loading" element={<LoadingAnimation />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
+          <Route path="/ProductDetails" element={<ProductDetails />} />
+          <Route path="/CartItem" element={<CartItem />} />
+          <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
         </Routes>
+        <Footer />
+        {/* <ProductDetails /> */}
+        {/* <AdminDashBoard/> */}
+        {/* <CartItem /> */}
+
+        {/* <UserProfile /> */}
         {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
       <h1 className="custom-font custom-font-blackitalic">
         Feather 1 - Black Italic
@@ -66,11 +78,6 @@ function App() {
       <h1 className="custom-font custom-font-thinitalic">
         Feather 1 - Thin Italic
       </h1> */}
-        {/* <ProductDetails /> */}
-        {/* <AdminDashBoard/> */}
-        {/* <CartItem /> */}
-        <Home />
-        {/* <UserProfile /> */}
       </div>
     </>
   );

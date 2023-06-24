@@ -1,4 +1,3 @@
-
 .navElements::after {
   content: "";
   display: block;
@@ -112,4 +111,3 @@
     font-size: 15px;
   }
 }
-
