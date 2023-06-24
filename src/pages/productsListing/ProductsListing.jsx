@@ -2,7 +2,7 @@ import React from 'react';
 import Product from '../../components/product/Product'
 import {range} from '../../utils/range';
 
-const ProductListing = () => {
+function ProductListing(){
 
     // filteration
 

@@ -263,6 +263,25 @@ function Home() {
           Shop All Furniture
         </a>
       </section>
+
+       <div className="grid grid-cols-3">
+  <div className="col-span-2">
+    <img src="https://img.livefeather.com/pages-new/Homepage/floyd-homepage-desktop.png?auto=compress,format&cs=srgb&dpr=1&fit=max&q=80" alt="" />
+  </div>
+  <div className="rightSide text-white">
+    <div>
+  <span className='font-bold sides'>feather </span>
+  <span className=''>x</span>
+  <span className='font-bold sides'> FLOYD</span>
+  </div>
+    <div className="forbreak text-center">
+    <h1 className=' text-white font-bold p-5'>Floyd Furniture Meets Feather Flexibility</h1>
+    </div>
+    <button className="sideBtn font-bold py-5 px-10 text-black rounded-full hover:bg-slate-200">
+  Explore Floyd Furniture
+</button>    
+  </div>
+</div>
       {/* RoomCategory section end */}
     </>
   );
