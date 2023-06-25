@@ -11,6 +11,8 @@ import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
 import ProductListing from "../pages/productsListing/ProductsListing";
+import OrderStatus from "../pages/orderStatus/OrderStatus";
+import FavouriteList from "../pages/favouriteList/FavouriteList"
 const AppRoutes = () => {
   return (
     <Routes>
@@ -21,6 +23,8 @@ const AppRoutes = () => {
       <Route path="/*" element={<NotFound />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/productlisting" element={<ProductListing />} />
+      <Route path="/orderStatus" element={<OrderStatus />} />
+      <Route path="/favouriteList" element={<FavouriteList />} />
       <Route path="/ProductDetails" element={<ProductDetails />} />
       <Route path="/CartItem" element={<CartItem />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />

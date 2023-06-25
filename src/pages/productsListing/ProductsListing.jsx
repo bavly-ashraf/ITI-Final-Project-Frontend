@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Product from '../../components/product/Product'
 import {range} from '../../utils/range';
 import axios from 'axios';
+import AddEditModal from '../../components/add_EditModal/Add_EditModal';
 
 const ProductListing = () => {
+    const isAdmin = true;
     const [products, setProducts] = useState([]);
+    const [currentPage,setCurrentPage] = useState(1);
     useEffect(()=>{
         (async()=>{
             const {data} = await axios.get('http://localhost:3000/products');
@@ -12,7 +15,6 @@ const ProductListing = () => {
         })()
     }
     ,[]);
-    const [currentPage,setCurrentPage] = useState(1);
 
     // filteration
 
@@ -27,17 +29,24 @@ const ProductListing = () => {
 
     return ( 
         <>
+        {/* Header */}
         <h1 className='text-5xl text-center text-black m-3 dark:text-white'>Category Name</h1>
+        {/* Page Buttons (Add & sort) */}
         <div className='flex justify-end me-32'>
+        <div onClick={()=>window.my_modal_1.showModal()} className='btn btn-success m-3'>Add New Product</div>
+        <AddEditModal />
         <details className="dropdown z-0">
-            <summary className="m-1 btn hover:bg-project-main-color hover:text-black">sort by</summary>
+            <summary className="m-3 btn hover:bg-project-main-color hover:text-white">sort by</summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
+                <li><a>Price: High to Low</a></li>
+                <li><a>Price: Low to High</a></li>
+                <li><a>A to Z</a></li>
             </ul>
         </details>
         </div>
+        {/* Products & Sidebar */}
         <div className='flex gap-6 mb-5'>
+            {/* Sidebar */}
             <aside className='ms-3'>
                 <div className="drawer h-full lg:drawer-open">
                     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -110,12 +119,13 @@ const ProductListing = () => {
                 </div>
                 
             </aside>
+            {/* Products */}
             <main className='flex flex-col items-center mx-4'>
-                <div className='flex flex-wrap justify-center gap-4'>
-                {products.map((product)=><Product key={product.id} product={product} />)}
+                <div className='flex justify-center md:justify-start flex-wrap gap-4'>
+                {products.map((product)=><Product key={product.id} product={product} isAdmin={isAdmin} />)}
                 </div>
                 {pageArr.length > 1 && <div className="join my-4">
-                    {pageArr.map((page)=><input key={page} className="join-item btn btn-square checked:!bg-project-main-color checked:!border-project-main-color" type="radio" name="options" aria-label={page} />)}
+                    {pageArr.map((page)=><input key={page} onClick={()=>setCurrentPage(page)} className={`join-item btn btn-square ${currentPage == page && "!bg-project-main-color !text-white !border-project-main-color"}`} type="radio" name="options" aria-label={page} />)}
                 </div>}
             </main>
         </div>

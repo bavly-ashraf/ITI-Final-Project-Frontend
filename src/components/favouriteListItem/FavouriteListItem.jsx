@@ -1,8 +1,9 @@
 import React from 'react'
 
-const FavouriteList = () => {
+const FavouriteListItem = () => {
     return ( 
         <>
+            {/* Favourite list item card */}
             <div className="card w-60 bg-base-100 shadow-xl image-full">
                 <figure><img src="https://cb.scene7.com/is/image/Crate/OjaiUphWFAcntChrBCSOSSS22_3D/$web_pdp_main_carousel_med$/220118124451/ojai-upholstered-wood-frame-accent-chair.jpg" alt="Shoes" /></figure>
                 <div className="card-body">
@@ -22,4 +23,4 @@ const FavouriteList = () => {
      );
 }
  
-export default FavouriteList;
+export default FavouriteListItem;
