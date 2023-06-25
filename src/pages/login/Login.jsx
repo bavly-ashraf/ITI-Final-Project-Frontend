@@ -5,6 +5,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -21,6 +22,8 @@ export default function App() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -39,6 +42,28 @@ export default function App() {
   //     console.log(data);
   //   }
   // };
+  // const onSubmit = async (data) => {
+  //   const { error } = schema.validate(data, { abortEarly: false });
+  //   if (error) {
+  //     const validationErrors = {};
+  //     error.details.forEach((detail) => {
+  //       validationErrors[detail.context.key] = detail.message;
+  //     });
+  //     setValidationErrors(validationErrors);
+  //   } else {
+  //     try {
+  //       console.log("helllo world");
+  //       const response = await axios.post("http://localhost:3000/login", data);
+  //       console.log("Login successful:", response.data, response.data.message);
+
+  //       setValidationErrors({});
+  //     } catch (error) {
+  //       console.error("An error occurred:", error);
+  //       if (error.response && error.response.data) {
+  //         setValidationErrors({ error: error.response.data.error });
+  //       }
+  //     }
+  //   }
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
@@ -49,12 +74,16 @@ export default function App() {
       setValidationErrors(validationErrors);
     } else {
       try {
-        console.log("helllo world");
-        const response = await axios.post("http://localhost:3000/login", data);
+        console.log("Sending login request...");
+        const response = await axios.post(
+          "http://localhost:3000/users/login",
+          data
+        );
         console.log("Login successful:", response.data, response.data.message);
-        <Link to="/">Redirecting...</Link>;
+        navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});
+        // Do something with the logged-in user and token (e.g., store in state or local storage)
       } catch (error) {
         console.error("An error occurred:", error);
         if (error.response && error.response.data) {
@@ -207,7 +236,7 @@ export default function App() {
                 </a>
 
                 <dialog id="my_modal_2" className="modal">
-                  <form
+                  <div
                     style={{ backgroundColor: "#fbf8f5" }}
                     method="dialog"
                     className="modal-box bg-gray-50 dark:bg-gray-900 p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24"
@@ -229,7 +258,7 @@ export default function App() {
                         </button>
                       </Link>
                     </div>
-                  </form>
+                  </div>
                   <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                   </form>
