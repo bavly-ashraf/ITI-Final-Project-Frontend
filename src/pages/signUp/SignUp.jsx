@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./SignUP.css";
+import axios from "axios";
 
 const schema = Joi.object({
   name: Joi.string().required().messages({
@@ -40,31 +41,50 @@ const schema = Joi.object({
 export default function SignUp() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    const { error } = schema.validate(data, {
-      abortEarly: false,
-      messages: {
-        "string.base": `{#label} should be a type of 'text'`,
-        "string.min": `{#label} should have a minimum length of {#limit}`,
-        "string.max": `{#label} should have a maximum length of {#limit}`,
-        // "any.required": `{#label} is required`,
-        "any.only": `It doesnt match first password`,
-        "string.pattern.base": `Invalid {#label}`,
-      },
-    });
-    if (error) {
-      const validationErrors = {};
-      error.details.forEach((detail) => {
-        validationErrors[detail.context.key] = detail.message;
-      });
-      setValidationErrors(validationErrors);
-    } else {
+  // const onSubmit = (data) => {
+  //   const { error } = schema.validate(data, {
+  //     abortEarly: false,
+  //     messages: {
+  //       "string.base": `{#label} should be a type of 'text'`,
+  //       "string.min": `{#label} should have a minimum length of {#limit}`,
+  //       "string.max": `{#label} should have a maximum length of {#limit}`,
+  //       // "any.required": `{#label} is required`,
+  //       "any.only": `It doesnt match first password`,
+  //       "string.pattern.base": `Invalid {#label}`,
+  //     },
+  //   });
+  //   if (error) {
+  //     const validationErrors = {};
+  //     error.details.forEach((detail) => {
+  //       validationErrors[detail.context.key] = detail.message;
+  //     });
+  //     setValidationErrors(validationErrors);
+  //   } else {
+  //     console.log("Form submitted:", data);
+  //     setValidationErrors({});
+  //     console.log(data);
+  //   }
+  // };
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+
+      await axios.post("http://localhost:3000/users/signup", data);
       console.log("Form submitted:", data);
       setValidationErrors({});
       console.log(data);
+    } catch (error) {
+      if (error.response) {
+        const validationErrors = {};
+        error.response.data.errors.forEach((err) => {
+          validationErrors[err.field] = err.message;
+        });
+        setValidationErrors(validationErrors);
+      } else {
+        console.error("Error submitting form:", error);
+      }
     }
   };
-
   return (
     <section
       className="bg-gray-50 dark:bg-gray-900"
@@ -92,7 +112,7 @@ export default function SignUp() {
               onSubmit={handleSubmit(onSubmit)}
               noValidate
             >
-              <div
+              {/* <div
                 className={`relative border-b-2 ${
                   validationErrors.name ? "border-red-500" : "border-zinc-950"
                 }`}
@@ -126,7 +146,7 @@ export default function SignUp() {
               </div>
               {validationErrors.name && (
                 <p className="text-red-500 text-sm">{validationErrors.name}</p>
-              )}
+              )} */}
 
               <div
                 className={`relative border-b-2 ${
