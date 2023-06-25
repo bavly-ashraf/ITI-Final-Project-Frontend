@@ -13,8 +13,7 @@ export default {
     },
   },
 
-  plugins: [
-    require("daisyui"),
-    require("tw-elements/dist/plugin.cjs"),
-  ],
+
+  plugins: [require("daisyui"), require("tw-elements/dist/plugin.cjs")],
+
 };
