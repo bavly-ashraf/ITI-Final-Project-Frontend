@@ -85,9 +85,17 @@ export default function App() {
         setValidationErrors({});
         // Do something with the logged-in user and token (e.g., store in state or local storage)
       } catch (error) {
+        // console.error("An error occurred:", error);
+        // if (error.response && error.response.data) {
+        //   setValidationErrors({ error: error.response.data.error });
         console.error("An error occurred:", error);
         if (error.response && error.response.data) {
-          setValidationErrors({ error: error.response.data.error });
+          // setValidationErrors({ error: error.response.data.message });
+          setValidationErrors({
+            email: "   ",
+            password: "Check your Credentials ",
+          });
+          console.log(error.response.data.message);
         }
       }
     }
