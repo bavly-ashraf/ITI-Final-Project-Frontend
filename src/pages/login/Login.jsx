@@ -49,8 +49,11 @@ export default function App() {
       setValidationErrors(validationErrors);
     } else {
       try {
+        console.log("helllo world");
         const response = await axios.post("http://localhost:3000/login", data);
-        console.log("Login successful:", response.data);
+        console.log("Login successful:", response.data, response.data.message);
+        <Link to="/">Redirecting...</Link>;
+
         setValidationErrors({});
       } catch (error) {
         console.error("An error occurred:", error);
@@ -106,7 +109,7 @@ export default function App() {
                     backgroundColor: "fbf8f5",
                     transition: "background-color 0.66s",
                   }}
-                  placeholder="Email"
+                  placeholder=" "
                   required
                   {...register("email")}
                 />
@@ -136,7 +139,7 @@ export default function App() {
                   name="password"
                   id="password"
                   ref={register}
-                  placeholder="Password"
+                  placeholder=" "
                   className={`focus:ring-0 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none  mr-3 py-1 px-2 leading-tight focus:outline-none   ${
                     validationErrors.password ? "border-blue-500" : ""
                   }`}
@@ -220,7 +223,7 @@ export default function App() {
                       >
                         <button
                           style={{ backgroundColor: "#E9672B" }}
-                          className="rounded-full w-full text-lg font-bold px-6 py-3 text-center whitespace-nowrap overflow-hidden"
+                          className="transform hover:scale-105 active:scale-100 rounded-full w-full text-lg font-bold px-6 py-3 text-center whitespace-nowrap overflow-hidden"
                         >
                           Reset Your password
                         </button>
@@ -236,7 +239,8 @@ export default function App() {
                 <button
                   type="submit"
                   style={{ backgroundColor: "#E9672B" }}
-                  className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center"
+                  className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center transform hover:scale-105 active:scale-100 "
+                  // bg-orange-500 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-600
                 >
                   Sign in
                 </button>

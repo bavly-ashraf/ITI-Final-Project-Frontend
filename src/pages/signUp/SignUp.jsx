@@ -285,7 +285,7 @@ export default function SignUp() {
                 <button
                   type="submit"
                   style={{ backgroundColor: "#E9672B" }}
-                  className="rounded-full w-4/5 text-black font-bold  text-lg px-5 py-2.5 text-center"
+                  className="transform hover:scale-105 active:scale-100 rounded-full w-4/5 text-black font-bold  text-lg px-5 py-2.5 text-center"
                 >
                   {/* transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ... */}
                   Create An Account
