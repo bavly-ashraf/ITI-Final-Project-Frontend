@@ -62,8 +62,8 @@ export default function ForgotPassword() {
 
               <p className="text-justify text-lg text-black ">
                 Enter the email address associated with your account. Remember
-                your Feather account can only be linked to the email you checked
-                out with. We will send you an email with a link to verify your
+                your account can only be linked to the email you checked out
+                with. We will send you an email with a link to verify your
                 account and reset your password.
               </p>
               <div

@@ -11,7 +11,6 @@ function App() {
     <>
       <div>
         <Header />
-
         <AppRoutes />
         <Footer />
         {/* <ProductDetails /> */}
@@ -19,7 +18,7 @@ function App() {
         {/* <CartItem /> */}
 
         {/* <UserProfile /> */}
-        <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
+        {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
         <h1 className="custom-font custom-font-blackitalic">
           Feather 1 - Black Italic
         </h1>
@@ -106,7 +105,7 @@ function App() {
         </h1>
         <h1 className="custom-font-thinitalic" style={{ fontSize: "24px" }}>
           Feather 1 - Thin Italic
-        </h1>
+        </h1> */}
       </div>
     </>
   );
