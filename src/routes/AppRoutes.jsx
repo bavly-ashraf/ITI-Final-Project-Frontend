@@ -10,6 +10,7 @@ import ProductDetails from "../pages/productDetails/ProductDetails";
 import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
+import ProductListing from "../pages/productsListing/ProductsListing";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -19,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/loading" element={<LoadingAnimation />} />
       <Route path="/*" element={<NotFound />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      <Route path="/productlisting" element={<ProductListing />} />
       <Route path="/ProductDetails" element={<ProductDetails />} />
       <Route path="/CartItem" element={<CartItem />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
