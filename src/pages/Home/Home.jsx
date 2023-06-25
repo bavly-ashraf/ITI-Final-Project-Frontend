@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-// import { Outlet, Link } from "react-router-dom";
 import Slider from "../../components/slider/Slider";
 import Header from "../../components/header/Header";
-
 import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
 
 function Home() {
+  
   const [products, setProducts] = useState([
     {
       pImage:
@@ -64,14 +63,15 @@ function Home() {
     <>
       {/* videoSlider start */}
       <VideoSlider />
+
       {/* videoSlider end */}
 
       {/* RoomCategory section start */}
-      <section className="flex flex-col items-center  ">
+      <section className="flex flex-col items-center overflow-hidden justify-center   ">
         <h1 className="text-5xl	font-medium mt-12 mb-10 leading-10	">
           Shop by Room
         </h1>
-        <div className="flex flex-row gap-x-7 mb-16 ">
+        <div className="flex flex-row flex-wrap gap-x-7 gap-y-5 mb-16 justify-center">
           {roomCards.map((card, index) => (
             <div
               key={index}
@@ -109,40 +109,40 @@ function Home() {
           </h6>
         </div>
       </section>
+
       <section className="bg-white ">
-        <div className="flex justify-center items-center py-8">
-          <div
-            className="w-6/12 p-6 flex justify-center "
-            style={{ paddingLeft: "72px" }}
+        <div className="flex sm:flex-col-reverse lg:flex-row justify-center items-center py-8">
+        <div
+            className="lg:w-6/12 sm:w-full lg:p-6 sm:p-8 flex lg:justify-center "
+            // style={{ paddingLeft: "72px" }}
           >
-            <div className="flex flex-col max-w-md	justify-center items-start ">
-              <h2 className="text-4xl	font-medium	leading-10	">
-                Enjoy a fully furnished space in less than week
+            <div className="flex flex-col lg:w-8/12  sm:w-full	justify-center items-start ">
+              <h2 className="lg:text-4xl sm:text-2xl	font-medium	leading-10	">
+              Enjoy a fully furnished space in less than week
               </h2>
-              <div className="mt-5 mb-9	text-lg	text-black		">
+              <div className="mt-5 mb-9 sm:text-md	lg:text-lg	text-black		">
                 <p>
-                  Feather furniture is available to be delivered and assembled
-                  in New York City, Los Angeles and San Francisco.
+                Feather furniture is available to be delivered and assembled in New York City, Los Angeles and San Francisco.
                 </p>
               </div>
               <a to="/" className="Btn" href="">
-                Explore Furniture
+              Explore Furniture
               </a>
             </div>
           </div>
-          <div className="w-6/12">
+          <div className="lg:w-6/12 sm:w-11/12	">
             <img src="https://img.livefeather.com/pages-new/Homepage/section-1-flexibility.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=800&q=80&w=1200" />
           </div>
         </div>
       </section>
       <section className="bg-white ">
-        <div className="flex flex-row-reverse	justify-center items-center py-8">
-          <div className="w-6/12 p-6 flex justify-center ">
-            <div className="flex flex-col max-w-md	justify-center items-start ">
-              <h2 className="text-4xl	font-medium	leading-10	">
+        <div className="flex sm:flex-col-reverse lg:flex-row-reverse	justify-center items-center py-8">
+          <div  className="lg:w-6/12 sm:w-full lg:p-6 flex sm:p-8 ">
+            <div className="flex flex-col lg:w-8/12  sm:w-full	justify-center items-start ">
+              <h2 className="lg:text-4xl	sm:text-2xl font-medium	leading-10	">
                 Garage Sale - 35% & Up
               </h2>
-              <div className="mt-5 mb-9	text-lg	text-black		">
+              <div className="mt-5 mb-9	lg:text-lg sm:text-md	text-black		">
                 <p>
                   Our Garage Sale is open! Savings start at 35% on favorite
                   retired pieces. Find dressers, sofas, decor, and more to make
@@ -154,26 +154,26 @@ function Home() {
               </a>
             </div>
           </div>
-          <div className="w-6/12 flex justify-center ">
+          <div className="lg:w-6/12 sm:w-11/12 flex justify-center ">
             <img
-              style={{ maxWidth: "63%" }}
-              className="object-contain	"
+              
+              className="object-contain lg:w-3/5	"
               src="https://img.livefeather.com/pages/homepage/garagesale-campaign-20230531.png?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"
             />
           </div>
         </div>
       </section>
       <section className="bg-white ">
-        <div className="flex justify-center items-center py-8">
+        <div className="flex  sm:flex-col-reverse lg:flex-row justify-center items-center py-8">
           <div
-            className="w-6/12 p-6 flex justify-center "
-            style={{ paddingLeft: "72px" }}
+            className="lg:w-6/12 sm:w-full lg:p-6 sm:p-8 flex lg:justify-center "
+            // style={{ paddingLeft: "72px" }}
           >
-            <div className="flex flex-col max-w-md	justify-center items-start ">
-              <h2 className="text-4xl	font-medium	leading-10	">
+            <div className="flex flex-col lg:w-8/12  sm:w-full	justify-center items-start ">
+              <h2 className="lg:text-4xl sm:text-2xl	font-medium	leading-10	">
                 Furniture for business, made simple.
               </h2>
-              <div className="mt-5 mb-9	text-lg	text-black		">
+              <div className="mt-5 mb-9	lg:text-lg sm:text-md	text-black		">
                 <p>
                   Say goodbye to cost, complexity, and commitment of furniture.
                   Feather makes it easy with affordable rental plans, white
@@ -185,19 +185,19 @@ function Home() {
               </a>
             </div>
           </div>
-          <div className="w-6/12">
+          <div className="lg:w-6/12 sm:w-11/12">
             <img src="https://img.livefeather.com/pages-new/Homepage/FeatherforBusiness.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=800&q=80&w=1200" />
           </div>
         </div>
       </section>
       <section className="bg-white pb-48 ">
-        <div className="flex flex-row-reverse	justify-center items-center py-8">
-          <div className="w-6/12 p-6 flex justify-center ">
-            <div className="flex flex-col max-w-md	justify-center items-start ">
-              <h2 className="text-4xl	font-medium	leading-10	">
+        <div className="flex sm:flex-col-reverse lg:flex-row-reverse	justify-center items-center py-8">
+          <div className="lg:w-6/12 sm:w-full lg:p-16 flex sm:p-8 ">
+            <div className="flex flex-col lg:w-9/12  sm:w-full	justify-center items-start  ">
+              <h2 className="lg:text-4xl	sm:text-2xl font-medium	leading-10		">
                 Never assemble furniture again.
               </h2>
-              <div className="mt-5 mb-9	text-lg	text-black		">
+              <div className="mt-5 mb-9	lg:text-lg sm:text-md	text-black		">
                 <p>
                   We move a lot. There are countless floor plans and roommates
                   (oh, and your evolving tastes) between here and there. With
@@ -210,9 +210,9 @@ function Home() {
               </a>
             </div>
           </div>
-          <div className="w-6/12 flex justify-center ">
+          <div className="lg:w-6/12 sm:w-11/12 flex justify-center ">
             <img
-              style={{ maxWidth: "63%" }}
+
               className="object-contain	"
               src="https://img.livefeather.com/pages-new/Homepage/section-2.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"
             />
@@ -221,14 +221,14 @@ function Home() {
       </section>
 
       {/* Shop our Bestsellers  */}
-      <section className="flex flex-col items-center   ">
+      <section className="flex justify-center flex-col items-center overflow-hidden">
         <h1 className="text-3xl	font-medium mt-12 mb-10 leading-10	">
           Shop our Bestsellers
         </h1>
-        <div className="flex flex-row mb-16 overflow-hidden">
+        <div className="flex flex-row justify-center flex-wrap gap-y-1 lg:w-full  mb-16 overflow-hidden">
           {products.length ? (
             products.map((product, index) => (
-              <div key={index} className="product-card living bg-white">
+              <div key={index} className="flex justify-center product-card living bg-white sm:w-8/12 lg:w-2/12 ">
                 <a to="/" className="text-center">
                   <div>
                     <div className="mb-5">
@@ -263,6 +263,25 @@ function Home() {
           Shop All Furniture
         </a>
       </section>
+
+       <div className="grid grid-cols-3">
+  <div className="col-span-2">
+    <img src="https://img.livefeather.com/pages-new/Homepage/floyd-homepage-desktop.png?auto=compress,format&cs=srgb&dpr=1&fit=max&q=80" alt="" />
+  </div>
+  <div className="rightSide text-white">
+    <div>
+  <span className='font-bold sides'>feather </span>
+  <span className=''>x</span>
+  <span className='font-bold sides'> FLOYD</span>
+  </div>
+    <div className="forbreak text-center">
+    <h1 className=' text-white font-bold p-5'>Floyd Furniture Meets Feather Flexibility</h1>
+    </div>
+    <button className="sideBtn font-bold py-5 px-10 text-black rounded-full hover:bg-slate-200">
+  Explore Floyd Furniture
+</button>    
+  </div>
+</div>
       {/* RoomCategory section end */}
     </>
   );

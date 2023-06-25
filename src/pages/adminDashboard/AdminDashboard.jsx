@@ -227,15 +227,13 @@ const AdminDashBoard = () => {
     }
   ]
   );
-
-
   
   function deleteOrder(id)
   {
+    
     let newOrders=[...orders];
     newOrders=newOrders.filter((order)=>order.OrderId!=id);
     setOrders(newOrders);
-
   }
   return <OrdersTable deleteOrder={deleteOrder} orders={orders} />;
 };

@@ -5,11 +5,11 @@ import "./Header.css";
 function Header() {
   return (
     <header>
-      <div className="navbar ">
+      <div className="z-50 navbar fixed">
         <div className="navbar-start ">
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <Link
-              to="#"
+              to="home"
               className=" navElements block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             >
               Home
@@ -27,19 +27,31 @@ function Header() {
 
               <ul
                 tabIndex="0"
-                className="productsList my-6 p-10 dropdown-content flex"
+                className="productsList my-4 p-10 dropdown-content flex"
               >
                 <div className="flex-1 mr-4">
                   <li className="part1">
                     <div className="categories">
                       <h1 className="">CATEGORIES</h1>
                     </div>
-                    <Link className="list block my-5">Living Room</Link>
-                    <Link className="list block my-5">Bedroom</Link>
-                    <Link className="list block my-5">Dining</Link>
-                    <Link className="list block my-5">Home office</Link>
-                    <Link className="list block my-5">Lightning</Link>
-                    <Link className="list block my-5">Outdoor</Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Living Room</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Bedroom</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Dining</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Home office</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Lightning</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Outdoor</span>
+                    </Link>
                   </li>
                 </div>
 
@@ -48,28 +60,52 @@ function Header() {
                     <div className="categories">
                       <h1 className="">ITEM TYPE</h1>
                     </div>
-                    <Link className="list block my-5">
-                      Sofas, Sectionals, & Sleepers
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">
+                        {" "}
+                        Sofas, Sectionals, & Sleepers
+                      </span>
                     </Link>
-                    <Link className="list block my-5">Chairs</Link>
-                    <Link className="list block my-5">Coffee Tables</Link>
-                    <Link className="list block my-5">Side Tables</Link>
-                    <Link className="list block my-5">
-                      Ottomans, Stools, & Benches
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Chairs</span>
                     </Link>
-                    <Link className="list block my-5">Beds & Mattresses</Link>
-                    <Link className="list block my-5">
-                      Nightstands & Dressers
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Coffee Tables</span>
                     </Link>
-                    <Link className="list block my-5">Dining Tables</Link>
-                    <Link className="list block my-5">
-                      Dining Chairs & Counter Stools
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Side Tables</span>
                     </Link>
-                    <Link className="list block my-5">Cabinets & Consoles</Link>
-                    <Link className="list block my-5">
-                      Desks, Desk Chairs, & Bookshelves
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">
+                        {" "}
+                        Ottomans, Stools, & Benches{" "}
+                      </span>
                     </Link>
-                    <Link className="list block my-5">Rugs & Artwork </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Beds & Mattresses</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Nightstands & Dressers </span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Dining Tables</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">
+                        Dining Chairs & Counter Stools
+                      </span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Cabinets & Consoles</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">
+                        Desks, Desk Chairs, & Bookshelves
+                      </span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Rugs & Artwork</span>
+                    </Link>
                   </li>
                 </div>
 
@@ -78,14 +114,30 @@ function Header() {
                     <div className="categories">
                       <h1 className="">PACKAGES</h1>
                     </div>
-                    <Link className="list block my-5">Industrial</Link>
-                    <Link className="list block my-5">Eclectic</Link>
-                    <Link className="list block my-5">Art Deco</Link>
-                    <Link className="list block my-5">Scandinavian</Link>
-                    <Link className="list block my-5">Rustic</Link>
-                    <Link className="list block my-5">Neutral</Link>
-                    <Link className="list block my-5">Monochrome</Link>
-                    <Link className="list block my-5">Traditional</Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Industrial</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Eclectic</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Art Deco</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Scandinavian</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Rustic</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Neutral</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Monochrome</span>
+                    </Link>
+                    <Link to="productListing" className="block my-5">
+                      <span className="list">Traditional</span>
+                    </Link>
                   </li>
                 </div>
               </ul>
@@ -94,7 +146,7 @@ function Header() {
             <div className="dropdown">
               <li className="">
                 <Link
-                  href="#"
+                  to="#"
                   className=" navElements block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Account
@@ -103,14 +155,13 @@ function Header() {
 
               <ul
                 tabIndex="0"
-                className="account menu menu-lg dropdown-content my-6"
+                className="account menu menu-lg dropdown-content my-4"
               >
                 <li>
-                  <h3>Login</h3>
-                  <h3>
-                    Signup
-                    <span className="badge bg-orange-500">New</span>
-                  </h3>
+                  <Link to="login">Login</Link>
+                  <Link to="signup">
+                    Signup <span className="badge bg-orange-500">New</span>{" "}
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -142,39 +193,54 @@ function Header() {
                       d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                     />
                   </svg>
-                  <span className="badge badge-sm indicator-item">8</span>
+                  <span className="badge badge-sm indicator-item bg-orange-500">
+                    8
+                  </span>
                 </div>
               </label>
               <div
                 tabIndex="0"
-                className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+                className="mt-1 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
-                <div className="card-body">
+                <div className="card-body w-100">
                   <span className="font-bold text-lg">8 Items</span>
                   <span className="text-orange-400">Subtotal: $999</span>
                   <div className="card-actions">
-                    <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full btn-block">
-                      View cart
-                    </button>{" "}
+                    <Link to="CartItem">
+                      <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full btn-block">
+                        View cart
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="dropdown dropdown-end">
-              <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr_4pCXJ2F5fzF3a9HjL-Zpy1WUz_NcgzVjQ&usqp=CAU" />
+              <label tabIndex="0" className="btn btn-ghost btn-circle">
+                <div className="indicator">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </div>
               </label>
-
               <ul
                 tabIndex="0"
-                className="profile menu menu-lg dropdown-content my-4"
+                className="profile menu menu-lg dropdown-content my-2"
               >
                 <li>
-                  <Link>Order status</Link>
-                  <Link className="icon">
+                  <Link>Username</Link>
+                  <Link to="orderStatus">Order status</Link>
+                  <Link to="favouriteList" className="icon">
                     Favourites
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

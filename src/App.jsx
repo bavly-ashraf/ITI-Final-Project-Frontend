@@ -1,23 +1,23 @@
 import { useState } from "react";
 import React from "react";
+
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 // import ReactDOM from "react-dom";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 
+
 function App() {
   return (
     <>
       <div>
         <Header />
+
         <AppRoutes />
         <Footer />
-        {/* <ProductDetails /> */}
-        {/* <AdminDashBoard/> */}
-        {/* <CartItem /> */}
 
-        {/* <UserProfile /> */}
+   
         {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
         <h1 className="custom-font custom-font-blackitalic">
           Feather 1 - Black Italic
