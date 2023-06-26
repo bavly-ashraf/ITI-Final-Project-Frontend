@@ -83,9 +83,12 @@
   cursor: pointer;
 }
 
-@media (max-width: 1000px) and (min-width: 769px) {
+@media (max-width: 1024px) and (min-width: 768.0000000001px) {
   .list {
     font-size: 13px;
+  }
+  .dropdown-content {
+    padding: 1rem;
   }
 }
 

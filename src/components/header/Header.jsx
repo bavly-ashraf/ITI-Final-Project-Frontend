@@ -1,205 +1,213 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import "./Header.css";
 // Initialization for ES Users
-import {
-  Collapse,
-  Dropdown,
-  Ripple,
-  initTE,
-} from "tw-elements";
+import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
 
 function Header() {
-
-useEffect(() => {
-  initTE({ Collapse, Dropdown, Ripple });
-},[] );
+  useEffect(() => {
+    initTE({ Collapse, Dropdown, Ripple });
+  }, []);
 
   return (
     <header>
-
       <div className="z-50 navbar fixed">
-      <div className="navbar-start ">
-     <div className="flex flex-col items-start">
-      <button
-      className="fill-current text-orange-500 border-0 bg-transparent py-3 text-xl leading-none transition-shadow duration-150 ease-in-out dark:hover:text-white dark:focus:text-white lg:hidden"
-      type="button"
-      data-te-collapse-init
-      data-te-target="#navbarSupportedContentY"
-      aria-controls="navbarSupportedContentY"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span className="[&>svg]:w-8">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="h-8 w-8">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </span>
-    </button>
-
-    <div className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto" id="navbarSupportedContentY" data-te-collapse-item>
-
-          <ul className="flex font-medium lg:p-4 md:p-0 lg:mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <Link to="/"className=" navElements block  md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              Home
-            </Link>
-
-            <div className="dropdown justify-around ">
-              <li className="">
-                <Link to="#"
-                  className=" navElements block md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+        <div className="navbar-start ">
+          <div className="flex flex-col items-start">
+            <button
+              className="fill-current text-orange-500 border-0 bg-transparent py-3 text-xl leading-none transition-shadow duration-150 ease-in-out dark:hover:text-white dark:focus:text-white lg:hidden"
+              type="button"
+              data-te-collapse-init
+              data-te-target="#navbarSupportedContentY"
+              aria-controls="navbarSupportedContentY"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="[&>svg]:w-8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-8 w-8"
                 >
-                  Products
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <div
+              className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+              id="navbarSupportedContentY"
+              data-te-collapse-item
+            >
+              <ul className="flex font-medium lg:p-4 md:p-0 lg:mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <Link
+                  to="/"
+                  className=" navElements block  md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  Home
                 </Link>
-              </li>
 
-              <ul tabIndex="0" className="productsList lg:my-4 lg:p-10 dropdown-content lg:overflow-hidden overflow-auto flex" style={{height:"600px"}} >
-                <div className="flex-1 mr-4 w-full">
-                  <li className="part1 h-full">
-                    <div className="categories">
-                      <h1 className="">CATEGORIES</h1>
-                    </div>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Living Room</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Bedroom</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Dining</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Home office</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Lightning</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Outdoor</span>
+                <div className="dropdown justify-around ">
+                  <li className="">
+                    <Link
+                      to="#"
+                      className=" navElements block md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Products
                     </Link>
                   </li>
+
+                  <ul
+                    tabIndex="0"
+                    className="productsList lg:my-4 lg:p-10 dropdown-content lg:overflow-hidden overflow-y-auto flex"
+                    style={{ height: "600px" }}
+                  >
+                    <div className="flex-1 mr-4 w-full">
+                      <li className="part1 h-full">
+                        <div className="categories">
+                          <h1 className="">CATEGORIES</h1>
+                        </div>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Living Room</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Bedroom</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Dining</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Home office</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Lightning</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Outdoor</span>
+                        </Link>
+                      </li>
+                    </div>
+
+                    <div className="flex-1 mr-4 w-full">
+                      <li className="part1 pl-2 h-full">
+                        <div className="categories">
+                          <h1 className="">ITEM TYPE</h1>
+                        </div>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">
+                            Sofas, Sectionals, & Sleepers
+                          </span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Chairs</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Coffee Tables</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Side Tables</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">
+                            Ottomans, Stools, & Benches
+                          </span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Beds & Mattresses</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Nightstands & Dressers </span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Dining Tables</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">
+                            Dining Chairs & Counter Stools
+                          </span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Cabinets & Consoles</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">
+                            Desks, Desk Chairs, & Bookshelves
+                          </span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Rugs & Artwork</span>
+                        </Link>
+                      </li>
+                    </div>
+
+                    <div className="flex-1">
+                      <li className="part">
+                        <div className="categories">
+                          <h1 className="">PACKAGES</h1>
+                        </div>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Industrial</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Eclectic</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Art Deco</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Scandinavian</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Rustic</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Neutral</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Monochrome</span>
+                        </Link>
+                        <Link to="productListing" className="block my-5">
+                          <span className="list">Traditional</span>
+                        </Link>
+                      </li>
+                    </div>
+                  </ul>
                 </div>
 
-                <div className="flex-1 mr-4 w-full">
-                  <li className="part1 h-full">
-                    <div className="categories">
-                      <h1 className="">ITEM TYPE</h1>
-                    </div>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">
-                        Sofas, Sectionals, & Sleepers
-                      </span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Chairs</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Coffee Tables</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Side Tables</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">
-                        Ottomans, Stools, & Benches
-                      </span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Beds & Mattresses</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Nightstands & Dressers </span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Dining Tables</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">
-                        Dining Chairs & Counter Stools
-                      </span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Cabinets & Consoles</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">
-                        Desks, Desk Chairs, & Bookshelves
-                      </span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Rugs & Artwork</span>
+                <div className="dropdown">
+                  <li className="">
+                    <Link
+                      to="#"
+                      className=" navElements block md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Account
                     </Link>
                   </li>
-                </div>
 
-                <div className="flex-1">
-                  <li className="part">
-                    <div className="categories">
-                      <h1 className="">PACKAGES</h1>
-                    </div>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Industrial</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Eclectic</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Art Deco</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Scandinavian</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Rustic</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Neutral</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Monochrome</span>
-                    </Link>
-                    <Link to="productListing" className="block my-5">
-                      <span className="list">Traditional</span>
-                    </Link>
-                  </li>
+                  <ul
+                    tabIndex="0"
+                    className="account menu menu-lg dropdown-content lg:my-4"
+                  >
+                    <li>
+                      <Link to="login">Login</Link>
+                      <Link to="signup">
+                        Signup <span className="badge bg-orange-500">New</span>
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
               </ul>
             </div>
-
-            <div className="dropdown">
-              <li className="">
-                <Link to="#"
-                  className=" navElements block md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Account
-                </Link>
-              </li>
-
-              <ul tabIndex="0" className="account menu menu-lg dropdown-content lg:my-4">
-                <li>
-                  <Link to="login">Login</Link>
-                  <Link to="signup">
-                    Signup <span className="badge bg-orange-500">New</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            
-          </ul>
+          </div>
         </div>
-        </div>
-
-        </div>
-
 
         <div className="navbar-center hover:cursor-pointer">
           <div className="flex-1">
@@ -296,7 +304,6 @@ useEffect(() => {
           </div>
         </div>
       </div>
-
     </header>
   );
 }
