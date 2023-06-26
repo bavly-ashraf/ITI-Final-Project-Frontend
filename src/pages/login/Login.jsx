@@ -92,10 +92,11 @@ export default function App() {
         if (error.response && error.response.data) {
           // setValidationErrors({ error: error.response.data.message });
           setValidationErrors({
-            email: error.response.data.message,
+            email: "   ",
             password: error.response.data.message,
           });
           console.log(error.response.data.message);
+          console.log(error.response);
           console.log(error.response);
         }
       }
