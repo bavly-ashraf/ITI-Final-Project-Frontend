@@ -37,7 +37,7 @@ const ProductListing = () => {
         {/* Page Buttons (Add & sort) */}
         <div className='flex justify-end me-32'>
         {isAdmin && <>
-        <div onClick={()=>this.my_modal_1.showModal()} className='btn btn-success m-3'>Add New Product</div>
+        <div onClick={()=>window.my_modal_1.showModal()} className='btn btn-success m-3'>Add New Product</div>
         <AddEditModal />
         </>}
         <details className="dropdown z-0">
