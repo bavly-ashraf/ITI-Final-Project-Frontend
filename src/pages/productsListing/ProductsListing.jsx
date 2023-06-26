@@ -45,7 +45,6 @@ const ProductListing = () => {
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                 <li><a>Price: High to Low</a></li>
                 <li><a>Price: Low to High</a></li>
-                <li><a>A to Z</a></li>
             </ul>
         </details>
         </div>
@@ -99,7 +98,7 @@ const ProductListing = () => {
                 <div className='flex justify-center md:justify-start flex-wrap gap-4'>
                 {filteredProducts.map((product)=><Product key={product.id} product={product} isAdmin={isAdmin} />)}
                 </div>
-                {pageArr.length > 1 && <div className="join my-4">
+                {pageArr.length > 1 && <div className="join my-4 m-auto">
                     {pageArr.map((page)=><input key={page} onClick={()=>{setCurrentPage(page); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`join-item btn btn-square ${currentPage == page && "!bg-project-main-color !text-white !border-project-main-color"}`} type="radio" name="options" aria-label={page} />)}
                 </div>}
             </main>
