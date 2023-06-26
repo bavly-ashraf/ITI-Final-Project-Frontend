@@ -67,7 +67,6 @@
 
 .part1::after {
   content: "";
-  /* display: block; */
   position: absolute;
   right: 0px;
   top: 0px;
@@ -78,7 +77,6 @@
 
 .productsList {
   width: 80vw;
-  /* overflow: hidden; */
 }
 
 .productsList .list {
