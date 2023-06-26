@@ -95,10 +95,10 @@ const ProductListing = () => {
             </aside>
             {/* Products */}
             <main className='flex flex-col items-center mx-4'>
-                <div className='flex justify-center md:justify-start flex-wrap gap-4'>
+                <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
                 {filteredProducts.map((product)=><Product key={product.id} product={product} isAdmin={isAdmin} />)}
                 </div>
-                {pageArr.length > 1 && <div className="join my-4 m-auto">
+                {pageArr.length > 1 && <div className="join my-4">
                     {pageArr.map((page)=><input key={page} onClick={()=>{setCurrentPage(page); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`join-item btn btn-square ${currentPage == page && "!bg-project-main-color !text-white !border-project-main-color"}`} type="radio" name="options" aria-label={page} />)}
                 </div>}
             </main>
