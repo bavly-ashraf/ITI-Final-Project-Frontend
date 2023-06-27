@@ -10,6 +10,7 @@ import ProductDetails from "../pages/productDetails/ProductDetails";
 import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
+import OrderStatus from "../components/orderStatus/OrderStatus" 
 import ProductListing from "../pages/productsListing/ProductsListing";
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/loading" element={<LoadingAnimation />} />
       <Route path="/*" element={<NotFound />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      <Route path="/OrderStatus" element={<OrderStatus />} />
       <Route path="/ProductListing" element={<ProductListing />} />
       <Route path="/ProductDetails" element={<ProductDetails />} />
       <Route path="/CartItem" element={<CartItem />} />
