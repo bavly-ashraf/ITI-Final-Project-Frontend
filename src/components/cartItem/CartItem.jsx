@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 const CartItem = () => {
   return (
+    <div>
+      <div className="p-40">
     <section className="flex flex-wrap">
       {/* header */}
       <div className="w-full flex justify-between">
@@ -19,8 +21,9 @@ const CartItem = () => {
       </div>
 
       <section className="w-full flex flex-wrap justify-around">
-        <section className="flex  shadow-lg shadow-bg-slate-200-500/50 border-2 border-indigo-950">
-          <figure className="border-2 border-indigo-950">
+        <div className="block">
+        <section className="flex shadow-lg shadow-bg-slate-200-500/50  my-3">
+          <figure className="">
             <img
               className="w-40 h-20 "
               src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80.png"
@@ -28,22 +31,22 @@ const CartItem = () => {
             />
           </figure>
 
-          <div className=" border-2 border-indigo-500">
+          <div className="px-3">
             <h2 className="custom-font-bold text-xl">KLIPPAN</h2>
             <div className="custom-font-bold text-xl">$225</div>
           </div>
 
-          <div className="border-2 border-indigo-400">
+          <div className="px-3">
             <button className="w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300">
               -
             </button>
-            <button className="">1</button>
+            <button className="px-3">1</button>
             <button className="w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300">
               +
             </button>
           </div>
 
-          <div className="border-2 border-green-500">
+          <div className="px-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,7 +63,10 @@ const CartItem = () => {
             </svg>
           </div>
         </section>
-
+        
+        
+        </div>
+        
         {/* Order Summary */}
         <section className="p-3 m-5 bg-orange-100">
           <h2 className="custom-font-bold"> Order Summary</h2>
@@ -86,8 +92,13 @@ const CartItem = () => {
             </button>
           </div>
         </section>
+        
       </section>
+      
+
     </section>
+    </div>
+    </div>
   );
 };
 
