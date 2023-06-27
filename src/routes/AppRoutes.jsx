@@ -10,19 +10,55 @@ import ProductDetails from "../pages/productDetails/ProductDetails";
 import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
+import RequireAuth from "../context/RequireAuth";
+import Unauthorized from "../pages/unauthorised/Unauthorized";
+// const ROLES = {
+//   User: 2001,
+//   Editor: 1984,
+//   Admin: 5150,
+// };
 const AppRoutes = () => {
   return (
+    // <Routes>
+    //   <Route path="/login" element={<Login />} />
+    //   <Route path="/signup" element={<SignUp />} />
+    //   <Route path="/" element={<Home />} />
+    //   <Route path="/loading" element={<LoadingAnimation />} />
+    //   <Route path="/*" element={<NotFound />} />
+    //   <Route path="/ForgotPassword" element={<ForgotPassword />} />
+    //   <Route path="/ProductDetails" element={<ProductDetails />} />
+    //   <Route path="/CartItem" element={<CartItem />} />
+    //   <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+    //   <Route path="/About" element={<About />} />
+    // </Routes>
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/" element={<Home />} />
       <Route path="/loading" element={<LoadingAnimation />} />
-      <Route path="/*" element={<NotFound />} />
-      <Route path="/ForgotPassword" element={<ForgotPassword />} />
-      <Route path="/ProductDetails" element={<ProductDetails />} />
-      <Route path="/CartItem" element={<CartItem />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/productdetails" element={<ProductDetails />} />
+      {/* <Route path="/cartitem" element={<CartItem />} /> */}
+      <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-      <Route path="/About" element={<About />} />
+
+      {/* restrict access to this route to users with the 'Admin' role */}
+
+      <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+        <Route path="/cartitem" element={<CartItem />} />
+      </Route>
+
+      <Route
+        path="/about"
+        element={
+          <RequireAuth allowedRoles={["admin"]}>
+            <About />
+          </RequireAuth>
+        }
+      />
+      {/* <Route path="/about" element={<About />} /> */}
+
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };

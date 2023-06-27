@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./Login.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -27,43 +29,11 @@ export default function App() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const { setAuth } = useAuth();
 
-  // const onSubmit = (data) => {
-  //   const { error } = schema.validate(data, { abortEarly: false });
-  //   if (error) {
-  //     const validationErrors = {};
-  //     error.details.forEach((detail) => {
-  //       validationErrors[detail.context.key] = detail.message;
-  //     });
-  //     setValidationErrors(validationErrors);
-  //   } else {
-  //     console.log("Form submitted:", data);
-  //     setValidationErrors({});
-  //     console.log(data);
-  //   }
-  // };
-  // const onSubmit = async (data) => {
-  //   const { error } = schema.validate(data, { abortEarly: false });
-  //   if (error) {
-  //     const validationErrors = {};
-  //     error.details.forEach((detail) => {
-  //       validationErrors[detail.context.key] = detail.message;
-  //     });
-  //     setValidationErrors(validationErrors);
-  //   } else {
-  //     try {
-  //       console.log("helllo world");
-  //       const response = await axios.post("http://localhost:3000/login", data);
-  //       console.log("Login successful:", response.data, response.data.message);
-
-  //       setValidationErrors({});
-  //     } catch (error) {
-  //       console.error("An error occurred:", error);
-  //       if (error.response && error.response.data) {
-  //         setValidationErrors({ error: error.response.data.error });
-  //       }
-  //     }
-  //   }
+  const [user, setUser] = useState("");
+  const [pwd, setPwd] = useState("");
+  ////////
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
@@ -79,7 +49,20 @@ export default function App() {
           "http://localhost:3000/users/login",
           data
         );
+
         console.log("Login successful:", response.data, response.data.message);
+        // const { user, token } = response.data;
+        // Store the user and token in local storage
+        // localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("token", token);
+        // sessionStorage.setItem("token", response.data.token);
+        const { token, user } = response.data; // Extract token and user from the response
+        const roles = response?.data?.roles;
+        console.log(user, token, roles);
+        setAuth({ user, roles, token }); // Pass user and token to setAuth
+
+        setUser("");
+        setPwd("");
         navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});
