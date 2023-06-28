@@ -35,18 +35,18 @@ const ProductListing = () => {
         {/* Header */}
         <h1 className='text-5xl text-center text-black m-3 dark:text-white'>Category Name</h1>
         {/* Page Buttons (Add & sort) */}
-        <div className='flex justify-end me-32'>
-        {isAdmin && <>
-        <div onClick={()=>window.my_modal_1.showModal()} className='btn btn-success m-3'>Add New Product</div>
-        <AddEditModal />
-        </>}
-        <details className="dropdown z-0">
-            <summary className="m-3 btn hover:bg-project-main-color hover:text-white">sort by</summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                <li><a>Price: High to Low</a></li>
-                <li><a>Price: Low to High</a></li>
-            </ul>
-        </details>
+        <div className='flex justify-end me-32 mt-16'>
+            {isAdmin && <>
+            <div onClick={()=>window.my_modal_1.showModal()} className='btn btn-success m-3'>Add New Product</div>
+            <AddEditModal />
+            </>}
+            <details className="dropdown">
+                <summary className="m-3 btn hover:bg-project-main-color hover:text-white">sort by</summary>
+                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                    <li><a>Price: High to Low</a></li>
+                    <li><a>Price: Low to High</a></li>
+                </ul>
+            </details>
         </div>
         {/* Products & Sidebar */}
         <div className='flex gap-6 mb-5'>
@@ -60,7 +60,21 @@ const ProductListing = () => {
                     </div> 
                     <div className="drawer-side">
                         <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
-                        <ul className="menu bg-base-200 w-56 rounded-box">
+                        <ul className="menu bg-base-200 rounded-box">
+                        <div className="divider"></div>
+                            <li>
+                                <details open>
+                                <summary className='text-xl'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                Search for certain product
+                                </summary>
+                                <ul>
+                                    <li><input className='h-10 border-2 border-gray-500 focus:border-black w-11/12 p-3 m-auto' type='text' placeholder='Search' /></li>
+                                </ul>
+                                </details>
+                            </li>
                             <div className="divider"></div>
                             <li>
                                 <details open>
@@ -94,11 +108,11 @@ const ProductListing = () => {
                 
             </aside>
             {/* Products */}
-            <main className='flex flex-col items-center mx-4'>
+            <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
                 {filteredProducts.map((product)=><Product key={product.id} product={product} isAdmin={isAdmin} />)}
                 </div>
-                {pageArr.length > 1 && <div className="join my-4">
+                {pageArr.length > 1 && <div className="join my-4 flex justify-center w-full">
                     {pageArr.map((page)=><input key={page} onClick={()=>{setCurrentPage(page); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`join-item btn btn-square ${currentPage == page && "!bg-project-main-color !text-white !border-project-main-color"}`} type="radio" name="options" aria-label={page} />)}
                 </div>}
             </main>
