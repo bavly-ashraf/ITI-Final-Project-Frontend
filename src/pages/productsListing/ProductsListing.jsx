@@ -37,7 +37,7 @@ const ProductListing = () => {
         {/* Page Buttons (Add & sort) */}
         <div className='flex justify-end me-32 mt-16'>
             {isAdmin && <>
-            <div onClick={()=>window.my_modal_1.showModal()} className='btn btn-success m-3'>Add New Product</div>
+            <div onClick={()=>window.my_modal.showModal()} className='btn btn-success m-3'>Add New Product</div>
             <AddEditModal />
             </>}
             <details className="dropdown">
@@ -110,7 +110,7 @@ const ProductListing = () => {
             {/* Products */}
             <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
-                {filteredProducts.map((product)=><Product key={product.id} product={product} isAdmin={isAdmin} />)}
+                {filteredProducts.map((product,idx)=><Product key={product.id} index={idx} product={product} isAdmin={isAdmin} />)}
                 </div>
                 {pageArr.length > 1 && <div className="join my-4 flex justify-center w-full">
                     {pageArr.map((page)=><input key={page} onClick={()=>{setCurrentPage(page); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`join-item btn btn-square ${currentPage == page && "!bg-project-main-color !text-white !border-project-main-color"}`} type="radio" name="options" aria-label={page} />)}
