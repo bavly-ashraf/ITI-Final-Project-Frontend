@@ -93,17 +93,50 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
+// console.log(auth.roles);
+console.log("hey from auth");
+// const RequireAuth = ({ allowedRoles }) => {
+//   const { auth } = useAuth();
+//   const location = useLocation();
+
+//   return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
+//     <Outlet />
+//   ) : auth?.user ? (
+//     <Navigate to="/signup" state={{ from: location }} replace />
+//   ) : (
+//     <Navigate to="/forgetpassword" state={{ from: location }} replace />
+//   );
+// };
+
+// export default RequireAuth;
+// const RequireAuth = ({ allowedRoles }) => {
+//   const { auth } = useAuth();
+//   const location = useLocation();
+
+//   return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
+//     <Outlet />
+//   ) : auth?.user ? (
+//     <Navigate to="/signup" state={{ from: location }} replace />
+//   ) : (
+//     <Navigate to="/forgetpassword" state={{ from: location }} replace />
+//   );
+// };
+
+// export default RequireAuth;
+
 const RequireAuth = ({ allowedRoles }) => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
-    <Outlet />
-  ) : auth?.user ? (
-    <Navigate to="/signup" state={{ from: location }} replace />
-  ) : (
-    <Navigate to="/forgetpassword" state={{ from: location }} replace />
-  );
+  if (!auth.user) {
+    return <Navigate to="/forgetpassword" state={{ from: location }} replace />;
+  }
+
+  if (!allowedRoles.includes(auth.roles)) {
+    return <Navigate to="/signup" state={{ from: location }} replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default RequireAuth;

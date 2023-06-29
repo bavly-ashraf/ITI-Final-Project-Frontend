@@ -57,7 +57,9 @@ export default function App() {
         // localStorage.setItem("token", token);
         // sessionStorage.setItem("token", response.data.token);
         const { token, user } = response.data; // Extract token and user from the response
-        const roles = response?.data?.roles;
+        // const roles = response?.data?.roles;
+        const roles = response?.data?.user.role;
+        console.log(roles);
         console.log(user, token, roles);
         setAuth({ user, roles, token }); // Pass user and token to setAuth
 

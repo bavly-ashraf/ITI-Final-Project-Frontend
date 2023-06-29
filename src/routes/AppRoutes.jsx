@@ -13,10 +13,17 @@ import About from "../pages/about/About";
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
 // const ROLES = {
-//   User: 2001,
-//   Editor: 1984,
-//   Admin: 5150,
+//   User: "user",
+//   // Editor: 1984,
+//   // Admin: 5150,
+//   Admin: "Admin",
 // };
+const ROLES = {
+  User: "user",
+  Admin: "admin",
+};
+console.log("hey there122");
+
 const AppRoutes = () => {
   return (
     // <Routes>
@@ -44,14 +51,14 @@ const AppRoutes = () => {
 
       {/* restrict access to this route to users with the 'Admin' role */}
 
-      <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+      <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
       </Route>
 
       <Route
         path="/about"
         element={
-          <RequireAuth allowedRoles={["admin"]}>
+          <RequireAuth allowedRoles={[ROLES.Admin]}>
             <About />
           </RequireAuth>
         }
