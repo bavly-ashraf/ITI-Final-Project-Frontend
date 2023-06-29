@@ -129,11 +129,11 @@ const RequireAuth = ({ allowedRoles }) => {
   const location = useLocation();
 
   if (!auth.user) {
-    return <Navigate to="/forgetpassword" state={{ from: location }} replace />;
+    return <Navigate to="/productdetails" state={{ from: location }} replace />;
   }
 
   if (!allowedRoles.includes(auth.roles)) {
-    return <Navigate to="/signup" state={{ from: location }} replace />;
+    return <Navigate to="/unauthorized" state={{ from: location }} replace />;
   }
 
   return <Outlet />;
