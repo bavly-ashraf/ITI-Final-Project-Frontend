@@ -110,7 +110,13 @@ const ProductListing = () => {
             {/* Products */}
             <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
-                {filteredProducts.map((product,idx)=><Product key={product.id} index={idx} product={product} isAdmin={isAdmin} />)}
+                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product.id} index={idx} product={product} isAdmin={isAdmin} />) : 
+                <div className='flex flex-col w-full items-center justify-center gap-4'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-20 h-20">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                    <h1 className='text-project-main-color custom-font custom-font-bold !text-4xl'>No products to show</h1>
+                </div>}
                 </div>
                 {pageArr.length > 1 && <div className="join my-4 flex justify-center w-full">
                     {pageArr.map((page)=><input key={page} onClick={()=>{setCurrentPage(page); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`join-item btn btn-square ${currentPage == page && "!bg-project-main-color !text-white !border-project-main-color"}`} type="radio" name="options" aria-label={page} />)}
