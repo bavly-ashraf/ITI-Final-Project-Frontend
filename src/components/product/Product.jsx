@@ -9,12 +9,12 @@ const Product = ({index,product,isAdmin}) => {
         <>
         {/* hover:-translate-y-6 */}
         <div className='w-72 bg-white pb-2 rounded-xl hover:scale-105 ease-in-out duration-300'> 
-            <Link to='/ProductDetails'><figure><img className='rounded-xl w-[288px] h-[288px]' src={product?.Img} alt={product?.name} /></figure></Link>
+            <Link to='/ProductDetails'><figure><img className='rounded-xl w-[288px] h-[288px]' src={product?.photo_url[0]} alt={product?.name} /></figure></Link>
             <h2 className="card-title px-2 text-black">
                 {product?.name}
                 <div className="badge badge-secondary">NEW</div>
             </h2>
-            <p className='text-black px-2'>{product?.description}</p>
+            <p className='text-black px-2'>{product?.details?.description}</p>
             <p className='text-project-main-color text-xl font-bold text-center py-2'>{product?.price}</p>
             <div className='flex justify-evenly text-black'>
                 {isAdmin?

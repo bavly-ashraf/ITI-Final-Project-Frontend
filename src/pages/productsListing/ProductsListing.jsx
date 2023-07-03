@@ -11,15 +11,31 @@ const ProductListing = () => {
     const [currentPage,setCurrentPage] = useState(1);
     useEffect(()=>{
         (async()=>{
-            const {data} = await axios.get('http://localhost:3000/products');
+            const {data} = await axios.get('http://localhost:3000/products/all');
             setProducts(data);
+            // console.log(data);
         })()
     }
     ,[]);
 
+    // sorting
+    const handleSorting = async(sortingOrder)=>{
+        const {data} = await axios.get(`http://localhost:3000/products/${sortingOrder}`);
+        // console.log(data);
+        setProducts(data);
+    }
+
     // filteration
+    // const handleFiltering = ()=>{
+
+    // }
 
     // search
+    const handleSearch = async(e)=>{
+        const {data} = await axios.get(`http://localhost:3000/products/?product=${e.target.value}`);
+        console.log(data);
+        setProducts(data);
+    }
 
     // pagination
     const PAGE_SIZE = 9;
@@ -43,8 +59,8 @@ const ProductListing = () => {
             <details className="dropdown">
                 <summary className="m-3 btn hover:bg-project-main-color hover:text-white">sort by</summary>
                 <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                    <li><a>Price: High to Low</a></li>
-                    <li><a>Price: Low to High</a></li>
+                    <li><a onClick={()=>handleSorting("highest")}>Price: High to Low</a></li>
+                    <li><a onClick={()=>handleSorting("lowest")}>Price: Low to High</a></li>
                 </ul>
             </details>
         </div>
@@ -71,7 +87,7 @@ const ProductListing = () => {
                                 Search for certain product
                                 </summary>
                                 <ul>
-                                    <li><input className='h-10 border-2 border-gray-500 focus:border-black w-11/12 p-3 m-auto' type='text' placeholder='Search' /></li>
+                                    <li><input onChange={(e)=>handleSearch(e)} className='h-10 border-2 border-gray-500 focus:border-black w-11/12 p-3 m-auto' type='text' placeholder='Search' /></li>
                                 </ul>
                                 </details>
                             </li>
@@ -110,7 +126,7 @@ const ProductListing = () => {
             {/* Products */}
             <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
-                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product.id} index={idx} product={product} isAdmin={isAdmin} />) : 
+                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} index={idx} product={product} isAdmin={isAdmin} />) : 
                 <div className='flex flex-col w-full items-center justify-center gap-4'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-20 h-20">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
