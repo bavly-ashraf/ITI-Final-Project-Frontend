@@ -13,7 +13,7 @@ import About from "../pages/about/About";
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
 import Profile from "../pages/profile/Profile";
-import OrderStatus from "../components/orderStatus/OrderStatus" 
+import OrderStatus from "../components/orderStatus/OrderStatus";
 import ProductListing from "../pages/productsListing/ProductsListing";
 // const ROLES = {
 //   User: "user",
@@ -26,7 +26,6 @@ const ROLES = {
   Admin: "admin",
 };
 console.log("hey there122");
-
 
 const AppRoutes = () => {
   return (
@@ -52,17 +51,17 @@ const AppRoutes = () => {
       <Route path="/productdetails" element={<ProductDetails />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
       <Route path="/unauthorized" element={<Unauthorized />} />
-              <Route path="/ProductListing" element={<ProductListing />} />
+      <Route path="/ProductListing" element={<ProductListing />} />
       <Route path="/OrderStatus" element={<OrderStatus />} />
-
+      <Route path="/cartitem" element={<CartItem />} />
 
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
 
-      <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
+      {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
-      </Route>
+      </Route> */}
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/signup" element={<SignUp />} />
