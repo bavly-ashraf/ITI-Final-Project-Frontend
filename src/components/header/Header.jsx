@@ -1,11 +1,14 @@
-import React from "react";
+import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./Header.css";
 // Initialization for ES Users
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
+import { AuthContext } from "../../context/AuthProvider";
 
 function Header() {
+  const { auth } = useContext(AuthContext);
+
   useEffect(() => {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
@@ -279,7 +282,9 @@ function Header() {
                 className="profile menu menu-lg dropdown-content my-2"
               >
                 <li>
-                  <Link>Username</Link>
+                  <Link>
+                    <div>{auth.user.username || "username"}</div>
+                  </Link>
                   <Link to="orderStatus">Order status</Link>
                   <Link to="favouriteList" className="icon">
                     Favourites
