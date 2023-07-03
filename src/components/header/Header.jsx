@@ -283,7 +283,7 @@ function Header() {
               >
                 <li>
                   <Link>
-                    <div>{auth.user.username || "username"}</div>
+                    <div>{auth.user?.username || "username"}</div>
                   </Link>
                   <Link to="orderStatus">Order status</Link>
                   <Link to="favouriteList" className="icon">
