@@ -391,7 +391,11 @@ export const AuthProvider = ({ children }) => {
         children
       ) : (
         // Handle the case when user data couldn't be fetched
-        <div>Error fetching user data</div>
+
+        <div>
+          {children}
+          {/* <p>Error fetching user data</p> */}
+        </div>
       )}
     </AuthContext.Provider>
   );
