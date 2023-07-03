@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
-import "./Login.css";
+import "./Profile.css";
 // import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 // import axios from "axios";
@@ -10,8 +10,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 const LOGIN_URL = "/users/login";
+const PROFILE_URL = "/users/profile";
 
 const schema = Joi.object({
+  username: Joi.string().required().label("Username"),
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required()
@@ -20,23 +22,42 @@ const schema = Joi.object({
     .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
     .required()
     .label("Password"),
+  address: Joi.object({
+    apartment: Joi.string().required().label("apartment"),
+    floor: Joi.string().allow("").label("Floor"),
+    buildingNo: Joi.string().allow("").label("Building Number"),
+    street: Joi.string().allow("").label("Street"),
+    zip: Joi.string().allow("").label("ZIP"),
+    city: Joi.string().allow("").label("City"),
+    country: Joi.string().allow("").label("Country"),
+  }),
+  phone: Joi.string().allow("").label("Phone"),
 });
 
-export default function App() {
+function Profile() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({}); //new
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   // const { setAuth } = useAuth();
-  // const { setAuth, persist } = useAuth();
-  const { persist } = useAuth();
 
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
+  const fetchUserProfile = async () => {
+    try {
+      console.log("Fetching user profile...");
+      const response = await axios.get(PROFILE_URL);
+
+      console.log("User profile:", response.data);
+      setUserData(response.data);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
   ////////
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
@@ -57,16 +78,8 @@ export default function App() {
         // localStorage.setItem("user", JSON.stringify(user));
         // localStorage.setItem("token", token);
         // sessionStorage.setItem("token", response.data.token);
-        const { token, user } = response.data; // Extract token and user from the response
         // const roles = response?.data?.roles;
-        const roles = response?.data?.user.role;
-        console.log(roles);
-        console.log(user, token, roles);
-        const accessToken = token;
-        // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
-        persist({ user, roles, accessToken: token });
-        setUser("");
-        setPwd("");
+
         navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});
@@ -89,6 +102,9 @@ export default function App() {
       }
     }
   };
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
 
   return (
     <section
@@ -152,7 +168,6 @@ export default function App() {
               {validationErrors.email && (
                 <p className="text-red-500 text-sm">{validationErrors.email}</p>
               )}
-
               <div
                 className={`relative border-b-2 ${
                   validationErrors.password
@@ -201,67 +216,87 @@ export default function App() {
                   {validationErrors.password}
                 </p>
               )}
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-black dark:bg-gray-700 dark:border-gray-600 dark:"
-                      required
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-
-                {/* Open the modal using ID.showModal() method */}
-
-                <a
-                  href="#"
-                  onClick={() => window.my_modal_2.showModal()}
-                  className="modal-link"
+              /////////////////////////
+              <div
+                className={`relative border-b-2 ${
+                  validationErrors.username
+                    ? "border-red-500"
+                    : "border-zinc-950"
+                }`}
+              >
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  ref={register}
+                  className={`active:bg-transparent focus:ring-0 peer h-10 w-full border-b-2 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none mr-3 py-1 px-2 leading-tight focus:outline-none  ${
+                    validationErrors.username
+                      ? "border-red-500  text-red-500 "
+                      : ""
+                  }`}
+                  style={{
+                    backgroundColor: "fbf8f5",
+                    transition: "background-color 0.66s",
+                  }}
+                  placeholder=" "
+                  required
+                  {...register("username")}
+                />
+                <label
+                  htmlFor="username"
+                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${
+                    validationErrors.username ? "text-red-500" : ""
+                  }`}
                 >
-                  Forgot password?
-                </a>
-
-                <dialog id="my_modal_2" className="modal">
-                  <div
-                    style={{ backgroundColor: "#fbf8f5" }}
-                    method="dialog"
-                    className="modal-box bg-gray-50 dark:bg-gray-900 p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24"
-                  >
-                    {/* Links */}
-                    <div className="flex flex-col  items-center space-y-10 text-center">
-                      <p className="text-black text-3xl font-bold">
-                        Need help signing in?
-                      </p>
-                      <Link
-                        to="/ForgotPassword"
-                        className="text-black text-lg hover:underline dark:text-primary-500"
-                      >
-                        <button
-                          style={{ backgroundColor: "#E9672B" }}
-                          className="transform hover:scale-105 active:scale-100 rounded-full w-full text-lg font-bold px-6 py-3 text-center whitespace-nowrap overflow-hidden"
-                        >
-                          Reset Your password
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                  <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                  </form>
-                </dialog>
+                  Username
+                </label>
               </div>
+              {validationErrors.username && (
+                <p className="text-red-500 text-sm">
+                  {validationErrors.username}
+                </p>
+              )}
+              ////////////////////////////////////
+              <div
+                className={`relative border-b-2 ${
+                  validationErrors.apartment
+                    ? "border-red-500"
+                    : "border-zinc-950"
+                }`}
+              >
+                <input
+                  type="text"
+                  name="apartment"
+                  id="apartment"
+                  ref={register}
+                  className={`active:bg-transparent focus:ring-0 peer h-10 w-full border-b-2 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none mr-3 py-1 px-2 leading-tight focus:outline-none  ${
+                    validationErrors.apartment
+                      ? "border-red-500  text-red-500 "
+                      : ""
+                  }`}
+                  style={{
+                    backgroundColor: "fbf8f5",
+                    transition: "background-color 0.66s",
+                  }}
+                  placeholder=" "
+                  required
+                  {...register("apartment")}
+                />
+                <label
+                  htmlFor="apartment"
+                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${
+                    validationErrors.apartment ? "text-red-500" : ""
+                  }`}
+                >
+                  apartment
+                </label>
+              </div>
+              {validationErrors.apartment && (
+                <p className="text-red-500 text-sm">
+                  {validationErrors.apartment}
+                </p>
+              )}
+              ////// ///////////////////
               <div className="flex justify-center">
                 <button
                   type="submit"
@@ -269,21 +304,9 @@ export default function App() {
                   className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center transform hover:scale-105 active:scale-100 "
                   // bg-orange-500 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-600
                 >
-                  Sign in
+                  Submit
                 </button>
               </div>
-
-              <p
-                style={{ color: "#E9672B" }}
-                className="text-center text-lg text-gray-500 dark:text-gray-400"
-              >
-                <Link
-                  to="/signup"
-                  className="font-bold underline text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Create an Account
-                </Link>
-              </p>
             </form>
           </div>
         </div>
@@ -291,3 +314,4 @@ export default function App() {
     </section>
   );
 }
+export default Profile;
