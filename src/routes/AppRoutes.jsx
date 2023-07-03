@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Login from "../pages/login/Login";
@@ -12,6 +11,7 @@ import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
+import Profile from "../pages/profile/Profile";
 // const ROLES = {
 //   User: "user",
 //   // Editor: 1984,
@@ -48,21 +48,21 @@ const AppRoutes = () => {
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-
+      <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
 
-      <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+      <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
       </Route>
 
-      <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+      <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/signup" element={<SignUp />} />
       </Route>
 
       <Route
         path="/about"
         element={
-          <RequireAuth allowedRoles={[ROLES.Admin]}>
+          <RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]}>
             <About />
           </RequireAuth>
         }
