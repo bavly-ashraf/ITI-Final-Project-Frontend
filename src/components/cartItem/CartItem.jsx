@@ -53,7 +53,9 @@ const CartItem = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
+
               className="w-6 h-6 bg-white text-orange-500 hover:bg-orange-500 hover:text-white"
+
             >
               <path
                 strokeLinecap="round"
