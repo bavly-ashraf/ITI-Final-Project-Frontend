@@ -5,10 +5,23 @@ import "./Header.css";
 // Initialization for ES Users
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../context/AuthProvider";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Header() {
-  const { auth } = useContext(AuthContext);
+  const { auth, clear } = useContext(AuthContext);
+  const navigate = useNavigate();
+  /////////
 
+  const handleLogout = () => {
+    clear();
+    console.log("hello");
+
+    navigate("/"); // Programmatically navigate to the login page
+
+    // Redirect to the login page or any other destination
+  };
+
+  //////////////
   useEffect(() => {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
@@ -285,6 +298,11 @@ function Header() {
                   <Link>
                     <div>{auth.user?.username || "username"}</div>
                   </Link>
+                  {auth.accessToken ? (
+                    <div>
+                      <button onClick={handleLogout}>Logout</button>
+                    </div>
+                  ) : null}
                   <Link to="orderStatus">Order status</Link>
                   <Link to="favouriteList" className="icon">
                     Favourites
