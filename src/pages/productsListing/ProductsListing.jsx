@@ -26,15 +26,27 @@ const ProductListing = () => {
     }
 
     // filteration
-    // const handleFiltering = ()=>{
-
-    // }
+    let min = 0;
+    let max = Infinity;
+    const handleFiltering = async(e)=>{
+        switch(e.target.name){
+            case "min" : min = e.target.value;
+            break;
+            case "max" : max = parseInt(e.target.value);
+            break;
+        }
+        const x = await axios.get("http://localhost:3000/products/filter/all",{data:{category:"test",min,max}});
+        console.log(x);
+    }
 
     // search
     const handleSearch = async(e)=>{
-        const {data} = await axios.get(`http://localhost:3000/products/?product=${e.target.value}`);
-        console.log(data);
-        setProducts(data);
+        try{
+            const {data} = await axios.get(`http://localhost:3000/products/?product=${e.target.value}`);
+            setProducts(data);
+        }catch(e){
+            setProducts([])
+        }
     }
 
     // pagination
@@ -44,6 +56,26 @@ const ProductListing = () => {
     const pageArr = range(noOfPages);
     const startProdNum = (currentPage -1) * PAGE_SIZE;
     const filteredProducts = products.slice(startProdNum,startProdNum+PAGE_SIZE);
+
+    // editing product
+    const handleEdit = async(id)=>{
+        // const {updatedProduct} = await axios.patch(`http://localhost:3000/products/${id}`,)
+        console.log(id);
+    }
+
+    // deleting product
+    const handleDelete = async(id) =>{
+        let indexOfDeletedProd;
+        try{
+            const {deletedProduct} = await axios.delete(`http://localhost:3000/products/${id}`).data;
+            console.log(x);
+            const productsClone = [...products];
+            const deletedProductArr = productsClone.filter((prod,idx)=> {prod._id != id; indexOfDeletedProd = idx});
+            setProducts(deletedProductArr);
+        }catch(e){
+            console.log(e);
+        }
+     }
 
 
     return ( 
@@ -84,7 +116,7 @@ const ProductListing = () => {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                Search for certain product
+                                    Search for certain product
                                 </summary>
                                 <ul>
                                     <li><input onChange={(e)=>handleSearch(e)} className='h-10 border-2 border-gray-500 focus:border-black w-11/12 p-3 m-auto' type='text' placeholder='Search' /></li>
@@ -96,8 +128,10 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Price</summary>
                                 <ul>
-                                    <li><input className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto mb-3' type='number' placeholder='min' /></li>
-                                    <li><input className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto' type='number' placeholder='max' /></li>
+                                    <form onChange={(e)=>handleFiltering(e)}>
+                                        <li><input min={0} name='min' className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto mb-3' type='number' placeholder='min' /></li>
+                                        <li><input min={0} name='max' className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto' type='number' placeholder='max' /></li>
+                                    </form>
                                 </ul>
                                 </details>
                             </li>
@@ -126,7 +160,7 @@ const ProductListing = () => {
             {/* Products */}
             <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
-                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} index={idx} product={product} isAdmin={isAdmin} />) : 
+                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} handleDelete={handleDelete} handleEdit={handleEdit} index={idx} product={product} isAdmin={isAdmin} />) : 
                 <div className='flex flex-col w-full items-center justify-center gap-4'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-20 h-20">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
