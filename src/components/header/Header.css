@@ -67,7 +67,6 @@
 
 .part1::after {
   content: "";
-  /* display: block; */
   position: absolute;
   right: 0px;
   top: 0px;
@@ -78,16 +77,18 @@
 
 .productsList {
   width: 80vw;
-  /* overflow: hidden; */
 }
 
 .productsList .list {
   cursor: pointer;
 }
 
-@media (max-width: 1000px) and (min-width: 769px) {
+@media (max-width: 1024px) and (min-width: 768.0000000001px) {
   .list {
     font-size: 13px;
+  }
+  .dropdown-content {
+    padding: 1rem;
   }
 }
 

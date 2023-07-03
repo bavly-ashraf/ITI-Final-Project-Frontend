@@ -9,9 +9,12 @@ import ProductDetails from "../pages/productDetails/ProductDetails";
 import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
+
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
 import Profile from "../pages/profile/Profile";
+import OrderStatus from "../components/orderStatus/OrderStatus" 
+import ProductListing from "../pages/productsListing/ProductsListing";
 // const ROLES = {
 //   User: "user",
 //   // Editor: 1984,
@@ -23,6 +26,7 @@ const ROLES = {
   Admin: "admin",
 };
 console.log("hey there122");
+
 
 const AppRoutes = () => {
   return (
@@ -43,10 +47,15 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       {/* <Route path="/signup" element={<SignUp />} /> */}
       <Route path="/loading" element={<LoadingAnimation />} />
+
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/productdetails" element={<ProductDetails />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
       <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="/ProductListing" element={<ProductListing />} />
+      <Route path="/OrderStatus" element={<OrderStatus />} />
+
+
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
