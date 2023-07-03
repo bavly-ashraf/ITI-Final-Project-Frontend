@@ -26,6 +26,7 @@ import useAuth from "../hooks/useAuth";
 const RequireAuth = ({ allowedRoles }) => {
   const { auth } = useAuth();
   const location = useLocation();
+  console.log(auth); // Add this line to log the `auth` object
 
   if (!auth.accessToken) {
     return <Navigate to="/productdetails" state={{ from: location }} replace />;

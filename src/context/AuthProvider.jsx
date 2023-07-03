@@ -217,27 +217,123 @@
 //   children: PropTypes.node.isRequired,
 // };
 ///////////////////////////
+// import PropTypes from "prop-types";
+// import { createContext, useState, useEffect } from "react";
+// import axios from "../api/axios";
+// const dataUrl = "/users/userdata";
+// export const AuthContext = createContext({});
+// const getCookie = (name) => {
+//   const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
+//   return cookieValue ? cookieValue.pop() : null;
+// };
+// export const AuthProvider = ({ children }) => {
+//   const [auth, setAuth] = useState({
+//     user: JSON.parse(getCookie("user")),
+//     roles: JSON.parse(getCookie("roles")),
+//     accessToken: getCookie("accessToken"),
+//   });
+
+//   useEffect(() => {
+//     const accessToken = getCookie("accessToken");
+//     if (accessToken) {
+//       setAuth((prevAuth) => ({ ...prevAuth, accessToken }));
+//       fetchUserData(accessToken); // Fetch user data when the accessToken is present
+//     }
+//   }, []);
+
+//   const fetchUserData = async (token) => {
+//     try {
+//       const response = await axios.post(dataUrl, {
+//         token,
+//       });
+//       console.log(response.data);
+//       const roles = response?.data?.user.role;
+
+//       const { user } = response.data;
+
+//       console.log(user, roles);
+//       // setAuth({ token, user, roles });
+//       if (user && roles && token) {
+//         setAuth({ ...auth, user, roles, token });
+//       }
+//       // setAuth((prevAuth) => ({
+//       //   user,
+//       //   roles,
+//       //   token,
+//       // }));
+//     } catch (error) {
+//       console.error("Error fetching user data:", error);
+//     }
+//   };
+
+//   const persist = ({ user, roles, accessToken }) => {
+//     setAuth((prevAuth) => ({ ...prevAuth, user, roles, accessToken }));
+//     if (accessToken) {
+//       setCookie("accessToken", accessToken, 7); // Set the cookie to expire after 7 days
+//       // setCookie("user", JSON.stringify(user), 7);
+//       // setCookie("roles", JSON.stringify(roles), 7);
+//     } else {
+//       deleteCookie("accessToken");
+//       deleteCookie("user");
+//       deleteCookie("roles");
+//     }
+//   };
+
+//   const clear = () => {
+//     setAuth({ user: null, roles: [], accessToken: null });
+//     deleteCookie("accessToken");
+//     deleteCookie("user");
+//     deleteCookie("roles");
+//   };
+
+//   const setCookie = (name, value, days) => {
+//     const expires = new Date(
+//       Date.now() + days * 24 * 60 * 60 * 1000
+//     ).toUTCString();
+//     document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+//   };
+
+//   const deleteCookie = (name) => {
+//     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ auth, persist, clear }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// AuthProvider.propTypes = {
+//   children: PropTypes.node.isRequired,
+// };
 import PropTypes from "prop-types";
 import { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
+import LoadingAnimation from "../components/loadingAnimation/LoadingAnimation";
 const dataUrl = "/users/userdata";
+
 export const AuthContext = createContext({});
+
 const getCookie = (name) => {
   const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
   return cookieValue ? cookieValue.pop() : null;
 };
+
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
-    user: JSON.parse(getCookie("user")),
-    roles: JSON.parse(getCookie("roles")),
     accessToken: getCookie("accessToken"),
   });
+  const [loading, setLoading] = useState(true);
+  const [userDataFetched, setUserDataFetched] = useState(false);
 
   useEffect(() => {
     const accessToken = getCookie("accessToken");
     if (accessToken) {
       setAuth((prevAuth) => ({ ...prevAuth, accessToken }));
       fetchUserData(accessToken); // Fetch user data when the accessToken is present
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -246,22 +342,17 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(dataUrl, {
         token,
       });
-      console.log(response.data);
       const roles = response?.data?.user.role;
-
       const { user } = response.data;
 
-      console.log(user, roles);
-      // setAuth({ token, user, roles });
-      setAuth({ ...auth, user, roles, token });
-
-      // setAuth((prevAuth) => ({
-      //   user,
-      //   roles,
-      //   token,
-      // }));
+      if (user && roles) {
+        setAuth((prevAuth) => ({ ...prevAuth, user, roles }));
+        setUserDataFetched(true);
+      }
     } catch (error) {
       console.error("Error fetching user data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -269,20 +360,14 @@ export const AuthProvider = ({ children }) => {
     setAuth((prevAuth) => ({ ...prevAuth, user, roles, accessToken }));
     if (accessToken) {
       setCookie("accessToken", accessToken, 7); // Set the cookie to expire after 7 days
-      // setCookie("user", JSON.stringify(user), 7);
-      // setCookie("roles", JSON.stringify(roles), 7);
     } else {
       deleteCookie("accessToken");
-      deleteCookie("user");
-      deleteCookie("roles");
     }
   };
 
   const clear = () => {
-    setAuth({ user: null, roles: [], accessToken: null });
+    setAuth({ accessToken: null });
     deleteCookie("accessToken");
-    deleteCookie("user");
-    deleteCookie("roles");
   };
 
   const setCookie = (name, value, days) => {
@@ -298,7 +383,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ auth, persist, clear }}>
-      {children}
+      {loading ? (
+        // Show a loading indicator while fetching user data
+        <LoadingAnimation />
+      ) : userDataFetched ? (
+        // Render the children components once user data has been fetched
+        children
+      ) : (
+        // Handle the case when user data couldn't be fetched
+        <div>Error fetching user data</div>
+      )}
     </AuthContext.Provider>
   );
 };
