@@ -57,6 +57,12 @@ const ProductListing = () => {
     const startProdNum = (currentPage -1) * PAGE_SIZE;
     const filteredProducts = products.slice(startProdNum,startProdNum+PAGE_SIZE);
 
+
+    // adding new product
+    const handleAdd = async(product)=>{
+        console.log(product);
+    }
+
     // editing product
     const handleEdit = async(id)=>{
         // const {updatedProduct} = await axios.patch(`http://localhost:3000/products/${id}`,)
@@ -86,7 +92,7 @@ const ProductListing = () => {
         <div className='flex justify-end me-32 mt-16'>
             {isAdmin && <>
             <div onClick={()=>window.my_modal.showModal()} className='btn btn-success m-3'>Add New Product</div>
-            <AddEditModal />
+            <AddEditModal handleAdd={handleAdd} />
             </>}
             <details className="dropdown">
                 <summary className="m-3 btn hover:bg-project-main-color hover:text-white">sort by</summary>
