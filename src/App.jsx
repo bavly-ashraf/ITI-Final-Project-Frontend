@@ -6,13 +6,13 @@ import Footer from "./components/footer/Footer";
 // import ReactDOM from "react-dom";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
     <>
       <div>
         <Header />
-
         <AppRoutes />
         <Footer />
 
