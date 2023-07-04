@@ -2,26 +2,21 @@ import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./Header.css";
-// Initialization for ES Users
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../context/AuthProvider";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 function Header() {
   const { auth, clear } = useContext(AuthContext);
   const navigate = useNavigate();
-  /////////
 
   const handleLogout = () => {
     clear();
-    console.log("hello");
 
-    navigate("/"); // Programmatically navigate to the login page
-
-    // Redirect to the login page or any other destination
+    navigate("/");
   };
 
-  //////////////
   useEffect(() => {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
@@ -296,7 +291,7 @@ function Header() {
               >
                 <li>
                   <Link>
-                    <div>{auth.user?.username || "username"}</div>
+                    <div>{auth.user?.username || "User"}</div>
                   </Link>
                   {auth.accessToken ? (
                     <div>
