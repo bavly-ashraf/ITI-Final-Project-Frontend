@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Product from '../../components/product/Product'
 import {range} from '../../utils/range';
 import axios from 'axios';
 import AddEditModal from '../../components/add_EditModal/Add_EditModal';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
 const ProductListing = () => {
-    const isAdmin = true;
+    const {auth} = useContext(AuthContext);
+    console.log(auth.roles);
+    const isAdmin = auth.roles == "admin"? true:false;
     const [products, setProducts] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [allCategories,setAllCategories] = useState([]);
