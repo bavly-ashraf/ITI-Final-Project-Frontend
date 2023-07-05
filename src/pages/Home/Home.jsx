@@ -4,34 +4,10 @@ import Header from "../../components/header/Header";
 import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
 import TopRatedReview from "../../components/topRatedReview/TopRatedReview";
+import BestSeller from "../../components/bestSellerProducts/BestSeller";
 
 function Home() {
-  const [products, setProducts] = useState([
-    {
-      pImage:
-        "https://img.livefeather.com/products/cooper-dining-table/images/coo-dtb-01_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName: "Cooper Dining Table",
-      pPrice: "$15",
-    },
-    {
-      pImage:
-        "https://img.livefeather.com/products/croft-media-console/images/cro-med-05_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName: " Croft Media Console",
-      pPrice: "$35",
-    },
-    {
-      pImage:
-        "https://img.livefeather.com/products/essex-dining-chair/images/ess-dch-07_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName: "Essex Dining Chair",
-      pPrice: "$18",
-    },
-    {
-      pImage:
-        "https://img.livefeather.com/products/ludlow-sofa/images/lud-sof-03_silo_1_1x1.tif?auto=compress,format&cs=srgb&dpr=1&fit=max&h=211&q=80&w=211",
-      pName: "Ludlow Sofa",
-      pPrice: "$52",
-    },
-  ]);
+
   const roomCards = [
     {
       img: "//images.ctfassets.net/n33pk8ulkyi3/7xX6oxvlzrv7OybE8rBXo8/d0b4371a818f1fb670a66e140d6f4026/livingsketch.jpg",
@@ -220,52 +196,10 @@ function Home() {
       </section>
 
       {/* Shop our Bestsellers  */}
-      <section className="flex justify-center flex-col items-center overflow-hidden">
-        <h1 className="text-3xl	font-medium mt-12 mb-10 leading-10	">
-          Shop our Bestsellers
-        </h1>
-        <div className="flex flex-row justify-center flex-wrap gap-y-1 lg:w-full  mb-16 overflow-hidden">
-          {products.length ? (
-            products.map((product, index) => (
-              <div
-                key={index}
-                className="flex justify-center product-card living bg-white sm:w-8/12 lg:w-2/12 "
-              >
-                <a to="/" className="text-center">
-                  <div>
-                    <div className="mb-5">
-                      <img className="h-52 object-cover" src={product.pImage} />
-                    </div>
-                  </div>
-                  <div>
-                    <span className="my-4 text-lg text-black product-name 	">
-                      {product.pName}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="mb-4 mt-2 text-lg text-black	">
-                      buy for{" "}
-                      <span
-                        className="text-xl font-bold"
-                        style={{ color: " rgb(233, 103, 43)" }}
-                      >
-                        {" "}
-                        {product.pPrice}
-                      </span>
-                    </p>
-                  </div>
-                </a>
-              </div>
-            ))
-          ) : (
-            <h1>Data Not found</h1>
-          )}
-        </div>
-        <a to="/" className="All-Btn mb-16" href="">
-          Shop All Furniture
-        </a>
-      </section>
+      <BestSeller/>
+
       {/* Shop our Bestsellers  end */}
+
       <div className="grid grid-cols-3 mb-14">
         <div className="col-span-2">
           <img
