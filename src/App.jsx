@@ -6,18 +6,16 @@ import Footer from "./components/footer/Footer";
 // import ReactDOM from "react-dom";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
-
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
     <>
       <div>
         <Header />
-
         <AppRoutes />
         <Footer />
 
-   
         {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
         <h1 className="custom-font custom-font-blackitalic">
           Feather 1 - Black Italic

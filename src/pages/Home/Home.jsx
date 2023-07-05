@@ -3,9 +3,9 @@ import Slider from "../../components/slider/Slider";
 import Header from "../../components/header/Header";
 import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
+import TopRatedReview from "../../components/topRatedReview/TopRatedReview";
 
 function Home() {
-  
   const [products, setProducts] = useState([
     {
       pImage:
@@ -112,21 +112,22 @@ function Home() {
 
       <section className="bg-white ">
         <div className="flex sm:flex-col-reverse lg:flex-row justify-center items-center py-8">
-        <div
+          <div
             className="lg:w-6/12 sm:w-full lg:p-6 sm:p-8 flex lg:justify-center "
             // style={{ paddingLeft: "72px" }}
           >
             <div className="flex flex-col lg:w-8/12  sm:w-full	justify-center items-start ">
               <h2 className="lg:text-4xl sm:text-2xl	font-medium	leading-10	">
-              Enjoy a fully furnished space in less than week
+                Enjoy a fully furnished space in less than week
               </h2>
               <div className="mt-5 mb-9 sm:text-md	lg:text-lg	text-black		">
                 <p>
-                Feather furniture is available to be delivered and assembled in New York City, Los Angeles and San Francisco.
+                  Feather furniture is available to be delivered and assembled
+                  in New York City, Los Angeles and San Francisco.
                 </p>
               </div>
               <a to="/" className="Btn" href="">
-              Explore Furniture
+                Explore Furniture
               </a>
             </div>
           </div>
@@ -137,7 +138,7 @@ function Home() {
       </section>
       <section className="bg-white ">
         <div className="flex sm:flex-col-reverse lg:flex-row-reverse	justify-center items-center py-8">
-          <div  className="lg:w-6/12 sm:w-full lg:p-6 flex sm:p-8 ">
+          <div className="lg:w-6/12 sm:w-full lg:p-6 flex sm:p-8 ">
             <div className="flex flex-col lg:w-8/12  sm:w-full	justify-center items-start ">
               <h2 className="lg:text-4xl	sm:text-2xl font-medium	leading-10	">
                 Garage Sale - 35% & Up
@@ -156,7 +157,6 @@ function Home() {
           </div>
           <div className="lg:w-6/12 sm:w-11/12 flex justify-center ">
             <img
-              
               className="object-contain lg:w-3/5	"
               src="https://img.livefeather.com/pages/homepage/garagesale-campaign-20230531.png?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"
             />
@@ -212,7 +212,6 @@ function Home() {
           </div>
           <div className="lg:w-6/12 sm:w-11/12 flex justify-center ">
             <img
-
               className="object-contain	"
               src="https://img.livefeather.com/pages-new/Homepage/section-2.jpg?auto=compress,format&cs=srgb&dpr=1&fit=max&h=1200&q=80&w=1200"
             />
@@ -228,7 +227,10 @@ function Home() {
         <div className="flex flex-row justify-center flex-wrap gap-y-1 lg:w-full  mb-16 overflow-hidden">
           {products.length ? (
             products.map((product, index) => (
-              <div key={index} className="flex justify-center product-card living bg-white sm:w-8/12 lg:w-2/12 ">
+              <div
+                key={index}
+                className="flex justify-center product-card living bg-white sm:w-8/12 lg:w-2/12 "
+              >
                 <a to="/" className="text-center">
                   <div>
                     <div className="mb-5">
@@ -263,26 +265,34 @@ function Home() {
           Shop All Furniture
         </a>
       </section>
+      {/* Shop our Bestsellers  end */}
+      <div className="grid grid-cols-3 mb-14">
+        <div className="col-span-2">
+          <img
+            src="https://img.livefeather.com/pages-new/Homepage/floyd-homepage-desktop.png?auto=compress,format&cs=srgb&dpr=1&fit=max&q=80"
+            alt=""
+          />
+        </div>
+        <div className="rightSide text-white">
+          <div>
+            <span className="font-bold sides">feather </span>
+            <span className="">x</span>
+            <span className="font-bold sides"> FLOYD</span>
+          </div>
+          <div className="forbreak text-center">
+            <h1 className=" text-white font-bold p-5">
+              Floyd Furniture Meets Feather Flexibility
+            </h1>
+          </div>
+          <button className="sideBtn font-bold py-5 px-10 text-black rounded-full hover:bg-slate-200">
+            Explore Floyd Furniture
+          </button>
+        </div>
+      </div>
 
-       <div className="grid grid-cols-3">
-  <div className="col-span-2">
-    <img src="https://img.livefeather.com/pages-new/Homepage/floyd-homepage-desktop.png?auto=compress,format&cs=srgb&dpr=1&fit=max&q=80" alt="" />
-  </div>
-  <div className="rightSide text-white">
-    <div>
-  <span className='font-bold sides'>feather </span>
-  <span className=''>x</span>
-  <span className='font-bold sides'> FLOYD</span>
-  </div>
-    <div className="forbreak text-center">
-    <h1 className=' text-white font-bold p-5'>Floyd Furniture Meets Feather Flexibility</h1>
-    </div>
-    <button className="sideBtn font-bold py-5 px-10 text-black rounded-full hover:bg-slate-200">
-  Explore Floyd Furniture
-</button>    
-  </div>
-</div>
-      {/* RoomCategory section end */}
+      {/* reviews section start */}
+      <TopRatedReview/>
+      {/* reviews section end */}
     </>
   );
 }
