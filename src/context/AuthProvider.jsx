@@ -36,9 +36,12 @@ export const AuthProvider = ({ children }) => {
       });
       const roles = response?.data?.user.role;
       const { user } = response.data;
+      console.log(response.data);
       console.log(user, roles);
+      const islogged = response?.data?.user.isLogged;
+
       if (user && roles) {
-        setAuth((prevAuth) => ({ ...prevAuth, user, roles }));
+        setAuth((prevAuth) => ({ ...prevAuth, user, roles, islogged }));
         setUserDataFetched(true);
       }
     } catch (error) {
