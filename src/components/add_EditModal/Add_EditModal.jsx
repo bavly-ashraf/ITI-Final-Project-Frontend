@@ -45,10 +45,10 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
                     {edit || 
                     <>
                     <label>Images:</label>
-                    <input name='photo_url' onChange={handleAction} className='input' type='file' accept="image/*" multiple/>
+                    <input name='photo_url' onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);}} className='input' type='file' accept="image/*" multiple/>
                     <br />
                     <label>Detailed Images:</label>
-                    <input name='details_images' onChange={handleAction} className='input' type='file' accept="image/*" multiple/>
+                    <input name='details_images' onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log({...form,[e.target.name]:e.target.files});}} className='input' type='file' accept="image/*" multiple/>
                     </>}
                     {edit &&
                     <>
