@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
+
 function TopRatedReview() {
-  const LOGIN_URL = "/review//top/review";
+  const LOGIN_URL = "/review/top/review";
   const arr = [1, 2, 3, 4, 5];
   const colorSchema = [
     {
@@ -41,12 +42,13 @@ function TopRatedReview() {
     axios
       .get(LOGIN_URL)
       .then((response) => {
+        console.log(response.data.reviews);
         setReviewCards(response.data.reviews);
       })
       .catch(() => {
         console.log("error fetching data");
       });
-  }, []);
+  }, [reviewCards]);
 
   return (
     <>

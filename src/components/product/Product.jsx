@@ -3,6 +3,7 @@ import './Product.css';
 import { Link } from 'react-router-dom';
 import DeleteConfirmation from '../deleteConfirmation/DeleteConfirmation';
 import AddEditModal from '../add_EditModal/Add_EditModal';
+import ProductReview from '../productReview.jsx/ProductReview';
 
 const Product = ({index,handleDelete,handleEdit,product,isAdmin,allCategories}) => {
     return ( 
@@ -39,6 +40,7 @@ const Product = ({index,handleDelete,handleEdit,product,isAdmin,allCategories}) 
                 </>}
             </div>
         </div>
+
         </>
      );
 }

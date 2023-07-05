@@ -14,7 +14,7 @@ export default function BestSeller(){
           .catch(() => {
             console.log("error fetching data");
           });
-      }, []);
+      }, [products]);
     
     return(
         <>

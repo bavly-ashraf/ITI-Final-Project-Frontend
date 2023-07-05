@@ -5,6 +5,7 @@ import ProductDetailsItem from "../../components/productDetailsItem/ProductDetai
 import ProductDescription from "../../components/productDescription/ProductDescription";
 import axios from "axios";
 import { useEffect } from "react";
+import ProductReview from "../../components/productReview.jsx/ProductReview";
 
 
 const ProductDetails = () => {
@@ -62,6 +63,9 @@ const ProductDetails = () => {
       </div>
       <div>
         <ProductDescription product={product} />
+      </div>
+      <div>
+         <ProductReview/>
       </div>
     </div>
   );
