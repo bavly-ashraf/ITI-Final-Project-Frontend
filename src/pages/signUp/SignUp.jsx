@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import Joi from "joi";
 
 import "./SignUP.css";
-import axios from "axios";
-
+import axios from "../../api/axios";
+const SignUpURL = "/users/signup";
 const schema = Joi.object({
   // name: Joi.string().required().messages({
   //   "any.required": "Name is required",
@@ -95,9 +95,9 @@ export default function SignUp() {
       } else {
         console.log("Form submitted:", data);
         setValidationErrors({});
-        await axios.post("http://localhost:3000/users/signup", data);
+        await axios.post(SignUpURL, data);
         console.log("Data sent successfully");
-        // navigate("/login"); // Programmatically navigate to the login page
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
@@ -105,7 +105,14 @@ export default function SignUp() {
         error.response.data.errors.forEach((err) => {
           validationErrors[err.field] = err.message;
         });
-        setValidationErrors(validationErrors);
+        console.log(error.response);
+        setValidationErrors({});
+        setValidationErrors({
+          email: " ",
+          username: " ",
+          password: " ",
+          confirmPassword: error.response.data.message,
+        });
       } else {
         console.error("Error submitting form:", error);
       }
@@ -265,7 +272,7 @@ export default function SignUp() {
                   ref={register}
                   placeholder="Password"
                   className={`focus:ring-0 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none  mr-3 py-1 px-2 leading-tight focus:outline-none   ${
-                    validationErrors.password ? "border-blue-500" : ""
+                    validationErrors.password ? " text-red-500" : ""
                   }`}
                   style={{
                     backgroundColor: "fbf8f5",

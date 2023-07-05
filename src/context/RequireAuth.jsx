@@ -7,7 +7,7 @@ const RequireAuth = ({ allowedRoles }) => {
   console.log(auth); // Add this line to log the `auth` object
 
   if (!auth.accessToken) {
-    return <Navigate to="/productdetails" state={{ from: location }} replace />;
+    return <Navigate to="/*" state={{ from: location }} replace />;
   }
 
   if (!allowedRoles.includes(auth.roles)) {

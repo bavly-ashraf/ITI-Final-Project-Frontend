@@ -10,7 +10,7 @@ import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
 import OrderStatus from "../pages/orderStatus/OrderStatus";
-import FavouriteList from "../pages/favouriteList/FavouriteList"
+import FavouriteList from "../pages/favouriteList/FavouriteList";
 import Category from "../pages/category/Category";
 
 import RequireAuth from "../context/RequireAuth";
@@ -27,23 +27,9 @@ const ROLES = {
   User: "user",
   Admin: "admin",
 };
-console.log("hey there122");
-
 
 const AppRoutes = () => {
   return (
-    // <Routes>
-    //   <Route path="/login" element={<Login />} />
-    //   <Route path="/signup" element={<SignUp />} />
-    //   <Route path="/" element={<Home />} />
-    //   <Route path="/loading" element={<LoadingAnimation />} />
-    //   <Route path="/*" element={<NotFound />} />
-    //   <Route path="/ForgotPassword" element={<ForgotPassword />} />
-    //   <Route path="/ProductDetails" element={<ProductDetails />} />
-    //   <Route path="/CartItem" element={<CartItem />} />
-    //   <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-    //   <Route path="/About" element={<About />} />
-    // </Routes>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
@@ -53,19 +39,19 @@ const AppRoutes = () => {
 
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/productdetails" element={<ProductDetails />} />
-      {/* <Route path="/cartitem" element={<CartItem />} /> */}
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />
       <Route path="/orderStatus" element={<OrderStatus />} />
       <Route path="/addcategory" element={<Category />} />
 
-        
       <Route path="/cartitem" element={<CartItem />} />
 
-      <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+      {/* <Route path="/AdminDashBoard" element={<AdminDashBoard />} /> */}
       <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
-
+      <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+      </Route>
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
       </Route> */}
