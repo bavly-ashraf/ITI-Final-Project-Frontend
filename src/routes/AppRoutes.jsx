@@ -13,6 +13,7 @@ import About from "../pages/about/About";
 import ProductListing from "../pages/productsListing/ProductsListing";
 import OrderStatus from "../pages/orderStatus/OrderStatus";
 import FavouriteList from "../pages/favouriteList/FavouriteList"
+import Category from "../pages/category/Category";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -23,6 +24,7 @@ const AppRoutes = () => {
       <Route path="/*" element={<NotFound />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/productlisting" element={<ProductListing />} />
+      <Route path="/addcategory" element={<Category />} />
       <Route path="/orderStatus" element={<OrderStatus />} />
       <Route path="/favouriteList" element={<FavouriteList />} />
       <Route path="/ProductDetails" element={<ProductDetails />} />
