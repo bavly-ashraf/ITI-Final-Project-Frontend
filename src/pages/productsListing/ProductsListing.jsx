@@ -9,11 +9,22 @@ const ProductListing = () => {
     const isAdmin = true;
     const [products, setProducts] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
+    const [allCategories,setAllCategories] = useState([]);
+    
     useEffect(()=>{
         (async()=>{
+            //get products
             const {data} = await axios.get('http://localhost:3000/products/all');
             setProducts(data);
-            // console.log(data);
+        })()
+    }
+    ,[]);
+
+    useEffect(()=>{
+        (async()=>{
+            //get categories
+            const {categories} = (await axios.get("http://localhost:3000/categories")).data;
+            setAllCategories(categories);
         })()
     }
     ,[]);
@@ -60,7 +71,13 @@ const ProductListing = () => {
 
     // adding new product
     const handleAdd = async(product)=>{
-        console.log(product);
+        const {name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock} = product;
+        console.log(name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock);
+        const addedProduct = await axios.post(`http://localhost:3000/products/${category}`,{name , description , height , width , depth , details_images , price , vendor , photo_url , no_of_items_in_stock});
+        console.log(addedProduct);
+        // const newProdArr = [...products];
+        // newProdArr.push(addedProduct);
+        // setProducts(newProdArr);
     }
 
     // editing product
@@ -92,7 +109,7 @@ const ProductListing = () => {
         <div className='flex justify-end me-32 mt-16'>
             {isAdmin && <>
             <div onClick={()=>window.my_modal.showModal()} className='btn btn-success m-3'>Add New Product</div>
-            <AddEditModal handleAdd={handleAdd} />
+            <AddEditModal handleAdd={handleAdd} allCategories={allCategories} />
             </>}
             <details className="dropdown">
                 <summary className="m-3 btn hover:bg-project-main-color hover:text-white">sort by</summary>
@@ -166,7 +183,7 @@ const ProductListing = () => {
             {/* Products */}
             <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
-                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} handleDelete={handleDelete} handleEdit={handleEdit} index={idx} product={product} isAdmin={isAdmin} />) : 
+                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} handleDelete={handleDelete} handleEdit={handleEdit} allCategories={allCategories} index={idx} product={product} isAdmin={isAdmin} />) : 
                 <div className='flex flex-col w-full items-center justify-center gap-4'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-20 h-20">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
