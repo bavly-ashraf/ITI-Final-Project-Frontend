@@ -3,11 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const ProductDescription = (props) => {
-  let description = props.product.details.description;
-  let photo_url = props.product.details.details_images;
-  let height = props.product.details.dimensions.height;
-  let width = props.product.details.dimensions.width;
-  let depth = props.product.details.dimensions.depth;
+  let description = props.product.description;
+  let photo_url = props.product.details_images;
+  let height = props.product.height;
+  let width = props.product.width;
+  let depth = props.product.depth;
   return (
     <div className=" bg-[#F3F0EC] px-11 border border-transparent">
       <div className="mt-10 mb-20">
