@@ -62,10 +62,11 @@ const AppRoutes = () => {
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
       </Route> */}
+      <Route path="/signup" element={<SignUp />} />
 
-      <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
+      {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/signup" element={<SignUp />} />
-      </Route>
+      </Route> */}
 
       <Route
         path="/about"

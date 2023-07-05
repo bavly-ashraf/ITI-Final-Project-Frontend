@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.0",
     "react-router-dom": "^6.13.0",
+    "react-toastify": "^9.1.3",
     "tw-elements": "^1.0.0-beta2"
   },
   "devDependencies": {

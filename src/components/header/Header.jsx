@@ -1,11 +1,22 @@
-import React from "react";
+import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./Header.css";
-// Initialization for ES Users
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
-
+import { AuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 function Header() {
+  const { auth, clear } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clear();
+
+    navigate("/");
+  };
+
   useEffect(() => {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
@@ -279,7 +290,14 @@ function Header() {
                 className="profile menu menu-lg dropdown-content my-2"
               >
                 <li>
-                  <Link>Username</Link>
+                  <Link>
+                    <div>{auth.user?.username || "User"}</div>
+                  </Link>
+                  {auth.accessToken ? (
+                    <div>
+                      <button onClick={handleLogout}>Logout</button>
+                    </div>
+                  ) : null}
                   <Link to="orderStatus">Order status</Link>
                   <Link to="favouriteList" className="icon">
                     Favourites
