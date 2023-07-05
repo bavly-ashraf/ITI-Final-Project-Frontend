@@ -1,7 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../../context/AuthProvider';
 
 const Category = () => {
+    const {auth} = useContext(AuthContext);
+    console.log(auth);
     const [allCategories,setAllCategories] = useState([]);
     const [currentCat, setCurrentCat] = useState(false);
 
