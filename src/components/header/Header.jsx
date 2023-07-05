@@ -1,16 +1,17 @@
 import { React, useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./Header.css";
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
-import { AuthContext } from "../../context/AuthProvider";
+
 import { useNavigate } from "react-router-dom";
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 function Header() {
   const { auth, clear } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  console.log(auth);
   const handleLogout = () => {
     clear();
 
@@ -289,6 +290,16 @@ function Header() {
                 tabIndex="0"
                 className="profile menu menu-lg dropdown-content my-2"
               >
+                {/* <div>
+                      {auth.roles === "admin" ? (
+                        <div>
+                          {/* Render admin-specific content */}
+                {/* <h1>Welcome, {auth.user.username}!</h1>
+                        </div> */}
+                {/* ) : (
+                        null
+                      )} */}
+                {/* </div> */}
                 <li>
                   <Link>
                     <div>{auth.user?.username || "User"}</div>
