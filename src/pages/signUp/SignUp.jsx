@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
-import "./SignUP.css";
+
+import "./SignUp.css";
 import axios from "axios";
 
 const schema = Joi.object({

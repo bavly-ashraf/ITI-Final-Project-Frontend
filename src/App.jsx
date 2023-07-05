@@ -7,13 +7,13 @@ import Footer from "./components/footer/Footer";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import ProductDetails from "./pages/productDetails/ProductDetails";
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
     <>
       <div>
         <Header />
-
         <AppRoutes />
         <Footer />
 
