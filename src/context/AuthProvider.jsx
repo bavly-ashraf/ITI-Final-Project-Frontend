@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       });
       const roles = response?.data?.user.role;
       const { user } = response.data;
-
+      console.log(user, roles);
       if (user && roles) {
         setAuth((prevAuth) => ({ ...prevAuth, user, roles }));
         setUserDataFetched(true);
