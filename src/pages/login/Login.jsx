@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./Login.css";
 // import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { AuthContext } from "../../context/AuthProvider";
+
 import axios from "../../api/axios";
 const LOGIN_URL = "/users/login";
 
@@ -27,13 +27,14 @@ export default function App() {
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { auth, clear, persist } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   // const { setAuth } = useAuth();
   // const { setAuth, persist } = useAuth();
-  const { persist } = useAuth();
+  // const { persist } = useAuth();
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
@@ -58,13 +59,16 @@ export default function App() {
         // localStorage.setItem("token", token);
         // sessionStorage.setItem("token", response.data.token);
         const { token, user } = response.data; // Extract token and user from the response
+        console.log(response.data);
+        // console.log(islogged);
         // const roles = response?.data?.roles;
         const roles = response?.data?.user.role;
-        console.log(roles);
+        const islogged = response?.data?.user.isLogged;
+
         console.log(user, token, roles);
-        const accessToken = token;
+        // const accessToken = token;
         // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
-        persist({ user, roles, accessToken: token });
+        persist({ user, roles, islogged, accessToken: token });
         setUser("");
         setPwd("");
         navigate("/"); // Programmatically navigate to the login page

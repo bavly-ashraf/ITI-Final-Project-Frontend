@@ -4,6 +4,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { useState } from "react";
+import ProductReview from "../productReview.jsx/ProductReview";
 
 const ProductDetailsItem = (props) => {
 
@@ -35,7 +36,9 @@ const ProductDetailsItem = (props) => {
   }
 
   return (
-    <div className="ms-10 w-max block rounded-lg bg-[#FBF8F5]  dark:bg-neutral-700 ">
+    <>
+    <div className="d-flex flex-col">
+        <div className="ms-10 w-max block rounded-lg bg-[#FBF8F5]  dark:bg-neutral-700 ">
       <h5 className="mb-2 text-5xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
         {name}
       </h5>
@@ -102,6 +105,10 @@ const ProductDetailsItem = (props) => {
         )}
       </div>
     </div>
+   
+    </div>
+    </>
+
   );
 };
 

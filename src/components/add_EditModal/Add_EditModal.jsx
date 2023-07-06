@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
-    const [form,setForm] = useState({name:product?.name || "",description:product?.description || "",details_images:"",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",photo_url:"",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
+    const [form,setForm] = useState({name:product?.name || "",description:product?.description || "",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
     const [catName,setCatName] = useState("Choose category");
     const [availability,setAvailability] = useState(product?.availability || "Availability");
 
@@ -10,9 +10,14 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
         setForm({...form,[e.target.name]:e.target.value});
         console.log({...form,[e.target.name]:e.target.value});
     }
+
+    const handleForm = ()=>{
+        handleAdd(form);
+        setForm({...form,name:product?.name || "",description:product?.description || "",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
+    }
     return ( 
         <dialog id={`my_modal${edit? "_edit": ""}`} className="modal">
-            <form method="dialog" className="modal-box">
+            <form method="dialog" encType="multipart/form-data" className="modal-box">
                 <h3 className="font-bold text-lg">{edit? 'Edit product':'Add new product!'}</h3>
                 {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
                     <label htmlFor='prod_name' className='text-lg'>Name:</label>
@@ -51,10 +56,12 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
                     {edit || 
                     <>
                     <label>Images:</label>
-                    <input name='photo_url' onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);}} className='input' type='file' accept="image/*" multiple/>
+                    <br />
+                    <input name="photo_url" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);console.log("this is photo_url",e.target.files);}} className='input' type='file' accept="image/*" multiple/>
                     <br />
                     <label>Detailed Images:</label>
-                    <input name='details_images' onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);}} className='input' type='file' accept="image/*" multiple/>
+                    <br />
+                    <input name="details_images" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);console.log("this is details_images",e.target.files);}} className='input' type='file' accept="image/*" multiple/>
                     </>}
                     {edit &&
                     <>
@@ -68,10 +75,10 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
                     </details>
                     </>}
                     <br />
-                    <Link to="/addcategory"><button className='btn btn-primary'>Want to Add/Edit Category?</button></Link>
+                    <div className='w-full flex justify-center'><Link to="/addcategory" className='link link-warning'>Want to Add/Edit Category?</Link></div>
                 <div className="modal-action">
                     {/* if there is a button in form, it will close the modal */}
-                    <div className={`btn ${edit? "btn-warning": "btn-success"}`} onClick={edit? ()=>handleEdit("edit"):()=>handleAdd(form)}>{edit? "Edit":"Add"}</div>
+                    <button className={`btn ${edit? "btn-warning": "btn-success"}`} onClick={edit? ()=>handleEdit(product._id,form):()=>handleForm()}>{edit? "Edit":"Add"}</button>
                     <button className="btn">Close</button>
                 </div>
             </form>

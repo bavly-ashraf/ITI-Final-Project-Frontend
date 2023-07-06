@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const OrderStatus = () => {
     return ( 
@@ -78,7 +79,7 @@ const OrderStatus = () => {
                                 <span className='bg-error text-black rounded-xl p-2'>Rejected</span>
                                 </td>
                                 <th>
-                                <button className="btn hover:btn-info btn-xs">order another product?</button>
+                                <button className="btn hover:btn-info btn-xs"><Link to='/ProductListing'>order another product?</Link></button>
                                 </th>
                             </tr>
                         </tbody>
