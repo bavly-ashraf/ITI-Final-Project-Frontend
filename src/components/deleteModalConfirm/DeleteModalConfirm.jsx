@@ -42,6 +42,7 @@ export default function Modal(props) {
                       await props.deleteItem(props.currentId);
                       props.deleteItemFromTable(props.currentId);
                       props.setShowModal(false);
+                      props.showOrders();
                     }}
                   >
                     Delete
