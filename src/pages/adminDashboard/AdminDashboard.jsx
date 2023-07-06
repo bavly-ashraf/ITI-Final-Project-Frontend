@@ -14,7 +14,7 @@ const AdminDashBoard = () => {
   const { auth } = useContext(AuthContext);
   console.log(auth);
 
-   const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   let [currentId, setCurrentId] = useState(0);
 
@@ -22,8 +22,6 @@ const AdminDashBoard = () => {
     toast.success("Item Deleted Successfully!", {
       position: toast.POSITION.TOP_RIGHT,
     });
-
-
 
   const error = () =>
     toast.error("Error Notification !", {
@@ -63,9 +61,7 @@ const AdminDashBoard = () => {
   }
   async function deleteItem(id) {
     try {
-
       console.log("deleting...");
-      const response = await axios.delete(`http://localhost:3000/orders/${id}`);
 
       const token = auth.accessToken;
 
@@ -105,19 +101,17 @@ const AdminDashBoard = () => {
     }
   }
 
-   useEffect(() => {
-     fetchData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
-
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function deleteOrder(id) {
     setCurrentId(id);
     setShowModal(true);
   }
 
-  function deleteItemFromTable(id)
-  {
+  function deleteItemFromTable(id) {
     let newOrders = [...orders];
     newOrders = newOrders.filter((order) => order._id != id);
     setOrders(newOrders);
@@ -131,7 +125,6 @@ const AdminDashBoard = () => {
     newOrders = newOrders.filter((order) => order._id != id);
     setOrders(newOrders);
   }
-
 
   return (
     <>
@@ -151,7 +144,7 @@ const AdminDashBoard = () => {
         <div className="flex justify-center align-middle h-screen w-full">
           <div className="loading loading-lg loading-spinner text-[#E9672B] "></div>
         </div>
-      )} 
+      )}
     </>
   );
 };
