@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import React from "react";
 import ReactDOM from "react-dom";
@@ -5,42 +6,55 @@ import { useEffect } from "react";
 import { useState } from "react";
 import DeleteModalConfirm from "../../components/deleteModalConfirm/DeleteModalConfirm";
 
-
 const OrdersTable = (props) => {
   let orders = props.orders;
   let keys;
   if (orders.length != 0) {
     keys = Object.keys(orders[0]);
   }
-
   let [currentPage, setCurrentPage] = useState(0);
   let [startOrder, setStartOrder] = useState(0);
   let noOfOrders = 8;
-  let endOrder = startOrder + noOfOrders - 1;
-  let pages = orders.length / noOfOrders > 1 ? Math.floor(orders.length / noOfOrders)+1 : Math.floor(orders.length / noOfOrders) ;
-
+  let pages =
+    orders.length % noOfOrders > 0
+      ? Math.floor(orders.length / noOfOrders) + 1
+      : orders.length / noOfOrders;
+  let endOrder =
+    currentPage != pages - 1 ? startOrder + noOfOrders - 1 : orders.length - 1;
 
   function paginate(e, index) {
     setCurrentPage(index);
     setStartOrder(index * noOfOrders);
-    endOrder = startOrder + noOfOrders - 1;
+    if (currentPage != pages - 1) {
+      endOrder = startOrder + noOfOrders - 1;
+    } else {
+      endOrder = orders.length - 1;
+    }
+  }
+
+  function showOrders() {
+    if (startOrder == endOrder) {
+      let e;
+      paginate(e, currentPage - 1);
+    }
   }
 
   return (
     <>
-      <DeleteModalConfirm 
-      currentId={props.currentId} 
-      showModal={props.showModal} 
-      setShowModal={props.setShowModal}
-      deleteItem={props.deleteItem}
-      deleteItemFromTable={props.deleteItemFromTable}
+      <DeleteModalConfirm
+        currentId={props.currentId}
+        showModal={props.showModal}
+        setShowModal={props.setShowModal}
+        deleteItem={props.deleteItem}
+        deleteItemFromTable={props.deleteItemFromTable}
+        showOrders={showOrders}
       />
       <div className="grid grid-rows-8 h-screen w-screen">
         <div
           style={{ height: "650px" }}
           className="bg-[#FBF8F5] w-screen overflow-x-auto row-start-1 row-end-7  "
         >
-          <table className="table-fixed ">
+          <table className="table w-full ">
             <thead className="bg-[#F3F0EC]">
               <tr>
                 <th>Order ID</th>
