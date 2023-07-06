@@ -3,8 +3,8 @@ import Product from '../../components/product/Product'
 import {range} from '../../utils/range';
 import axios from 'axios';
 import AddEditModal from '../../components/add_EditModal/Add_EditModal';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import LoadingAnimation from '../../components/loadingAnimation/LoadingAnimation';
 
 const ProductListing = () => {
     const {auth} = useContext(AuthContext);
@@ -13,11 +13,16 @@ const ProductListing = () => {
     const [products, setProducts] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [allCategories,setAllCategories] = useState([]);
+    const [currentCat,setCurrentCat] = useState({_id:0,name:"All Categories"});
+    const [searchString,setSearchString] = useState("");
+    const [selectedPrice,setSelectedPrice] = useState({min:0,max:Infinity});
+    const [isLoading,setIsLoading] = useState(true);
     
     useEffect(()=>{
         (async()=>{
             //get products
             const {data} = await axios.get('http://localhost:3000/products/all');
+            setIsLoading(false);
             setProducts(data);
         })()
     }
@@ -35,33 +40,19 @@ const ProductListing = () => {
     // sorting
     const handleSorting = async(sortingOrder)=>{
         const {data} = await axios.get(`http://localhost:3000/products/${sortingOrder}`);
-        // console.log(data);
         setProducts(data);
     }
-
+    
     // filteration
-    let min = 0;
-    let max = Infinity;
-    const handleFiltering = async(e)=>{
-        switch(e.target.name){
-            case "min" : min = e.target.value;
-            break;
-            case "max" : max = parseInt(e.target.value);
-            break;
-        }
-        const x = await axios.get("http://localhost:3000/products/filter/all",{data:{category:"test",min,max}});
-        console.log(x);
-    }
+    let filteredProducts = currentCat._id == 0? products : products.filter((el)=>el.category == currentCat._id);
+    console.log("category filterProducts object :",filteredProducts);
+    filteredProducts = filteredProducts.filter((product)=> product.price >= selectedPrice.min && product.price <= selectedPrice.max);
+    console.log("price filterProducts object :",filteredProducts);
 
     // search
-    const handleSearch = async(e)=>{
-        try{
-            const {data} = await axios.get(`http://localhost:3000/products/?product=${e.target.value}`);
-            setProducts(data);
-        }catch(e){
-            setProducts([])
-        }
-    }
+    const searchStringRegExp = new RegExp(searchString,"i")
+    filteredProducts = (searchString == "")? filteredProducts : filteredProducts.filter((product)=>product.name.match(searchStringRegExp));
+    console.log("search filterProducts object :",filteredProducts);
 
     // pagination
     const PAGE_SIZE = 9;
@@ -69,47 +60,72 @@ const ProductListing = () => {
     const noOfPages = Math.ceil(noOfItems/PAGE_SIZE);
     const pageArr = range(noOfPages);
     const startProdNum = (currentPage -1) * PAGE_SIZE;
-    const filteredProducts = products.slice(startProdNum,startProdNum+PAGE_SIZE);
+    filteredProducts = filteredProducts.slice(startProdNum,startProdNum+PAGE_SIZE);
 
 
     // adding new product
     const handleAdd = async(product)=>{
         const {name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock} = product;
-        console.log(name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock);
-        const addedProduct = await axios.post(`http://localhost:3000/products/${category}`,{name , description , height , width , depth , details_images , price , vendor , photo_url , no_of_items_in_stock});
-        console.log(addedProduct);
-        // const newProdArr = [...products];
-        // newProdArr.push(addedProduct);
-        // setProducts(newProdArr);
+        const formData = new FormData();
+        formData.append("name",name);
+        formData.append("description",description);
+        formData.append("height",height);
+        formData.append("width",width);
+        formData.append("depth",depth);
+        for(let i=0;i<details_images.length;i++){
+            formData.append("details_images",details_images[i]);
+        }
+        formData.append("price",price);
+        formData.append("vendor",vendor);
+        for(let i=0;i<photo_url.length;i++){
+            formData.append("photo_url",photo_url[i]);
+        }
+        formData.append("no_of_items_in_stock",no_of_items_in_stock);
+        const addedProduct = (await axios.post(`http://localhost:3000/products/${category}`,formData,{headers:{Authorization:auth.accessToken}})).data.product;
+        //clone
+        const newProdArr = [...products];
+        //edit
+        newProdArr.push(addedProduct);
+        //setState
+        setProducts(newProdArr);
     }
 
     // editing product
-    const handleEdit = async(id)=>{
-        // const {updatedProduct} = await axios.patch(`http://localhost:3000/products/${id}`,)
-        console.log(id);
+    const handleEdit = async(id,product)=>{
+        const fallBackClone = [...products];
+        const {name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability } = product;
+        try{
+            const {updatedProduct} = (await axios.patch(`http://localhost:3000/products/${id}`,{name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability },{headers:{Authorization:auth.accessToken}})).data
+            const newProdArr = [...products];
+            const index = newProdArr.findIndex((el)=>el._id == id);
+            newProdArr[index] = updatedProduct
+            setProducts(newProdArr);
+        }catch(e){
+            console.log("edit error");
+            setProducts(fallBackClone);
+        }
     }
 
     // deleting product
     const handleDelete = async(id) =>{
-        let indexOfDeletedProd;
+        const productsClone = [...products];
         try{
-            const {deletedProduct} = await axios.delete(`http://localhost:3000/products/${id}`).data;
-            console.log(x);
-            const productsClone = [...products];
-            const deletedProductArr = productsClone.filter((prod,idx)=> {prod._id != id; indexOfDeletedProd = idx});
+            await axios.delete(`http://localhost:3000/products/${id}`,{headers:{Authorization:auth.accessToken}});
+            const deletedProductArr = productsClone.filter((prod)=>prod._id != id);
             setProducts(deletedProductArr);
         }catch(e){
-            console.log(e);
+            console.log("delete error");
+            setProducts(productsClone);
         }
      }
 
 
     return ( 
-        <>
+        <div className='pt-28'>
         {/* Header */}
-        <h1 className='text-5xl text-center text-black m-3 dark:text-white'>Category Name</h1>
+        <h1 className='text-5xl text-center text-black m-3'>{currentCat.name}</h1>
         {/* Page Buttons (Add & sort) */}
-        <div className='flex justify-end me-32 mt-16'>
+        <div className='flex justify-end me-32'>
             {isAdmin && <>
             <div onClick={()=>window.my_modal.showModal()} className='btn btn-success m-3'>Add New Product</div>
             <AddEditModal handleAdd={handleAdd} allCategories={allCategories} />
@@ -145,7 +161,7 @@ const ProductListing = () => {
                                     Search for certain product
                                 </summary>
                                 <ul>
-                                    <li><input onChange={(e)=>handleSearch(e)} className='h-10 border-2 border-gray-500 focus:border-black w-11/12 p-3 m-auto' type='text' placeholder='Search' /></li>
+                                    <li><input onChange={(e)=>{setSearchString(e.target.value);setCurrentPage(1)}} className='h-10 border-2 border-gray-500 focus:border-black w-11/12 p-3 m-auto' type='text' placeholder='Search' /></li>
                                 </ul>
                                 </details>
                             </li>
@@ -154,9 +170,9 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Price</summary>
                                 <ul>
-                                    <form onChange={(e)=>handleFiltering(e)}>
-                                        <li><input min={0} name='min' className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto mb-3' type='number' placeholder='min' /></li>
-                                        <li><input min={0} name='max' className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto' type='number' placeholder='max' /></li>
+                                    <form>
+                                        <li><input min={0} onChange={(e)=>{e.target.value == ""? setSelectedPrice({...selectedPrice,min:0}) : setSelectedPrice({...selectedPrice,min:e.target.value});setCurrentPage(1)}} name='min' className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto mb-3' type='number' placeholder='min' /></li>
+                                        <li><input min={0} onChange={(e)=>{e.target.value == ""? setSelectedPrice({...selectedPrice,max:Infinity}) : setSelectedPrice({...selectedPrice,max:e.target.value});setCurrentPage(1)}} name='max' className='h-10 border-2 border-gray-500 focus:border-black w-8/12 p-3 m-auto' type='number' placeholder='max' /></li>
                                     </form>
                                 </ul>
                                 </details>
@@ -166,18 +182,12 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Shop by category</summary>
                                 <ul>
-                                    <li><Link to="/">Living Room</Link></li>
-                                    <li><Link to="/">Bedroom</Link></li>
-                                    <li><Link to="/">Dining</Link></li>
-                                    <li><Link to="/">Home Office</Link></li>
-                                    <li><Link to="/">Decor</Link></li>
-                                    <li><Link to="/">Lighting</Link></li>
-                                    <li><Link to="/">Outdoor</Link></li>
+                                    {allCategories.map((cat)=><li className={currentCat._id == cat._id? "bg-project-main-color":""} onClick={()=>{setCurrentCat(cat);setCurrentPage(1)}} key={cat._id}><a>{cat.name}</a></li>)}
                                 </ul>
                                 </details>
                             </li>
                             <div className="divider"></div>
-                            <Link to="/" className='text-lg cursor-pointer underline'>Or, browse all furniture</Link>
+                            <a onClick={()=>{setCurrentCat({_id:0,name:"All Categories"});setCurrentPage(1);}} className={`text-lg cursor-pointer underline ${currentCat._id == 0? "bg-project-main-color":""}`}>Or, browse all furniture</a>
                         </ul>
                     </div>
                 </div>
@@ -186,7 +196,7 @@ const ProductListing = () => {
             {/* Products */}
             <main className='flex flex-col w-full mx-4'>
                 <div className='flex justify-center md:h-full md:justify-start flex-wrap gap-4'>
-                {filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} handleDelete={handleDelete} handleEdit={handleEdit} allCategories={allCategories} index={idx} product={product} isAdmin={isAdmin} />) : 
+                {isLoading? <div className='w-full'><LoadingAnimation /></div> : filteredProducts.length > 0? filteredProducts.map((product,idx)=><Product key={product._id} handleDelete={handleDelete} handleEdit={handleEdit} allCategories={allCategories} index={idx} product={product} isAdmin={isAdmin} />) : 
                 <div className='flex flex-col w-full items-center justify-center gap-4'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-20 h-20">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
@@ -199,7 +209,7 @@ const ProductListing = () => {
                 </div>}
             </main>
         </div>
-        </>
+        </div>
      );
 }
  

@@ -52,7 +52,7 @@ const AppRoutes = () => {
       <Route path="/favouriteList" element={<FavouriteList />} />
 
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/productdetails" element={<ProductDetails />} />
+      <Route path="/productdetails/:productId" element={<ProductDetails />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />
