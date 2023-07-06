@@ -3,6 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import DeleteModalConfirm from "../../components/deleteModalConfirm/DeleteModalConfirm";
+
 
 const OrdersTable = (props) => {
   let orders = props.orders;
@@ -15,8 +17,8 @@ const OrdersTable = (props) => {
   let [startOrder, setStartOrder] = useState(0);
   let noOfOrders = 8;
   let endOrder = startOrder + noOfOrders - 1;
-  let pages = Math.floor(orders.length / noOfOrders);
-  pages++;
+  let pages = orders.length / noOfOrders > 1 ? Math.floor(orders.length / noOfOrders)+1 : Math.floor(orders.length / noOfOrders) ;
+
 
   function paginate(e, index) {
     setCurrentPage(index);
@@ -26,6 +28,13 @@ const OrdersTable = (props) => {
 
   return (
     <>
+      <DeleteModalConfirm 
+      currentId={props.currentId} 
+      showModal={props.showModal} 
+      setShowModal={props.setShowModal}
+      deleteItem={props.deleteItem}
+      deleteItemFromTable={props.deleteItemFromTable}
+      />
       <div className="grid grid-rows-8 h-screen w-screen">
         <div
           style={{ height: "650px" }}
