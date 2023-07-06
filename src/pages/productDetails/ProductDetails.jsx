@@ -37,7 +37,7 @@ const ProductDetails = () => {
             <ProductDescription product={product} />
           </div>
           <div>
-         <ProductReview/>
+         <ProductReview reviews={product.reviews}/>
       </div>
         </div>
       ) : (
