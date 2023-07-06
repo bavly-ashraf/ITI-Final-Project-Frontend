@@ -27,15 +27,14 @@ function TopRatedReview() {
       shadowColor: "rgb(205, 212, 84) 8px -8px 0px",
     },
   ];
-  const starColor =[
-   "rgb(203, 198, 244)  ", 
-   "rgb(231, 203, 67) ", 
- "rgb(162, 212, 197) ",
- "rgb(175, 73, 32)",
- "rgb(205, 212, 84)",
-    
+  const starColor = [
+    "rgb(203, 198, 244)  ",
+    "rgb(231, 203, 67) ",
+    "rgb(162, 212, 197) ",
+    "rgb(175, 73, 32)",
+    "rgb(205, 212, 84)",
   ];
-  
+
   const [reviewCards, setReviewCards] = useState([]);
 
   useEffect(() => {
@@ -48,7 +47,7 @@ function TopRatedReview() {
       .catch(() => {
         console.log("error fetching data");
       });
-  }, [reviewCards]);
+  }, []);
 
   return (
     <>
@@ -75,15 +74,17 @@ function TopRatedReview() {
                     height: "230px",
                   }}
                 >
-    
-                  <div className="rating pb-8	"> 
+                  <div className="rating pb-8	">
                     {arr.map((num, index) => (
                       <input
                         key={index}
                         type="radio"
                         name="rating-2"
                         className="mask mask-star-2 "
-                        style={{ backgroundColor: index !== 5 ? starColor[0] : starColor[index+1] }}
+                        style={{
+                          backgroundColor:
+                            index !== 5 ? starColor[0] : starColor[index + 1],
+                        }}
                       />
                     ))}
                   </div>
