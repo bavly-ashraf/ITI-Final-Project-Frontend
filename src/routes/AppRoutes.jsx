@@ -38,7 +38,7 @@ const AppRoutes = () => {
       <Route path="/favouriteList" element={<FavouriteList />} />
 
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/productdetails/:productId" element={<ProductDetails />} />
+      <Route path="/products/product/:id" element={<ProductDetails />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />
       <Route path="/orderStatus" element={<OrderStatus />} />
@@ -50,7 +50,7 @@ const AppRoutes = () => {
       <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+        {/* <Route path="/AdminDashBoard" element={<AdminDashBoard />} /> */}
       </Route>
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
