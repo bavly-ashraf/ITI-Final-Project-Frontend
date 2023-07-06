@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Slider from "../../components/slider/Slider";
-import Header from "../../components/header/Header";
 import "./Home.css";
 import VideoSlider from "../../components/videoSlider/VideoSlider";
 import TopRatedReview from "../../components/topRatedReview/TopRatedReview";

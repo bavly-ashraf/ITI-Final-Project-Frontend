@@ -232,77 +232,77 @@ const AdminDashBoard = () => {
   // ]
   // );
 
-  const notify = () =>
-    toast.success("Item Deleted Successfully!", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+  // const notify = () =>
+  //   toast.success("Item Deleted Successfully!", {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   });
 
-  const error = () =>
-  toast.error('Error Notification !', {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+  // const error = () =>
+  // toast.error('Error Notification !', {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   });
 
-  let [orders, setOrders] = useState([]);
+  // let [orders, setOrders] = useState([]);
 
-  async function fetchData() {
-    try {
-      const response = await axios.get(`http://localhost:3000/orders`);
-      // Handle the response data
-      console.log("fetching");
-      console.log(response.data);
-      // product = response.data.product;
-      setOrders(response.data);
-    } catch (error) {
-      // Handle error
-      console.error(error);
-    }
-  }
-  async function deleteItem(id) {
-    try {
-      const response = await axios.delete(`http://localhost:3000/orders/${id}`);
-      notify();
-      // Perform additional actions after successful deletion
-    } catch (error) {
-      error();
-      // Handle any errors that occur during deletion
-    }
-  }
+  // async function fetchData() {
+  //   try {
+  //     const response = await axios.get(`http://localhost:3000/orders`);
+  //     // Handle the response data
+  //     console.log("fetching");
+  //     console.log(response.data);
+  //     // product = response.data.product;
+  //     setOrders(response.data);
+  //   } catch (error) {
+  //     // Handle error
+  //     console.error(error);
+  //   }
+  // }
+  // async function deleteItem(id) {
+  //   try {
+  //     const response = await axios.delete(`http://localhost:3000/orders/${id}`);
+  //     notify();
+  //     // Perform additional actions after successful deletion
+  //   } catch (error) {
+  //     error();
+  //     // Handle any errors that occur during deletion
+  //   }
+  // }
 
-  async function updateItem(id) {
-    try {
-      const response = await axios.patch(`http://localhost:3000/orders/${id}`, {
-        data: "updated data",
-      });
-      console.log("Item updated successfully");
-      // Perform additional actions after successful update
-    } catch (error) {
-      console.error("Error updating item:", error);
-      // Handle any errors that occur during update
-    }
-  }
+  // async function updateItem(id) {
+  //   try {
+  //     const response = await axios.patch(`http://localhost:3000/orders/${id}`, {
+  //       data: "updated data",
+  //     });
+  //     console.log("Item updated successfully");
+  //     // Perform additional actions after successful update
+  //   } catch (error) {
+  //     console.error("Error updating item:", error);
+  //     // Handle any errors that occur during update
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  function deleteOrder(id) {
-    deleteItem(id);
-    let newOrders = [...orders];
-    newOrders = newOrders.filter((order) => order._id != id);
-    setOrders(newOrders);
-  }
-  function confirmOrder(id) {
-    // updateItem(id);
-    error();
-    let newOrders = [...orders];
-    newOrders = newOrders.filter((order) => order._id != id);
-    setOrders(newOrders);
-  }
+  // function deleteOrder(id) {
+  //   deleteItem(id);
+  //   let newOrders = [...orders];
+  //   newOrders = newOrders.filter((order) => order._id != id);
+  //   setOrders(newOrders);
+  // }
+  // function confirmOrder(id) {
+  //   // updateItem(id);
+  //   error();
+  //   let newOrders = [...orders];
+  //   newOrders = newOrders.filter((order) => order._id != id);
+  //   setOrders(newOrders);
+  // }
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer />
       {orders.length !== 0 ? (
         <OrdersTable
           deleteOrder={deleteOrder}
@@ -313,7 +313,7 @@ const AdminDashBoard = () => {
         <div className="flex justify-center align-middle h-screen w-full">
           <div className="loading loading-lg loading-spinner text-[#E9672B] "></div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
