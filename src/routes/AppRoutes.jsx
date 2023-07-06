@@ -6,7 +6,7 @@ import NotFound from "../pages/errorpage/Error.jsx";
 import LoadingAnimation from "../components/loadingAnimation/LoadingAnimation";
 import ForgotPassword from "../pages/forgetPassword/ForgetPassword";
 import ProductDetails from "../pages/productDetails/ProductDetails";
-// import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
+import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
 import OrderStatus from "../pages/orderStatus/OrderStatus";
@@ -60,11 +60,11 @@ const AppRoutes = () => {
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/signup" element={<SignUp />} />
       </Route> */}
-
+      {/* <Route path="/about" element={<About />} /> */}
       <Route
         path="/about"
         element={
-          <RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]}>
+          <RequireAuth allowedRoles={[ROLES.Admin]}>
             <About />
           </RequireAuth>
         }
