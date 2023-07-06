@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const { auth, clear } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(auth);
   const handleLogout = () => {
     clear();
 
@@ -194,28 +193,33 @@ function Header() {
                   </ul>
                 </div>
 
-                <div className="dropdown">
-                  <li className="">
-                    <Link
-                      to="#"
-                      className=" navElements block md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      Account
-                    </Link>
-                  </li>
-
-                  <ul
-                    tabIndex="0"
-                    className="account menu menu-lg dropdown-content lg:my-4"
-                  >
-                    <li>
-                      <Link to="login">Login</Link>
-                      <Link to="signup">
-                        Signup <span className="badge bg-orange-500">New</span>
+                {auth?.user ? null : (
+                  <div className="dropdown">
+                    <li className="">
+                      <Link
+                        to="#"
+                        className=" navElements block md:py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                      >
+                        Account
                       </Link>
                     </li>
-                  </ul>
-                </div>
+
+                    <ul
+                      tabIndex="0"
+                      className="account menu menu-lg dropdown-content lg:my-4"
+                    >
+                      <li>
+                        <Link to="login">Login</Link>
+                        <Link to="signup">
+                          Signup{" "}
+                          <span className="badge bg-orange-500">New</span>
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+
+                {}
               </ul>
             </div>
           </div>
@@ -268,68 +272,79 @@ function Header() {
                 </div>
               </div>
             </div>
-
-            <div className="dropdown dropdown-end">
-              <label tabIndex="0" className="btn btn-ghost btn-circle">
-                <div className="indicator">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </label>
-              <ul
-                tabIndex="0"
-                className="profile menu menu-lg dropdown-content my-2"
-              >
-                {/* <div>
-                      {auth.roles === "admin" ? (
-                        <div>
-                          {/* Render admin-specific content */}
-                {/* <h1>Welcome, {auth.user.username}!</h1>
-                        </div> */}
-                {/* ) : (
-                        null
-                      )} */}
-                {/* </div> */}
-                <li>
-                  <Link>
-                    <div>{auth.user?.username || "User"}</div>
-                  </Link>
-                  {auth.accessToken ? (
-                    <div>
-                      <button onClick={handleLogout}>Logout</button>
-                    </div>
-                  ) : null}
-                  <Link to="orderStatus">Order status</Link>
-                  <Link to="favouriteList" className="icon">
-                    Favourites
+            {auth?.user && (
+              <div className="dropdown dropdown-end">
+                <label tabIndex="0" className="btn btn-ghost btn-circle">
+                  <div className="indicator">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
+                      fill="currentColor"
                       className="w-6 h-6"
                     >
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                        fillRule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                        clipRule="evenodd"
                       />
                     </svg>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+                  </div>
+                </label>
+                <ul
+                  tabIndex="0"
+                  className="profile menu menu-lg dropdown-content my-2"
+                >
+                  {/* <div>
+                      {auth.roles === "admin" ? (
+                        <div>
+                          {/* Render admin-specific content */}
+                  {/* <h1>Welcome, {auth.user.username}!</h1>
+                        </div> */}
+                  {/* ) : (
+                        null
+                      )} */}
+                  {/* </div> */}
+                  <li>
+                    {auth?.user && (
+                      <Link>
+                        <div>Hello {auth?.user?.username || "User"}</div>
+                      </Link>
+                    )}
+
+                    {auth.user?.role == "admin" && (
+                      <Link to="/AdminDashBoard">
+                        <div>Admin Dashboard</div>
+                      </Link>
+                    )}
+                    {auth.accessToken ? (
+                      <div>
+                        <button onClick={handleLogout}>Logout</button>
+                      </div>
+                    ) : null}
+
+                    <Link to="orderStatus">Order status</Link>
+                    <Link to="favouriteList" className="icon">
+                      Favourites
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                        />
+                      </svg>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+            {}
           </div>
         </div>
       </div>
