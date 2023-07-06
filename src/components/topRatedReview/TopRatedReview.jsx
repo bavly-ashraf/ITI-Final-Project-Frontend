@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
+
 function TopRatedReview() {
-  const LOGIN_URL = "/review//top/review";
+  const LOGIN_URL = "/review/top/review";
   const arr = [1, 2, 3, 4, 5];
   const colorSchema = [
     {
@@ -26,21 +27,21 @@ function TopRatedReview() {
       shadowColor: "rgb(205, 212, 84) 8px -8px 0px",
     },
   ];
-  const starColor =[
-   "rgb(203, 198, 244)  ", 
-   "rgb(231, 203, 67) ", 
- "rgb(162, 212, 197) ",
- "rgb(175, 73, 32)",
- "rgb(205, 212, 84)",
-    
+  const starColor = [
+    "rgb(203, 198, 244)  ",
+    "rgb(231, 203, 67) ",
+    "rgb(162, 212, 197) ",
+    "rgb(175, 73, 32)",
+    "rgb(205, 212, 84)",
   ];
-  
+
   const [reviewCards, setReviewCards] = useState([]);
 
   useEffect(() => {
     axios
       .get(LOGIN_URL)
       .then((response) => {
+        console.log(response.data.reviews);
         setReviewCards(response.data.reviews);
       })
       .catch(() => {
@@ -73,15 +74,17 @@ function TopRatedReview() {
                     height: "230px",
                   }}
                 >
-    
-                  <div className="rating pb-8	"> 
+                  <div className="rating pb-8	">
                     {arr.map((num, index) => (
                       <input
                         key={index}
                         type="radio"
                         name="rating-2"
                         className="mask mask-star-2 "
-                        style={{ backgroundColor: index !== 5 ? starColor[0] : starColor[index+1] }}
+                        style={{
+                          backgroundColor:
+                            index !== 5 ? starColor[0] : starColor[index + 1],
+                        }}
                       />
                     ))}
                   </div>

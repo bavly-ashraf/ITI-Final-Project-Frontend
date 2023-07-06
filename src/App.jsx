@@ -8,6 +8,7 @@ import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import ProductDetails from "./pages/productDetails/ProductDetails";
 import Home from "./pages/Home/Home";
+import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Header />
         <AppRoutes />
         <Footer />
-
+        {/* <AdminDashBoard/> */}
         {/* <ProductDetails/> */}
 
         {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
