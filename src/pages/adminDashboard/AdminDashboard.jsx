@@ -1,4 +1,6 @@
-import React from "react";
+import { React, useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
+
 import ReactDOM from "react-dom";
 import { useState } from "react";
 import OrdersTable from "../../components/ordersTable/OrdersTable";
@@ -8,6 +10,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AdminDashBoard = () => {
+  const { auth } = useContext(AuthContext);
+  console.log(auth);
+
   // let [orders, setOrders] = useState([
   //   {
   //     UserId: "1",
@@ -237,49 +242,82 @@ const AdminDashBoard = () => {
   //     position: toast.POSITION.TOP_RIGHT,
   //   });
 
-  // const error = () =>
-  // toast.error('Error Notification !', {
-  //     position: toast.POSITION.TOP_RIGHT,
-  //   });
+  const error = () =>
+    toast.error("Error Notification !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
 
   // let [orders, setOrders] = useState([]);
 
-  // async function fetchData() {
-  //   try {
-  //     const response = await axios.get(`http://localhost:3000/orders`);
-  //     // Handle the response data
-  //     console.log("fetching");
-  //     console.log(response.data);
-  //     // product = response.data.product;
-  //     setOrders(response.data);
-  //   } catch (error) {
-  //     // Handle error
-  //     console.error(error);
-  //   }
-  // }
-  // async function deleteItem(id) {
-  //   try {
-  //     const response = await axios.delete(`http://localhost:3000/orders/${id}`);
-  //     notify();
-  //     // Perform additional actions after successful deletion
-  //   } catch (error) {
-  //     error();
-  //     // Handle any errors that occur during deletion
-  //   }
-  // }
+  async function fetchData() {
+    try {
+      // const response = await axios.get(`http://localhost:3000/orders`);
+      // const token = auth.accesstoken;
+      const token = auth.accessToken;
 
-  // async function updateItem(id) {
-  //   try {
-  //     const response = await axios.patch(`http://localhost:3000/orders/${id}`, {
-  //       data: "updated data",
-  //     });
-  //     console.log("Item updated successfully");
-  //     // Perform additional actions after successful update
-  //   } catch (error) {
-  //     console.error("Error updating item:", error);
-  //     // Handle any errors that occur during update
-  //   }
-  // }
+      console.log(token);
+      console.log("hello,", auth.accessToken);
+      // const response = await axios.get("http://localhost:3000/orders", null, {
+      //   // headers: { Authorization: token },
+      //   Authorization: `Bearer ${token}`,
+      // });
+
+      const response = await axios.get("http://localhost:3000/orders", {
+        headers: {
+          Authorization: ` ${token}`,
+        },
+      });
+      console.log("hello admin");
+      // Handle the response data
+      console.log("fetching");
+      console.log(response.data);
+      // product = response.data.product;
+      setOrders(response.data);
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  }
+  async function deleteItem(id) {
+    try {
+      const token = auth.accessToken;
+
+      const response = await axios.delete(
+        `http://localhost:3000/orders/${id}`,
+        {
+          headers: {
+            Authorization: ` ${token}`,
+          },
+        }
+      );
+      console.log(response);
+
+      notify();
+      // Perform additional actions after successful deletion
+    } catch (error) {
+      error();
+      // Handle any errors that occur during deletion
+    }
+  }
+
+  async function updateItem(id) {
+    try {
+      const token = auth.accessToken;
+
+      const response = await axios.patch(`http://localhost:3000/orders/${id}`, {
+        data: "updated data",
+        headers: {
+          Authorization: ` ${token}`,
+        },
+      });
+      console.log(response);
+      console.log("Item updated successfully");
+      // Perform additional actions after successful update
+    } catch (error) {
+      console.error("Error updating item:", error);
+      // Handle any errors that occur during update
+    }
+  }
 
   // useEffect(() => {
   //   fetchData();

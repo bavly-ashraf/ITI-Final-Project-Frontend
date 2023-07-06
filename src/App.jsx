@@ -14,10 +14,10 @@ function App() {
   return (
     <>
       <div>
-        {/* <Header />
+        <Header />
         <AppRoutes />
-        <Footer /> */}
-        <AdminDashBoard/>
+        <Footer />
+        {/* <AdminDashBoard/> */}
         {/* <ProductDetails/> */}
 
         {/* <h1 className="custom-font custom-font-black">feather 1 - Black</h1>
