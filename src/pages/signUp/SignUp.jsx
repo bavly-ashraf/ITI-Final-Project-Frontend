@@ -7,6 +7,7 @@ import Joi from "joi";
 import "./SignUP.css";
 import axios from "../../api/axios";
 const SignUpURL = "/users/signup";
+
 const schema = Joi.object({
   // name: Joi.string().required().messages({
   //   "any.required": "Name is required",

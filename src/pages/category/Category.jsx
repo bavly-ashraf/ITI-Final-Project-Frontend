@@ -1,16 +1,19 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../../context/AuthProvider';
 
 const Category = () => {
+    const {auth} = useContext(AuthContext);
+    console.log(auth);
     const [allCategories,setAllCategories] = useState([]);
     const [currentCat, setCurrentCat] = useState(false);
 
     useEffect(()=>{
         (async()=>{
             try{
-                const {data} = await axios.get("http://localhost:3000/categories/");
-                console.log(data);
-                setAllCategories(data);
+                const {categories} = (await axios.get("http://localhost:3000/categories/")).data;
+                console.log(categories);
+                setAllCategories(categories);
             }catch(e){
                 setAllCategories([]);
             }
@@ -19,7 +22,7 @@ const Category = () => {
 
 
     const handleDeleteCat = async(id)=>{
-        const deletedCat = await axios.delete(`http://localhost:3000/categories/${id}`);
+        const deletedCat = await axios.delete(`http://localhost:3000/categories/${id}`,{headers:{Authorization:auth.accessToken}});
         console.log(deletedCat);
         const newCatArr = allCategories.filter((category)=> category._id != id);
         setAllCategories(newCatArr);
@@ -27,17 +30,17 @@ const Category = () => {
 
     const handleAddEdit = async()=>{
         if(!currentCat._id){
-            const newCategory = await axios.post("http://localhost:3000/categories/",currentCat);
-            console.log(newCategory);
+            const {category} = (await axios.post("http://localhost:3000/categories/",currentCat,{headers:{Authorization:auth.accessToken}})).data;
+            console.log(category);
             //clone
             const newCatArr = [...allCategories];
             //edit
-            newCatArr.push(currentCat);
+            newCatArr.push(category);
             //setState
             setAllCategories(newCatArr);
         }
         else{
-            const editedCategory = await axios.patch(`http://localhost:3000/categories/${currentCat._id}`,currentCat);
+            const editedCategory = await axios.patch(`http://localhost:3000/categories/${currentCat._id}`,currentCat,{headers:{Authorization:auth.accessToken}});
             console.log(editedCategory);
             //clone
             const newCatArr = [...allCategories];
@@ -52,7 +55,7 @@ const Category = () => {
     return ( <div className="p-40">
     <div>
         <label className='block'>Category Name:</label>
-        <input className='input' onChange={(e)=>{setCurrentCat({...currentCat,name:e.target.value})}} defaultValue={currentCat.name} type='text' />
+        <input className='input' onChange={(e)=>setCurrentCat({...currentCat,name:e.target.value})} defaultValue={currentCat.name} type='text' />
         <button onClick={handleAddEdit} className='btn btn-success m-5'>Submit</button>
     </div>
     {allCategories.length > 0? <div className="overflow-x-auto">
@@ -67,9 +70,9 @@ const Category = () => {
             </thead>
             <tbody>
             {/* row 1 */}
-            {allCategories.map((category)=>
-            <tr onClick={setCurrentCat(category)} key={category._id} className="active:bg-project-main-color">
-                <th>{category._id}</th>
+            {allCategories.map((category,idx)=>
+            <tr onClick={()=>setCurrentCat(category)} key={category._id} className={`cursor-pointer ${currentCat._id == category._id? "bg-project-main-color" : ""}`}>
+                <th>{idx+1}</th>
                 <td>{category.name}</td>
                 <td>
                     <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>handleDeleteCat(category._id)} fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="red" className="w-8 h-8 cursor-pointer hover:stroke-2">
@@ -87,7 +90,7 @@ const Category = () => {
             </svg>
             <h1 className='text-project-main-color custom-font custom-font-bold !text-4xl'>No products to show</h1>
         </div>
-    };
+    }
     </div> );
 }
  
