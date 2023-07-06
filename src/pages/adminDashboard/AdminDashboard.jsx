@@ -1,97 +1,137 @@
-import React, { useContext, useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { React, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-import axios from "../../api/axios";
+
+import ReactDOM from "react-dom";
+import { useState } from "react";
 import OrdersTable from "../../components/ordersTable/OrdersTable";
 import DeleteModalConfirm from "../../components/deleteModalConfirm/DeleteModalConfirm";
+import axios from "../../api/axios";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AdminDashboard = () => {
+const AdminDashBoard = () => {
   const { auth } = useContext(AuthContext);
-  const [showModal, setShowModal] = useState(false);
-  const [currentId, setCurrentId] = useState(0);
-  const [orders, setOrders] = useState([]);
+  console.log(auth);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+   const [showModal, setShowModal] = useState(false);
+
+  let [currentId, setCurrentId] = useState(0);
 
   const notify = () =>
     toast.success("Item Deleted Successfully!", {
       position: toast.POSITION.TOP_RIGHT,
     });
 
+
+
   const error = () =>
-    toast.error("Error Notification!", {
+    toast.error("Error Notification !", {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-  const fetchData = async () => {
+  let [orders, setOrders] = useState([]);
+
+  async function fetchData() {
     try {
+      // const response = await axios.get(`http://localhost:3000/orders`);
+      // const token = auth.accesstoken;
       const token = auth.accessToken;
+
+      console.log(token);
+      console.log("hello,", auth.accessToken);
+      // const response = await axios.get("http://localhost:3000/orders", null, {
+      //   // headers: { Authorization: token },
+      //   Authorization: `Bearer ${token}`,
+      // });
+
       const response = await axios.get("http://localhost:3000/orders", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: ` ${token}`,
         },
       });
+      console.log("hello admin");
+      // Handle the response data
+      console.log("fetching");
+      console.log(response.data);
+      // product = response.data.product;
       setOrders(response.data);
     } catch (error) {
+      // Handle error
       console.error(error);
     }
-  };
-
-  const deleteItem = async (id) => {
+  }
+  async function deleteItem(id) {
     try {
-      const token = auth.accessToken;
-      const response = await axios.delete(`http://localhost:3000/orders/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      notify();
-    } catch (error) {
-      error();
-    }
-  };
 
-  const updateItem = async (id) => {
-    try {
+      console.log("deleting...");
+      const response = await axios.delete(`http://localhost:3000/orders/${id}`);
+
       const token = auth.accessToken;
-      const response = await axios.patch(
+
+      const response = await axios.delete(
         `http://localhost:3000/orders/${id}`,
         {
-          data: "updated data",
-        },
-        {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: ` ${token}`,
           },
         }
       );
       console.log(response);
+      notify();
+      // Perform additional actions after successful deletion
+    } catch (error) {
+      error();
+      // Handle any errors that occur during deletion
+    }
+  }
+
+  async function updateItem(id) {
+    try {
+      const token = auth.accessToken;
+
+      const response = await axios.patch(`http://localhost:3000/orders/${id}`, {
+        data: "updated data",
+        headers: {
+          Authorization: ` ${token}`,
+        },
+      });
+      console.log(response);
       console.log("Item updated successfully");
+      // Perform additional actions after successful update
     } catch (error) {
       console.error("Error updating item:", error);
+      // Handle any errors that occur during update
     }
-  };
+  }
 
-  const deleteOrder = (orderId) => {
-    setCurrentId(orderId);
+   useEffect(() => {
+     fetchData();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+
+
+  function deleteOrder(id) {
+    setCurrentId(id);
     setShowModal(true);
-  };
+  }
 
-  const deleteItemFromTable = (id) => {
-    const newOrders = orders.filter((order) => order._id !== id);
+  function deleteItemFromTable(id)
+  {
+    let newOrders = [...orders];
+    newOrders = newOrders.filter((order) => order._id != id);
     setOrders(newOrders);
-  };
-
-  const confirmOrder = (id) => {
+  }
+  function confirmOrder(id) {
+    // updateItem(id);
     setCurrentId(id);
     setShowModal(true);
     error();
-    const newOrders = orders.filter((order) => order._id !== id);
+    let newOrders = [...orders];
+    newOrders = newOrders.filter((order) => order._id != id);
     setOrders(newOrders);
-  };
+  }
+
 
   return (
     <>
@@ -111,9 +151,9 @@ const AdminDashboard = () => {
         <div className="flex justify-center align-middle h-screen w-full">
           <div className="loading loading-lg loading-spinner text-[#E9672B] "></div>
         </div>
-      )}
+      )} 
     </>
   );
 };
 
-export default AdminDashboard;
+export default AdminDashBoard;

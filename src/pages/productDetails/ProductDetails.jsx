@@ -6,33 +6,24 @@ import ProductDescription from "../../components/productDescription/ProductDescr
 import axios from "axios";
 import { useEffect } from "react";
 import ProductReview from "../../components/productReview.jsx/ProductReview";
+import { useParams } from "react-router-dom";
 
 
 const ProductDetails = () => {
-
-  let [product,setProduct]=useState(0);
-
-  let productId="64a57959ed341c0dc39c6286";
-
-  async function fetchData() {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/products/id/${productId}`
-      );
-      // Handle the response data
-      // product = response.data.product;
-      setProduct(response.data.product)
-    } catch (error) {
-      // Handle error
-      console.error(error);
-    }
-  }
-
+ const{id}= useParams()
+ console.log(id);
+  const [product, setProduct] = useState(0);
   useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    axios
+      .get(`http://localhost:3000/products/product/${id}`)
+      .then((response) => {
+        console.log(response.data.product);
+        setProduct(response.data.product);
+      })
+      .catch(() => {
+        console.log("error fetching data");
+      });
   }, []);
-
   
   return (
     <>
@@ -46,7 +37,7 @@ const ProductDetails = () => {
             <ProductDescription product={product} />
           </div>
           <div>
-         <ProductReview/>
+         <ProductReview reviews={product.reviews}/>
       </div>
         </div>
       ) : (

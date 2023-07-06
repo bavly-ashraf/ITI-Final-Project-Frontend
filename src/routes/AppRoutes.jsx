@@ -6,7 +6,7 @@ import NotFound from "../pages/errorpage/Error.jsx";
 import LoadingAnimation from "../components/loadingAnimation/LoadingAnimation";
 import ForgotPassword from "../pages/forgetPassword/ForgetPassword";
 import ProductDetails from "../pages/productDetails/ProductDetails";
-// import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
+import AdminDashBoard from "../pages/adminDashboard/AdminDashboard";
 import CartItem from "../components/cartItem/CartItem";
 import About from "../pages/about/About";
 import OrderStatus from "../pages/orderStatus/OrderStatus";
@@ -38,7 +38,7 @@ const AppRoutes = () => {
       <Route path="/favouriteList" element={<FavouriteList />} />
 
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/productdetails/:productId" element={<ProductDetails />} />
+      <Route path="/products/product/:id" element={<ProductDetails />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />
       <Route path="/orderStatus" element={<OrderStatus />} />
@@ -50,7 +50,7 @@ const AppRoutes = () => {
       <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+        {/* <Route path="/AdminDashBoard" element={<AdminDashBoard />} /> */}
       </Route>
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
@@ -60,11 +60,11 @@ const AppRoutes = () => {
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/signup" element={<SignUp />} />
       </Route> */}
-
+      {/* <Route path="/about" element={<About />} /> */}
       <Route
         path="/about"
         element={
-          <RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]}>
+          <RequireAuth allowedRoles={[ROLES.Admin]}>
             <About />
           </RequireAuth>
         }
