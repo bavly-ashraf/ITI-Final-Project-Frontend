@@ -1,19 +1,18 @@
-import { useState } from "react";
-import React from "react";
-
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 // import ReactDOM from "react-dom";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
-import ProductDetails from "./pages/productDetails/ProductDetails";
-import Home from "./pages/Home/Home";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
       <div>
+
+        <ToastContainer />
+
         <Header />
         <AppRoutes />
         <Footer />

@@ -13,17 +13,21 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   console.log(auth);
 
+
   useEffect(() => {
     fetchData();
   }, []);
+
 
   const notify = () =>
     toast.success("Item Deleted Successfully!", {
       position: toast.POSITION.TOP_RIGHT,
     });
 
+
   const errorMsg = (err) =>
     toast.error(err, {
+
       position: toast.POSITION.TOP_RIGHT,
     });
 
@@ -39,7 +43,9 @@ const AdminDashboard = () => {
     } catch (error) {
       console.error(error);
     }
+
   };
+
 
   const deleteItem = async (id) => {
     try {
@@ -74,23 +80,29 @@ const AdminDashboard = () => {
     } catch (error) {
       console.error("Error updating item:", error);
     }
+
   };
 
   const deleteOrder = (orderId) => {
     setCurrentId(orderId);
+
     setShowModal(true);
   };
 
+
   const deleteItemFromTable = (id) => {
     const newOrders = orders.filter((order) => order._id !== id);
+
     setOrders(newOrders);
   };
+
 
   const confirmOrder = (id) => {
     updateItem(id);
     const newOrders = orders.filter((order) => order._id !== id);
     setOrders(newOrders);
   };
+
 
   return (
     <>
@@ -112,7 +124,9 @@ const AdminDashboard = () => {
           <div className="loading loading-lg loading-spinner text-[#E9672B] "></div>
         </div>
       )}
+
       </div>
+
     </>
   );
 };

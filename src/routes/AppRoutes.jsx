@@ -16,12 +16,7 @@ import Category from "../pages/category/Category";
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
 import ProductListing from "../pages/productsListing/ProductsListing";
-// const ROLES = {
-//   User: "user",
-//   // Editor: 1984,
-//   // Admin: 5150,
-//   Admin: "Admin",
-// };
+
 const ROLES = {
   User: "user",
   Admin: "admin",
@@ -35,7 +30,8 @@ const AppRoutes = () => {
       {/* <Route path="/signup" element={<SignUp />} /> */}
       <Route path="/loading" element={<LoadingAnimation />} />
       <Route path="/favouriteList" element={<FavouriteList />} />
-      {/* <Route path="/AdminDashBoard" element={<AdminDashBoard />} /> */}
+      <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+      <Route path="/ForgetPassword" element={<ForgotPassword />} />
 
       <Route path="/products/product/:id" element={<ProductDetails />} />
       <Route path="/unauthorized" element={<Unauthorized />} />

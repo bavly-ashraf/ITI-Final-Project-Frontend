@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./Login.css";
 // import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+// import useAuth from "../../hooks/useAuth";
 import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import axios from "../../api/axios";
 const LOGIN_URL = "/users/login";
@@ -27,8 +29,27 @@ export default function App() {
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { auth, clear, persist } = useContext(AuthContext);
+  const { auth, persist } = useContext(AuthContext);
 
+  const notify = () =>
+    toast.success(`Welcome  ${auth.user.username}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      toastClassName: "custom-toast",
+      // style: {
+      //   background: "9BCDD2",
+      //   color: "black",
+      // },
+      style: { background: "#9BCDD2", color: "#FF8551" },
+      toastStyle: {
+        "--toastify-color-success": "orange",
+      },
+    });
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -36,8 +57,8 @@ export default function App() {
   // const { setAuth, persist } = useAuth();
   // const { persist } = useAuth();
 
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
+  // const [user, setUser] = useState("");
+  // const [pwd, setPwd] = useState("");
   ////////
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
@@ -69,8 +90,9 @@ export default function App() {
         // const accessToken = token;
         // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
         persist({ user, roles, islogged, accessToken: token });
-        setUser("");
-        setPwd("");
+        // setUser("");
+        // setPwd("");
+        notify();
         navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});
