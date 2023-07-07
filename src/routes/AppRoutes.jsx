@@ -52,7 +52,11 @@ const AppRoutes = () => {
       </Route>
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+
+        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+
         {/*inside we put routes for admins and users */}
+
       </Route>
 
       <Route path="/about" element={<About />} />
