@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 // import useAuth from "../../hooks/useAuth";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import axios from "../../api/axios";
 const LOGIN_URL = "/users/login";
@@ -32,7 +31,7 @@ export default function App() {
   const { auth, persist } = useContext(AuthContext);
 
   const notify = () =>
-    toast.success(`Welcome  ${auth.user.username}`, {
+    toast.success(`Welcome  ${auth?.user.username}`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,

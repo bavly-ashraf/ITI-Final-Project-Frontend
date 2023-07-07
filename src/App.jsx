@@ -6,11 +6,11 @@ import AppRoutes from "./routes/AppRoutes";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <>
       <div>
-
         <ToastContainer />
 
         <Header />
