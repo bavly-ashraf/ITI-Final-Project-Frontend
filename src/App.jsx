@@ -15,7 +15,9 @@ function App() {
     <>
       <div>
         <Header />
-        <AppRoutes />
+        <div className="py-32">
+          <AppRoutes />
+        </div>
         <Footer />
         {/* <AdminDashBoard/> */}
         {/* <ProductDetails/> */}
