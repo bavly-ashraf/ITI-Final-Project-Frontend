@@ -11,6 +11,7 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const [orders, setOrders] = useState([]);
+  console.log(auth);
 
   useEffect(() => {
     fetchData();
@@ -21,20 +22,20 @@ const AdminDashboard = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-  const error = () =>
-    toast.error("Error Notification!", {
+  const errorMsg = (err) =>
+    toast.error(err, {
       position: toast.POSITION.TOP_RIGHT,
     });
 
   const fetchData = async () => {
     try {
       const token = auth.accessToken;
+      console.log(auth);
       const response = await axios.get("http://localhost:3000/orders", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: auth.accessToken },
       });
-      setOrders(response.data);
+      setOrders(response.data.orders);
+      console.log(response.data.orders);
     } catch (error) {
       console.error(error);
     }
@@ -42,15 +43,17 @@ const AdminDashboard = () => {
 
   const deleteItem = async (id) => {
     try {
+      console.log("deleting:",id)
       const token = auth.accessToken;
-      const response = await axios.delete(`http://localhost:3000/orders/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `http://localhost:3000/orders/${id}`,
+        {
+          headers: { Authorization: auth.accessToken },
+        }
+      );
       notify();
-    } catch (error) {
-      error();
+    } catch (err) {
+      errorMsg(err.message);
     }
   };
 
@@ -60,12 +63,10 @@ const AdminDashboard = () => {
       const response = await axios.patch(
         `http://localhost:3000/orders/${id}`,
         {
-          data: "updated data",
+          status: "confirmed",
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: auth.accessToken },
         }
       );
       console.log(response);
@@ -86,15 +87,14 @@ const AdminDashboard = () => {
   };
 
   const confirmOrder = (id) => {
-    setCurrentId(id);
-    setShowModal(true);
-    error();
+    updateItem(id);
     const newOrders = orders.filter((order) => order._id !== id);
     setOrders(newOrders);
   };
 
   return (
     <>
+    <div className=" pt-28 ">
       <ToastContainer />
       {orders.length !== 0 ? (
         <OrdersTable
@@ -106,12 +106,13 @@ const AdminDashboard = () => {
           currentId={currentId}
           deleteItem={deleteItem}
           deleteItemFromTable={deleteItemFromTable}
-        />
-      ) : (
-        <div className="flex justify-center align-middle h-screen w-full">
+          />
+          ) : (
+            <div className="flex justify-center align-middle h-screen w-full">
           <div className="loading loading-lg loading-spinner text-[#E9672B] "></div>
         </div>
       )}
+      </div>
     </>
   );
 };

@@ -9,7 +9,7 @@ import DeleteModalConfirm from "../../components/deleteModalConfirm/DeleteModalC
 const OrdersTable = (props) => {
   let orders = props.orders;
   let keys;
-  if (orders.length != 0) {
+  if (orders.length != 0 && orders) {
     keys = Object.keys(orders[0]);
   }
   let [currentPage, setCurrentPage] = useState(0);

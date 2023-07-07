@@ -29,8 +29,7 @@ export default function Modal(props) {
                 {/* Modal body */}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    Are You Sure You Want To Delete This Order?.
-                    {props.currentId}
+                    Are You Sure You Want To Delete This Order?
                   </p>
                 </div>
                 {/* Modal footer */}
@@ -38,8 +37,9 @@ export default function Modal(props) {
                   <button
                     className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     type="button"
-                    onClick={async () => {
-                      await props.deleteItem(props.currentId);
+                    onClick={ () => {
+                      console.log("deleting")
+                      props.deleteItem(props.currentId);
                       props.deleteItemFromTable(props.currentId);
                       props.setShowModal(false);
                       props.showOrders();

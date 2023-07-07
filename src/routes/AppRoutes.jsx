@@ -50,7 +50,7 @@ const AppRoutes = () => {
       <Route path="/profile" element={<Profile />} />
       {/* restrict access to this route to users with the 'Admin' role */}
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-        {/* <Route path="/AdminDashBoard" element={<AdminDashBoard />} /> */}
+        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       </Route>
       {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         <Route path="/cartitem" element={<CartItem />} />
