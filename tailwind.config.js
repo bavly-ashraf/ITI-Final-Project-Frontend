@@ -13,5 +13,6 @@ export default {
     },
   },
 
+  // eslint-disable-next-line no-undef
   plugins: [require("daisyui"), require("tw-elements/dist/plugin.cjs")],
 };

@@ -91,9 +91,42 @@ export const AuthProvider = ({ children }) => {
   const deleteCookie = (name) => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   };
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  // const persistCartData = () => {
+  //   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+  //   localStorage.setItem("cart", JSON.stringify(cartData));
+  // };
 
+  const updateCart = (productId, count) => {
+    const existingCartData = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Checking if it exist
+    const existingProductIndex = existingCartData.findIndex(
+      (product) => product.id === productId
+    );
+
+    if (existingProductIndex !== -1) {
+      // Update the count
+      existingCartData[existingProductIndex].count += count;
+    } else {
+      // Add the new product
+      const newProduct = {
+        id: productId,
+        count: count,
+      };
+      existingCartData.push(newProduct);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(existingCartData));
+  };
+
+  const getCart = () => {
+    const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+    return cartData;
+  };
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   return (
-    <AuthContext.Provider value={{ auth, persist, clear }}>
+    <AuthContext.Provider value={{ auth, persist, clear, updateCart, getCart }}>
       {loading ? (
         <LoadingAnimation />
       ) : userDataFetched ? (
