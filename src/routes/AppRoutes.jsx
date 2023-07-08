@@ -40,19 +40,15 @@ const AppRoutes = () => {
       <Route path="/addcategory" element={<Category />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
       {/* restrict access to this route to users with the 'Admin' role */}
-
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/CartItem" element={<CartItem />} />
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         {/*inside we put routes for admins and users */}
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/CartItem" element={<CartItem />} />
       </Route>
+      <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-
-        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-
         {/*inside we put routes for admins and users */}
-
       </Route>
 
       <Route path="/about" element={<About />} />
