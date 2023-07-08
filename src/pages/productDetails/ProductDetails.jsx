@@ -13,7 +13,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(0);
   let [addedToFav, setAddedToFav] = useState(
-    auth.user.wishList.includes(id) ? true : false
+    auth?.user?.wishList.includes(id) ? true : false
   );
 
   useEffect(() => {
@@ -61,8 +61,6 @@ const ProductDetails = () => {
       console.error(error);
     }
   };
-
-
 
   return (
     <>
