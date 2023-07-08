@@ -36,16 +36,24 @@ const ProductListing = () => {
     useEffect(()=>{
         (async()=>{
             //get categories
-            const {categories} = (await axios.get("http://localhost:3000/categories")).data;
-            setAllCategories(categories);
+            try{
+                const {categories} = (await axios.get("http://localhost:3000/categories")).data;
+                setAllCategories(categories);
+            }catch(e){
+                toast.error("error fetching category list, please refresh the page and try again")
+            }
         })()
     }
     ,[]);
 
     // sorting
     const handleSorting = async(sortingOrder)=>{
-        const {data} = await axios.get(`http://localhost:3000/products/${sortingOrder}`);
-        setProducts(data);
+        try{
+            const {data} = await axios.get(`http://localhost:3000/products/${sortingOrder}`);
+            setProducts(data);
+        }catch(e){
+            toast.error("error contacing the server, please refresh the page and try again")
+        }
     }
     
     // filteration
@@ -111,8 +119,9 @@ const ProductListing = () => {
             const index = newProdArr.findIndex((el)=>el._id == id);
             newProdArr[index] = updatedProduct
             setProducts(newProdArr);
+            toast.success("product edited successfully");
         }catch(e){
-            console.log("edit error");
+            toast.error("error editing the product, please try again")
             setProducts(fallBackClone);
         }
     }
@@ -124,8 +133,9 @@ const ProductListing = () => {
             await axios.delete(`http://localhost:3000/products/${id}`,{headers:{Authorization:auth?.accessToken}});
             const deletedProductArr = productsClone.filter((prod)=>prod._id != id);
             setProducts(deletedProductArr);
+            toast.success("product deleted successfully");
         }catch(e){
-            console.log("delete error");
+            toast.error("error deleting the product, please try again")
             setProducts(productsClone);
         }
      }
