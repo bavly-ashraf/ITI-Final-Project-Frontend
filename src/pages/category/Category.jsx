@@ -73,8 +73,8 @@ const Category = () => {
     return ( <div className="p-40">
     <div className='flex justify-center'>
         <div>
-        <label className='block text-2xl'>Category Name:</label>
-        <input className='input' onChange={(e)=>setCurrentCat({...currentCat,name:e.target.value})} value={currentCat.name} type='text' />
+        <label htmlFor='catNameTxt' className='block text-2xl'>Category Name:</label>
+        <input id='catNameTxt' className='input' onChange={(e)=>setCurrentCat({...currentCat,name:e.target.value})} value={currentCat.name} type='text' />
         <button onClick={handleAddEdit} className='btn btn-success m-5'>Submit</button>
         </div>
     </div>
@@ -102,7 +102,9 @@ const Category = () => {
                 </td>
             </tr>
             {/* deleteConfirmation modal */}
-            <dialog key={idx+1} id="my_modal_deleteCat" className="modal">
+            <tr key={idx+1}>
+                <td>
+            <dialog id="my_modal_deleteCat" className="modal">
                 <form method="dialog" className="modal-box">
                     <h3 className="font-bold text-lg">Delete Confirmation!</h3>
                     <p className="py-4">{`Are you sure you want to delete [${category.name}]?`}</p>
@@ -113,6 +115,8 @@ const Category = () => {
                     </div>
                 </form>
             </dialog>
+                </td>
+            </tr>
             </React.Fragment>
             )}
             </tbody>
