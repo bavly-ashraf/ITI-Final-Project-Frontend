@@ -35,7 +35,7 @@ const AdminDashboard = () => {
     try {
       const token = auth.accessToken;
       console.log(auth);
-      const response = await axios.get("http://localhost:3000/orders", {
+      const response = await axios.get("http://localhost:3000/orders/pending", {
         headers: { Authorization: auth.accessToken },
       });
       setOrders(response.data.orders);
