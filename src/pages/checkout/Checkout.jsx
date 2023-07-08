@@ -76,7 +76,6 @@ export default function placeOrder() {
 
     return (
         <>
-
             {error.length > 0 ? <div className=" my-2">{error}</div> : ''}
             <div className="m-auto block max-w-md rounded-lg bg-[#FBF8F5] p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                 <form onSubmit={submitUserDataForm}>
