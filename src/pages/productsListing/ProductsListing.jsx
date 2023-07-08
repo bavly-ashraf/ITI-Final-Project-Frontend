@@ -5,11 +5,12 @@ import axios from 'axios';
 import AddEditModal from '../../components/add_EditModal/Add_EditModal';
 import { AuthContext } from '../../context/AuthProvider';
 import LoadingAnimation from '../../components/loadingAnimation/LoadingAnimation';
+import { toast } from 'react-toastify';
 
 const ProductListing = () => {
     const {auth} = useContext(AuthContext);
-    console.log(auth.roles);
-    const isAdmin = auth.roles == "admin"? true:false;
+
+    const isAdmin = auth?.roles == "admin"? true:false;
     const [products, setProducts] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [allCategories,setAllCategories] = useState([]);
@@ -21,9 +22,13 @@ const ProductListing = () => {
     useEffect(()=>{
         (async()=>{
             //get products
+            try{
             const {data} = await axios.get('http://localhost:3000/products/all');
             setIsLoading(false);
             setProducts(data);
+            }catch(e){
+                toast.error("error fetching product list, please refresh the page and try again")
+            }
         })()
     }
     ,[]);
@@ -81,13 +86,19 @@ const ProductListing = () => {
             formData.append("photo_url",photo_url[i]);
         }
         formData.append("no_of_items_in_stock",no_of_items_in_stock);
-        const addedProduct = (await axios.post(`http://localhost:3000/products/${category}`,formData,{headers:{Authorization:auth.accessToken}})).data.product;
-        //clone
-        const newProdArr = [...products];
-        //edit
-        newProdArr.push(addedProduct);
-        //setState
-        setProducts(newProdArr);
+        try
+        {
+            const addedProduct = (await axios.post(`http://localhost:3000/products/${category}`,formData,{headers:{Authorization:auth?.accessToken}})).data.product;
+            //clone
+            const newProdArr = [...products];
+            //edit
+            newProdArr.push(addedProduct);
+            //setState
+            setProducts(newProdArr);
+            toast.success("product added successfully");
+        }catch(e){
+            toast.error("error adding the product, please try again")
+        }
     }
 
     // editing product
@@ -95,7 +106,7 @@ const ProductListing = () => {
         const fallBackClone = [...products];
         const {name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability } = product;
         try{
-            const {updatedProduct} = (await axios.patch(`http://localhost:3000/products/${id}`,{name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability },{headers:{Authorization:auth.accessToken}})).data
+            const {updatedProduct} = (await axios.patch(`http://localhost:3000/products/${id}`,{name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability },{headers:{Authorization:auth?.accessToken}})).data
             const newProdArr = [...products];
             const index = newProdArr.findIndex((el)=>el._id == id);
             newProdArr[index] = updatedProduct
@@ -110,7 +121,7 @@ const ProductListing = () => {
     const handleDelete = async(id) =>{
         const productsClone = [...products];
         try{
-            await axios.delete(`http://localhost:3000/products/${id}`,{headers:{Authorization:auth.accessToken}});
+            await axios.delete(`http://localhost:3000/products/${id}`,{headers:{Authorization:auth?.accessToken}});
             const deletedProductArr = productsClone.filter((prod)=>prod._id != id);
             setProducts(deletedProductArr);
         }catch(e){

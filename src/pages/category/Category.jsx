@@ -5,7 +5,7 @@ import LoadingAnimation from '../../components/loadingAnimation/LoadingAnimation
 
 const Category = () => {
     const {auth} = useContext(AuthContext);
-    console.log(auth);
+
     const [allCategories,setAllCategories] = useState([]);
     const [currentCat, setCurrentCat] = useState({name:""});
     const [isLoading,setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ const Category = () => {
 
 
     const handleDeleteCat = async(id)=>{
-        const deletedCat = await axios.delete(`http://localhost:3000/categories/${id}`,{headers:{Authorization:auth.accessToken}});
+        const deletedCat = await axios.delete(`http://localhost:3000/categories/${id}`,{headers:{Authorization:auth?.accessToken}});
         console.log(deletedCat);
         const newCatArr = allCategories.filter((category)=> category._id != id);
         setAllCategories(newCatArr);
@@ -32,7 +32,7 @@ const Category = () => {
 
     const handleAddEdit = async()=>{
         if(!currentCat._id){
-            const {category} = (await axios.post("http://localhost:3000/categories/",currentCat,{headers:{Authorization:auth.accessToken}})).data;
+            const {category} = (await axios.post("http://localhost:3000/categories/",currentCat,{headers:{Authorization:auth?.accessToken}})).data;
             console.log(category);
             //clone
             const newCatArr = [...allCategories];
@@ -43,7 +43,7 @@ const Category = () => {
             setCurrentCat({name:""});
         }
         else{
-            const editedCategory = await axios.patch(`http://localhost:3000/categories/${currentCat._id}`,currentCat,{headers:{Authorization:auth.accessToken}});
+            const editedCategory = await axios.patch(`http://localhost:3000/categories/${currentCat._id}`,currentCat,{headers:{Authorization:auth?.accessToken}});
             console.log(editedCategory);
             //clone
             const newCatArr = [...allCategories];

@@ -11,11 +11,13 @@ const Product = ({index,handleDelete,handleEdit,product,isAdmin,allCategories}) 
         {/* hover:-translate-y-6 */}
         <div className={`w-72 bg-white pb-2 rounded-xl ${isAdmin? "hover:scale-105" : "hover:-translate-y-3"} ease-in-out duration-300`}> 
             <Link to={`/products/product/${product?._id}`}><figure><img className='rounded-xl w-[288px] h-[288px]' src={product?.photo_url[0]} alt={product?.name} /></figure></Link>
+            <div className="flex justify-center w-full">
             <h2 className="card-title px-2 text-black">
                 {product?.name}
-                <div className="badge badge-secondary">NEW</div>
+                {/* <div className="badge badge-secondary">NEW</div> */}
             </h2>
-            <p className='text-black px-2'>{product?.description}</p>
+            </div>
+            {/* <p className='text-black px-2'>{product?.description}</p> */}
             <p className='text-project-main-color text-xl font-bold text-center py-2'>{product?.price+"EGP"}</p>
             <div className='flex justify-evenly text-black'>
                 {isAdmin?
