@@ -7,6 +7,8 @@ import axios from "axios";
 import ProductReview from "../../components/productReview.jsx/ProductReview";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const ProductDetails = () => {
   const { auth } = useContext(AuthContext);
@@ -15,7 +17,17 @@ const ProductDetails = () => {
   let [addedToFav, setAddedToFav] = useState(
     auth?.user?.wishList.includes(id) ? true : false
   );
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
 
+
+  const errorMsg = (err) =>
+    toast.error(err, {
+
+      position: toast.POSITION.TOP_RIGHT,
+    });
   useEffect(() => {
     axios
       .get(`http://localhost:3000/products/product/${id}`)
@@ -27,6 +39,33 @@ const ProductDetails = () => {
         console.log("error fetching data");
       });
   }, []);
+
+  const addToCart = async (id,no_of_items) => {
+    try {
+      if(no_of_items>0)
+      {
+        const response = await axios.post(
+          `http://localhost:3000/orderedItems/`,
+          {
+            productId: id,
+            quantity:no_of_items
+          },
+          {
+            headers: { Authorization: auth.accessToken },
+          }
+        );
+        notify("Item Successfully Added To Cart")
+      }
+      else
+      {
+        errorMsg("you have to add at least 1 item to the cart");
+      
+      }
+    } catch (error) {
+      console.error(error);
+      errorMsg("Items could not be added to cart sorry");
+    }
+  };
 
   const addToFavServerSide = async (id) => {
     try {
@@ -70,6 +109,7 @@ const ProductDetails = () => {
             <ImageSlider product={product} />
             <ProductDetailsItem
               id={id}
+              addToCart={addToCart}
               removeFromFavServerSide={removeFromFavServerSide}
               addToFavServerSide={addToFavServerSide}
               addedToFav={addedToFav}
