@@ -19,8 +19,8 @@ const AdminDashboard = () => {
   }, []);
 
 
-  const notify = () =>
-    toast.success("Item Deleted Successfully!", {
+  const notify = (msg) =>
+    toast.success(msg, {
       position: toast.POSITION.TOP_RIGHT,
     });
 
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
   };
 
-
+  
   const deleteItem = async (id) => {
     try {
       console.log("deleting:",id)
@@ -57,31 +57,33 @@ const AdminDashboard = () => {
           headers: { Authorization: auth.accessToken },
         }
       );
-      notify();
+      notify("Item Deleted Successfully!");
     } catch (err) {
       errorMsg(err.message);
     }
   };
-
+  
   const updateItem = async (id) => {
     try {
       const token = auth.accessToken;
       const response = await axios.patch(
-        `http://localhost:3000/orders/${id}`,
+        `http://localhost:3000/orders/confirm/${id}`,
         {
           status: "confirmed",
         },
         {
           headers: { Authorization: auth.accessToken },
         }
-      );
-      console.log(response);
-      console.log("Item updated successfully");
-    } catch (error) {
-      console.error("Error updating item:", error);
-    }
-
-  };
+        );
+        console.log(response);
+        console.log("Item updated successfully");
+        notify("Item Updated Successfully");
+      } catch (err) {
+        errorMsg(err.message);
+        console.error("Error updating item:", err);
+      }
+      
+    };
 
   const deleteOrder = (orderId) => {
     setCurrentId(orderId);
