@@ -31,7 +31,7 @@ export default function App() {
   const { auth, persist } = useContext(AuthContext);
 
   const notify = () =>
-    toast.success(`Welcome  ${auth?.user.username}`, {
+    toast.success(`Welcome  ${auth?.user?.username}`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -71,31 +71,23 @@ export default function App() {
       try {
         console.log("Sending login request...");
         const response = await axios.post(LOGIN_URL, data);
-
         console.log("Login successful:", response.data, response.data.message);
-        // const { user, token } = response.data;
-        // Store the user and token in local storage
-        // localStorage.setItem("user", JSON.stringify(user));
-        // localStorage.setItem("token", token);
-        // sessionStorage.setItem("token", response.data.token);
+
         const { token, user } = response.data; // Extract token and user from the response
         console.log(response.data);
         // console.log(islogged);
         // const roles = response?.data?.roles;
         const roles = response?.data?.user.role;
         const islogged = response?.data?.user.isLogged;
-
         console.log(user, token, roles);
-        // const accessToken = token;
         // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
         persist({ user, roles, islogged, accessToken: token });
-        // setUser("");
-        // setPwd("");
+
         notify();
         navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});
-        // Do something with the logged-in user and token (e.g., store in state or local storage)
+        // Do something with the logged-in user and token
       } catch (error) {
         // console.error("An error occurred:", error);
         // if (error.response && error.response.data) {
@@ -108,7 +100,6 @@ export default function App() {
             password: error.response.data.message,
           });
           console.log(error.response.data.message);
-          console.log(error.response);
           console.log(error.response);
         }
       }
