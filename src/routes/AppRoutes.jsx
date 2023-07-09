@@ -44,6 +44,8 @@ const AppRoutes = () => {
       <Route path="/orderStatus" element={<OrderStatus />} />
       <Route path="/addcategory" element={<Category />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
+      <Route path="/orderedItems" element={<Category />} />
+
       <Route path="/checkout" element={<CheckOut />} />
       {/* restrict access to this route to users with the 'Admin' role */}
 
