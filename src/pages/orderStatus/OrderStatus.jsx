@@ -1,10 +1,38 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-toastify';
 
 const OrderStatus = () => {
+    const {auth} = useContext(AuthContext);
+    const [orderStatusList,setOrderStatusList] = useState([]);
+
+    useEffect(()=>{
+        (async()=>{
+            const {userOrders} = (await axios.get(`http://localhost:3000/orders/user/${auth?.user?._id}`)).data;
+            setOrderStatusList(userOrders);
+        })();
+    },[auth?.user?._id]);
+
+
+    const handleDelete = async(id)=>{
+        try{
+            await axios.delete(`http://localhost:3000/orders/${id}`,{headers:{Authorization:auth.accessToken}})
+            const newOrderList = orderStatusList.filter((el)=> el._id != id);
+            setOrderStatusList(newOrderList);
+            toast.success("order cancelled successfully");
+        }catch(e){
+            toast.error("error cancelling the order, please refresh the page and try again");
+        }
+    }
+
+
     return ( 
         <>
-                <h1 className='text-5xl text-black dark:text-white p-3'>Orders Status</h1>
+                <div className='flex justify-center mb-5'>
+                    <h1 className='text-5xl custom-font custom-font-black !text-[2.5rem] text-black p-3'>Orders Status</h1>
+                </div>
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}
@@ -22,7 +50,7 @@ const OrderStatus = () => {
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
                                     <div className="mask mask-squircle w-12 h-12">
-                                        <img src="https://cb.scene7.com/is/image/Crate/OjaiUphWFAcntChrBCSOSSS22_3D/$web_pdp_main_carousel_med$/220118124451/ojai-upholstered-wood-frame-accent-chair.jpg" alt="Avatar Tailwind CSS Component" />
+                                        <img src="https://cb.scene7.com/is/image/Crate/OjaiUphWFAcntChrBCSOSSS22_3D/$web_pdp_main_carousel_med$/220118124451/ojai-upholstered-wood-frame-accent-chair.jpg" alt="Product Image" />
                                     </div>
                                     </div>
                                     <div>
@@ -35,7 +63,7 @@ const OrderStatus = () => {
                                 <span className='bg-gray-500 text-black rounded-xl p-2'>Pending</span>
                                 </td>
                                 <th>
-                                <button className="btn hover:btn-error btn-xs">cancel order</button>
+                                <button onClick={()=>handleDelete()} className="btn hover:btn-error btn-xs">cancel order</button>
                                 </th>
                             </tr>
                             {/* row 2 */}
@@ -61,7 +89,7 @@ const OrderStatus = () => {
                                 </th>
                             </tr>
                             {/* row 3 */}
-                            <tr>
+                            {/* <tr>
                                 <td>
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
@@ -81,7 +109,7 @@ const OrderStatus = () => {
                                 <th>
                                 <button className="btn hover:btn-info btn-xs"><Link to='/ProductListing'>order another product?</Link></button>
                                 </th>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>
