@@ -7,7 +7,7 @@ const FavouriteListItem = ({product,handleDelete}) => {
         <>
             {/* Favourite list item card */}
             <div className="container w-60">
-                <img src={product.photo_url} alt="Avatar" className="image w-[240px] h-[240px]" />
+                <img src={product.photo_url} alt="Product Image" className="image w-[240px] h-[240px]" />
                 <div className="middle">
                 <h1 className='custom-font custom-font-medium text-2xl'>{product.name}</h1>
                     <Link to={`/products/product/${product._id}`} ><div className="btn text-black bg-white border-project-main-color hover:border-project-main-color hover:text-white hover:bg-project-main-color">Buy Now</div></Link>
