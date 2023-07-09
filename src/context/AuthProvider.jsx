@@ -6,6 +6,7 @@ const dataUrl = "/users/userdata";
 const logout = "/users/logout";
 
 export const AuthContext = createContext({});
+console.log(AuthContext);
 
 const getCookie = (name) => {
   const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);

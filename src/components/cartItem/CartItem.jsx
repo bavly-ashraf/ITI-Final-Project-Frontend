@@ -72,7 +72,6 @@ const CartItem = () => {
         {/* Order Summary */}
         <section className="p-3 m-5 bg-orange-100">
           <h2 className="custom-font-bold"> Order Summary</h2>
-
           <div className="flex justify-between my-5 pb-5 border-b-2 border-gray-400">
             <p className="custom-font-bold">Subtotal:</p>
             <p className="custom-font-bold">$3300</p>
