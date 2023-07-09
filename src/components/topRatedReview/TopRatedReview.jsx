@@ -68,8 +68,8 @@ function TopRatedReview() {
                   key={index}
                   className=" p-9  "
                   style={{
-                    border: colorSchema[index].border,
-                    boxShadow: colorSchema[index].shadowColor,
+                    // border: colorSchema[index].border,
+                    // boxShadow: colorSchema[index].shadowColor,
                     minWidth: "380px",
                     height: "230px",
                   }}
