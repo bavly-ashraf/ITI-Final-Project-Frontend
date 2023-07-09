@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Link, useNavigate } from "react-router-dom";
 
-import "./checkout.css"
+import "./Checkout.css"
 import axios from "../../api/axios";
 import Joi from "joi";
 const DATA_URL = "/orders"
