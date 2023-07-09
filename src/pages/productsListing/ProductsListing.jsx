@@ -78,6 +78,8 @@ const ProductListing = () => {
 
     // adding new product
     const handleAdd = async(product)=>{
+        
+        //appending to formData
         const {name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock} = product;
         const formData = new FormData();
         formData.append("name",name);
@@ -94,6 +96,8 @@ const ProductListing = () => {
             formData.append("photo_url",photo_url[i]);
         }
         formData.append("no_of_items_in_stock",no_of_items_in_stock);
+
+        //adding to database
         try
         {
             const addedProduct = (await axios.post(`http://localhost:3000/products/${category}`,formData,{headers:{Authorization:auth?.accessToken}})).data.product;
