@@ -34,7 +34,7 @@ const ProductDetailsItem = (props) => {
 
   function addToFav(id) {
     setAddedToFav(!addedToFav);
-    // addToFavServerSide(id);
+    addToFavServerSide(id);
     addedToFav ? removeFromFavServerSide(id) : addToFavServerSide(id);
     addedToFav ? errorMsg() : notify();
   }
