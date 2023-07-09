@@ -22,7 +22,9 @@ const FavouriteList = () => {
 
     return (
         <>
-            <h1 className='text-5xl text-black dark:text-white p-3'>Favourite List</h1>
+            <div className='flex justify-center'>
+            <h1 className='text-5xl custom-font custom-font-black !text-[2.5rem] text-black p-3'>Favourite List</h1>
+            </div>
             <div className='flex justify-center md:justify-normal gap-5 m-6 flex-wrap'>
                 {favList.map(item => <FavouriteListItem handleDelete={handleDelete} product={item} key={item._id} />)}
             </div>
