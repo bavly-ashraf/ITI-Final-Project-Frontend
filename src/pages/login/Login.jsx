@@ -31,7 +31,7 @@ export default function App() {
   const { auth, persist } = useContext(AuthContext);
 
   const notify = () =>
-    toast.success(`Welcome  ${auth?.user.username}`, {
+    toast.success(`Welcome  ${auth?.user?.username}`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -71,31 +71,23 @@ export default function App() {
       try {
         console.log("Sending login request...");
         const response = await axios.post(LOGIN_URL, data);
-
         console.log("Login successful:", response.data, response.data.message);
-        // const { user, token } = response.data;
-        // Store the user and token in local storage
-        // localStorage.setItem("user", JSON.stringify(user));
-        // localStorage.setItem("token", token);
-        // sessionStorage.setItem("token", response.data.token);
+
         const { token, user } = response.data; // Extract token and user from the response
         console.log(response.data);
         // console.log(islogged);
         // const roles = response?.data?.roles;
         const roles = response?.data?.user.role;
         const islogged = response?.data?.user.isLogged;
-
         console.log(user, token, roles);
-        // const accessToken = token;
         // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
         persist({ user, roles, islogged, accessToken: token });
-        // setUser("");
-        // setPwd("");
+
         notify();
         navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});
-        // Do something with the logged-in user and token (e.g., store in state or local storage)
+        // Do something with the logged-in user and token
       } catch (error) {
         // console.error("An error occurred:", error);
         // if (error.response && error.response.data) {
@@ -108,7 +100,6 @@ export default function App() {
             password: error.response.data.message,
           });
           console.log(error.response.data.message);
-          console.log(error.response);
           console.log(error.response);
         }
       }
@@ -143,20 +134,18 @@ export default function App() {
               noValidate
             >
               <div
-                className={`relative border-b-2 ${
-                  validationErrors.email ? "border-red-500" : "border-zinc-950"
-                }`}
+                className={`relative border-b-2 ${validationErrors.email ? "border-red-500" : "border-zinc-950"
+                  }`}
               >
                 <input
                   type="email"
                   name="email"
                   id="email"
                   ref={register}
-                  className={`active:bg-transparent focus:ring-0 peer h-10 w-full border-b-2 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none mr-3 py-1 px-2 leading-tight focus:outline-none  ${
-                    validationErrors.email
+                  className={`active:bg-transparent focus:ring-0 peer h-10 w-full border-b-2 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none mr-3 py-1 px-2 leading-tight focus:outline-none  ${validationErrors.email
                       ? "border-red-500  text-red-500 "
                       : ""
-                  }`}
+                    }`}
                   style={{
                     backgroundColor: "fbf8f5",
                     transition: "background-color 0.66s",
@@ -167,9 +156,8 @@ export default function App() {
                 />
                 <label
                   htmlFor="email"
-                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${
-                    validationErrors.email ? "text-red-500" : ""
-                  }`}
+                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${validationErrors.email ? "text-red-500" : ""
+                    }`}
                 >
                   Your email
                 </label>
@@ -179,11 +167,10 @@ export default function App() {
               )}
 
               <div
-                className={`relative border-b-2 ${
-                  validationErrors.password
+                className={`relative border-b-2 ${validationErrors.password
                     ? "border-red-500"
                     : "border-zinc-950"
-                }`}
+                  }`}
               >
                 <input
                   type={showPassword ? "text" : "password"}
@@ -192,9 +179,8 @@ export default function App() {
                   id="password"
                   ref={register}
                   placeholder=" "
-                  className={`focus:ring-0 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none  mr-3 py-1 px-2 leading-tight focus:outline-none   ${
-                    validationErrors.password ? "border-blue-500" : ""
-                  }`}
+                  className={`focus:ring-0 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none  mr-3 py-1 px-2 leading-tight focus:outline-none   ${validationErrors.password ? "border-blue-500" : ""
+                    }`}
                   style={{
                     backgroundColor: "fbf8f5",
                     transition: "background-color 0.66s",
@@ -204,9 +190,8 @@ export default function App() {
                 />{" "}
                 <label
                   htmlFor="password"
-                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${
-                    validationErrors.password ? "text-red-500" : ""
-                  }`}
+                  className={` absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${validationErrors.password ? "text-red-500" : ""
+                    }`}
                 >
                   Password
                 </label>
@@ -292,7 +277,7 @@ export default function App() {
                   type="submit"
                   style={{ backgroundColor: "#E9672B" }}
                   className="rounded-full w-1/2 text-black font-bold text-md px-5 py-2.5 text-center transform hover:scale-105 active:scale-100 "
-                  // bg-orange-500 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-600
+                // bg-orange-500 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-600
                 >
                   Sign in
                 </button>

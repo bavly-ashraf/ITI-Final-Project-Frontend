@@ -114,6 +114,7 @@ const ProductDetailsItem = (props) => {
               <button
                 type="button"
                 className="bg-[#EA6C31] hover:bg-[#DE5312] text-xl w-80 h-14 text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2"
+                onClick={()=>props.addToCart(currentId,shownNumber)}
               >
                 Add to Cart
               </button>

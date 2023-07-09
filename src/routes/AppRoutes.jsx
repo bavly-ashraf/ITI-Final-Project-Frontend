@@ -12,6 +12,7 @@ import About from "../pages/about/About";
 import OrderStatus from "../pages/orderStatus/OrderStatus";
 import FavouriteList from "../pages/favouriteList/FavouriteList";
 import Category from "../pages/category/Category";
+import CheckOut from "../pages/checkout/Checkout";
 
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
@@ -39,20 +40,17 @@ const AppRoutes = () => {
       <Route path="/orderStatus" element={<OrderStatus />} />
       <Route path="/addcategory" element={<Category />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
+      <Route path="/checkout" element={<CheckOut />} />
       {/* restrict access to this route to users with the 'Admin' role */}
-
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/CartItem" element={<CartItem />} />
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         {/*inside we put routes for admins and users */}
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/CartItem" element={<CartItem />} />
       </Route>
+      <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-
-        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-
         {/*inside we put routes for admins and users */}
-
       </Route>
 
       <Route path="/about" element={<About />} />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
+import { Link } from "react-router-dom";
 export default function BestSeller() {
   const LOGIN_URL = "/products/top/rated";
   const [products, setProducts] = useState([]);
@@ -29,7 +30,7 @@ export default function BestSeller() {
                 key={index}
                 className="flex justify-center product-card living bg-white sm:w-8/12 lg:w-2/12 "
               >
-                <a to="/" className="text-center">
+                <Link to={`/products/product/${product?._id}`} className="text-center">
                   <div>
                     <div className="mb-5">
                       <img
@@ -55,7 +56,7 @@ export default function BestSeller() {
                       </span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </div>
             ))
           ) : (
