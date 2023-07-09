@@ -16,10 +16,16 @@ const schema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required()
+    .messages({
+      "string.email": "Please enter a valid email address",
+    })
     .label("Email"),
   password: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
     .required()
+    .messages({
+      "string.pattern.base": "Password should be at least 8 characters",
+    })
     .label("Password"),
 });
 
@@ -52,13 +58,7 @@ export default function App() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  // const { setAuth } = useAuth();
-  // const { setAuth, persist } = useAuth();
-  // const { persist } = useAuth();
 
-  // const [user, setUser] = useState("");
-  // const [pwd, setPwd] = useState("");
-  ////////
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
