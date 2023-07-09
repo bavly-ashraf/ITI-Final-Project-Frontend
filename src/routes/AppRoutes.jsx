@@ -28,12 +28,10 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/signup" element={<SignUp />} /> */}
       <Route path="/loading" element={<LoadingAnimation />} />
       <Route path="/favouriteList" element={<FavouriteList />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       <Route path="/ForgetPassword" element={<ForgotPassword />} />
-
       <Route path="/products/product/:id" element={<ProductDetails />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />
@@ -50,7 +48,7 @@ const AppRoutes = () => {
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-        {/*inside we put routes for admins and users */}
+        {/*inside we put routes for admins */}
       </Route>
 
       <Route path="/about" element={<About />} />
