@@ -13,7 +13,6 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = () => {
     clear();
-
     navigate("/");
   };
 
