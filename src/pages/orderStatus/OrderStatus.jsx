@@ -11,6 +11,7 @@ const OrderStatus = () => {
     useEffect(()=>{
         (async()=>{
             const {userOrders} = (await axios.get(`http://localhost:3000/orders/user/${auth?.user?._id}`)).data;
+            console.log(userOrders);
             setOrderStatusList(userOrders);
         })();
     },[auth?.user?._id]);
@@ -38,15 +39,17 @@ const OrderStatus = () => {
                         {/* head */}
                         <thead>
                             <tr>
-                                <th>Product</th>
+                                <th>Order ticket id</th>
+                                <th>Order total price</th>
                                 <th>Order Status</th>
+                                <th>Date of order</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {/* row 1 */}
-                            <tr>
-                                <td>
+                            {orderStatusList.map((order)=><tr key={order._id}>
+                                {/* <td>
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
                                     <div className="mask mask-squircle w-12 h-12">
@@ -58,16 +61,19 @@ const OrderStatus = () => {
                                     <div className="text-sm opacity-50">Living room</div>
                                     </div>
                                 </div>
-                                </td>
+                                </td> */}
+                                <td>{order._id}</td>
+                                <td>{order.totalPrice}</td>
                                 <td>
-                                <span className='bg-gray-500 text-black rounded-xl p-2'>Pending</span>
+                                <span className={`${order.status == "confirmed"? "bg-success":"bg-gray-500"} text-black rounded-xl p-2`}>{order.status}</span>
                                 </td>
+                                <td>{order.dateOfOrder}</td>
                                 <th>
-                                <button onClick={()=>handleDelete()} className="btn hover:btn-error btn-xs">cancel order</button>
+                                {order.status == "pending" && <button onClick={()=>handleDelete(order._id)} className="btn hover:btn-error btn-xs">cancel order</button>}
                                 </th>
-                            </tr>
+                            </tr>)}
                             {/* row 2 */}
-                            <tr>
+                            {/* <tr>
                                 <td>
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
@@ -87,7 +93,7 @@ const OrderStatus = () => {
                                 <th>
                                 <button className="btn hover:btn-error btn-xs">cancel order</button>
                                 </th>
-                            </tr>
+                            </tr> */}
                             {/* row 3 */}
                             {/* <tr>
                                 <td>
