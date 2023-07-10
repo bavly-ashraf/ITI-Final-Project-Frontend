@@ -17,7 +17,7 @@ import CheckOut from "../pages/checkout/Checkout";
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
 import ProductListing from "../pages/productsListing/ProductsListing";
-
+import VerificationForm from "../pages/verifyemail/VerifyEmail";
 const ROLES = {
   User: "user",
   Admin: "admin",
@@ -38,6 +38,9 @@ const AppRoutes = () => {
       <Route path="/orderStatus" element={<OrderStatus />} />
       <Route path="/addcategory" element={<Category />} />
       {/* <Route path="/cartitem" element={<CartItem />} /> */}
+      <Route path="/orderedItems" element={<Category />} />
+      <Route path="verifyemail" element={<VerificationForm />} />
+
       <Route path="/checkout" element={<CheckOut />} />
       {/* restrict access to this route to users with the 'Admin' role */}
       <Route path="/signup" element={<SignUp />} />
