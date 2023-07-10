@@ -184,7 +184,7 @@ export default function App() {
                   ref={register}
                   placeholder=" "
                   className={`focus:ring-0 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent appearance-none bg-transparent border-none  mr-3 py-1 px-2 leading-tight focus:outline-none   ${
-                    validationErrors.password ? "border-blue-500" : ""
+                    validationErrors.password ? "border-red-500" : ""
                   }`}
                   style={{
                     backgroundColor: "fbf8f5",

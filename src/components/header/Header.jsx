@@ -12,6 +12,7 @@ function Header() {
   const { auth, clear } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogout = () => {
+    console.log(auth);
     clear();
     navigate("/");
   };
