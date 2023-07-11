@@ -36,7 +36,7 @@ const CartItem = () => {
     }
   };
 
-  const handleDelete = async (itemId) => {
+  const DeleteItem = async (itemId) => {
     try {
       const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
       console.log(response.data);
@@ -65,13 +65,13 @@ const CartItem = () => {
 
           <section className="w-full flex flex-wrap justify-between mt-10">
             {/* <div className="block">
-              {item.map((items, idx) => <CartItemList className="my-10" index={idx} handleDelete={handleDelete} product={items} key={items._id} />)}
+              {item.map((items, idx) => <CartItemList className="my-10" index={idx} DeleteItem={DeleteItem} product={items} key={items._id} />)}
             </div> */}
 
             <div className="block">
               {item.length > 0 ? (
                 item.map((items, idx) => (
-                  <CartItemList className="my-10" index={idx} handleDelete={handleDelete} product={items} key={items._id} />
+                  <CartItemList className="my-10" index={idx} DeleteItem={DeleteItem} product={items} key={items._id} />
                 ))
               ) : (
                 <div className="text-center w-96 mt-10">
