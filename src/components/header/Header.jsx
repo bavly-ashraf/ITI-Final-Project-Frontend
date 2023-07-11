@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import "./Header.css";
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
 
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 function Header(props) {
@@ -20,6 +21,22 @@ function Header(props) {
   useEffect(() => {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
+
+  const [item, setitem] = useState([]);
+
+  useEffect(() => {
+
+    axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+
+      setitem(response.data.orderItem);
+      console.log(response.data.orderItem)
+    });
+
+  }, []);
+
+  const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
+  const numOrderedItems = item.filter((item) => item.productId).length;
+
 
   return (
     <header>
@@ -219,7 +236,7 @@ function Header(props) {
                   </div>
                 )}
 
-                {}
+                { }
               </ul>
             </div>
           </div>
@@ -227,7 +244,7 @@ function Header(props) {
 
         <div className="navbar-center hover:cursor-pointer">
           <div className="flex-1">
-            <p className="font-bold text-3xl ...">FURNITURE</p>
+            <Link to={"/"}><p className="font-bold text-3xl ...">FURNITURE</p></Link>
           </div>
         </div>
 
@@ -236,13 +253,7 @@ function Header(props) {
             <div className="dropdown dropdown-end">
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 "
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -252,6 +263,12 @@ function Header(props) {
                   </svg>
                   <span className="badge badge-sm indicator-item bg-orange-500">
                     {props.cartItems.length}
+
+                    {numOrderedItems > 0 ? (
+                      numOrderedItems
+                    ) : (
+                      <div>0</div>
+                    )}
                   </span>
                 </div>
               </label>
@@ -260,8 +277,12 @@ function Header(props) {
                 className="mt-1 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body w-100">
-                  <span className="font-bold text-lg">8 Items</span>
-                  <span className="text-orange-400">Subtotal: $999</span>
+                  <span className="font-bold text-lg"> {numOrderedItems > 0 ? (
+                    numOrderedItems
+                  ) : (
+                    <div>0</div>
+                  )} Item</span>
+                  <span className="text-orange-400">Subtotal: {totalPrice} EGP</span>
                   <div className="card-actions">
                     <Link to="CartItem">
                       <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full btn-block">
@@ -344,7 +365,7 @@ function Header(props) {
                 </ul>
               </div>
             )}
-            {}
+            { }
           </div>
         </div>
       </div>

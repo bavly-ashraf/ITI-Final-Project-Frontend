@@ -1,6 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-import React, { useContext, useState } from "react";
+
+import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -26,6 +25,21 @@ export default function placeOrder() {
         zip: null,
         phone: null
     })
+
+    const [item, setitem] = useState([]);
+
+    useEffect(() => {
+
+        axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+
+            setitem(response.data.orderItem);
+            console.log(response.data.orderItem)
+        });
+
+    }, []);
+
+    const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
+
     const checkEvent = (eventInfo) => {
         let userData = { ...userdata };
         userData[eventInfo.target.name] = eventInfo.target.value;
@@ -43,6 +57,8 @@ export default function placeOrder() {
         }
         else {
             setError(data.message)
+            console.log(data.message)
+
             // setLoading(false)
         }
         console.log(data)
@@ -83,19 +99,19 @@ export default function placeOrder() {
                     {errorList.map((err, index) => {
                         console.log(err)
                         if (err.context.label === 'address') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid address</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid address</div>
                         }
                         else if (err.context.label === 'city') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid city</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid city</div>
                         }
                         else if (err.context.label === 'country') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid country</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid country</div>
                         }
                         else if (err.context.label === 'zip') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid zip code and must be a number</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid zip code and must be a number</div>
                         }
                         else if (err.context.label === 'phone') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid phone and must be a number</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid phone and must be a number</div>
                         }
                         {
                             return <div key={index} className=" border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">{err.message}</div>
@@ -178,14 +194,11 @@ export default function placeOrder() {
 
                     <div className="relative mb-6" data-te-input-wrapper-init>
                         <div>Total Price:</div>
-                        <p className='text text-xl font-bold py-2'>{"EGP"}</p>
+                        <p className='text text-xl font-bold py-2'>{totalPrice} {"EGP"}</p>
 
                     </div>
 
-                    <div
-                        className="mb-6 flex min-h-[1.5rem] items-center justify-center pl-[1.5rem]">
-
-                    </div>
+                    <div className="mb-6 flex min-h-[1.5rem] items-center justify-center pl-[1.5rem]">  </div>
 
 
                     <button
@@ -194,7 +207,6 @@ export default function placeOrder() {
                         data-te-ripple-init
                         data-te-ripple-color="light">
                         Order
-                        {/* {isLoading == true ? <i className="">error</i> : 'Order'} */}
                     </button>
                 </form>
             </div>
@@ -204,4 +216,3 @@ export default function placeOrder() {
     );
 
 }
-// export default CheckOut;
