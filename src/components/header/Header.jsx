@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
-function Header() {
+function Header(props) {
   const { auth, clear } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -262,6 +262,8 @@ function Header() {
                     />
                   </svg>
                   <span className="badge badge-sm indicator-item bg-orange-500">
+                    {props.cartItems.length}
+
                     {numOrderedItems > 0 ? (
                       numOrderedItems
                     ) : (

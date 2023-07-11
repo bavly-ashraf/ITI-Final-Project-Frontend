@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import ImageSlider from "../../components/imageSlider/ImageSlider";
@@ -9,31 +11,24 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
-const ProductDetails = () => {
+const ProductDetails = (props) => {
   const { auth } = useContext(AuthContext);
   const { id } = useParams();
   const [product, setProduct] = useState(0);
-  let [inCart, setInCart] = useState(false);
-  let [orderedItem, setOrderedItem] = useState({});
   let [addedToFav, setAddedToFav] = useState(
-    auth?.user?.wishList.includes(id) ? true : false
+    auth?.user?.wishList.some((item) => item._id == id)
   );
-
+  let cartItems = props.cartItems;
+  let addToCart = props.addToCart;
+  let inCart = props.inCart;
+  let setInCart = props.setInCart;
+  let orderedItem = props.orderedItem;
+  let removeFromCart = props.removeFromCart;
+  let setOrderedItem = props.setOrderedItem;
   useEffect(() => {
-    console.log("use effect...");
     getProduct(id);
-    ifInCart(id);
-  }, []);
-
-  const notify = (msg) =>
-    toast.success(msg, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-
-  const errorMsg = (err) =>
-    toast.error(err, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+    ifInCart(id, cartItems);
+  }, [cartItems, inCart, orderedItem]);
 
   const getProduct = async (id) => {
     try {
@@ -49,59 +44,15 @@ const ProductDetails = () => {
     }
   };
 
-  const ifInCart = async (id) => {
-    const response = await axios.get("http://localhost:3000/orderedItems", {
-      headers: { Authorization: auth.accessToken },
-    });
-    console.log(response.data.orderItem);
-    let itemsArray = response.data.orderItem;
-    setInCart(
-      itemsArray.some((item) => {
-        setOrderedItem(item.productId._id == id ? item._id : {});
-        return item.productId._id == id;
-      })
-        ? true
-        : false
-    );
-  };
-
-  const removeFromCart = async (orderedItem) => {
-    try {
-      console.log(orderedItem);
-      const token = auth.accessToken;
-      await axios.delete(`http://localhost:3000/orderedItems/${orderedItem}`, {
-        headers: { Authorization: auth.accessToken },
-      });
-      setInCart(false);
-      notify("Item Deleted Successfully!");
-    } catch (err) {
-      errorMsg(err.message);
-    }
-  };
-
-  const addToCart = async (id, no_of_items) => {
-    try {
-      if (no_of_items > 0) {
-        const response = await axios.post(
-          `http://localhost:3000/orderedItems/`,
-          {
-            productId: id,
-            quantity: no_of_items,
-          },
-          {
-            headers: { Authorization: auth.accessToken },
-          }
-        );
+  const ifInCart = async (id, itemsArray) => {
+    for (let i = 0; i < itemsArray.length; i++) {
+      if (itemsArray[i].productId._id == id) {
+        // setOrderedItem(itemsArray[i]._id)
+        console.log("from inside if conidtion.......");
         setInCart(true);
-        setOrderedItem(response.data.orderItem._id);
-        console.log(response);
-        notify("Item Successfully Added To Cart");
-      } else {
-        errorMsg("you have to add at least 1 item to the cart");
+        setOrderedItem(itemsArray[i]._id);
+        console.log(itemsArray[i]._id);
       }
-    } catch (error) {
-      console.error(error);
-      errorMsg("Items could not be added to cart sorry");
     }
   };
 
@@ -147,6 +98,7 @@ const ProductDetails = () => {
             <ImageSlider product={product} />
             <ProductDetailsItem
               id={id}
+              cartItems={props.cartItems}
               addToCart={addToCart}
               removeFromFavServerSide={removeFromFavServerSide}
               addToFavServerSide={addToFavServerSide}
