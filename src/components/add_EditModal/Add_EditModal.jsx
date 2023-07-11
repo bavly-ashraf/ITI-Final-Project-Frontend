@@ -61,7 +61,7 @@ const AddEditModal = ({index,edit,product,handleAdd,allCategories,handleEdit}) =
         }
 }
     return ( 
-        <dialog id={`my_modal${edit? "_edit": ""}`} className="modal">
+        <dialog id={`my_modal${edit?"_edit"+product._id:""}`} className="modal">
             <form method="dialog" encType="multipart/form-data" className="modal-box">
                 <h3 className="font-bold text-lg">{edit? 'Edit product':'Add new product!'}</h3>
                 {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
