@@ -37,18 +37,6 @@ function Header() {
   const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
   const numOrderedItems = item.filter((item) => item.productId).length;
 
-  const handleDelete = async (itemId) => {
-    try {
-      const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
-      console.log(response.data);
-      // Refresh the cart items after successful delete
-      setitem(item.filter((item) => item._id !== itemId));
-      console.log("Item removed from cart successfully");
-    } catch (error) {
-      console.log(error);
-      console.log("Failed to remove item from cart");
-    }
-  }
 
   return (
     <header>
@@ -256,7 +244,7 @@ function Header() {
 
         <div className="navbar-center hover:cursor-pointer">
           <div className="flex-1">
-            <p className="font-bold text-3xl ...">FURNITURE</p>
+            <Link to={"/"}><p className="font-bold text-3xl ...">FURNITURE</p></Link>
           </div>
         </div>
 

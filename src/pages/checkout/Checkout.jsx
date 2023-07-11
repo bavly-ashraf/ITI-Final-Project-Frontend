@@ -58,6 +58,8 @@ export default function placeOrder() {
         }
         else {
             setError(data.message)
+            console.log(data.message)
+
             // setLoading(false)
         }
         console.log(data)
@@ -98,19 +100,19 @@ export default function placeOrder() {
                     {errorList.map((err, index) => {
                         console.log(err)
                         if (err.context.label === 'address') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid address</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid address</div>
                         }
                         else if (err.context.label === 'city') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid city</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid city</div>
                         }
                         else if (err.context.label === 'country') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid country</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid country</div>
                         }
                         else if (err.context.label === 'zip') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid zip code and must be a number</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid zip code and must be a number</div>
                         }
                         else if (err.context.label === 'phone') {
-                            return <div cla key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid phone and must be a number</div>
+                            return <div key={index} className=" my-2  border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">invalid phone and must be a number</div>
                         }
                         {
                             return <div key={index} className=" border rounded-lg border-red-600 mb-5 text-danger-600 text-center  bg-danger-200">{err.message}</div>
