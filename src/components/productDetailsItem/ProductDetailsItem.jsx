@@ -24,7 +24,9 @@ const ProductDetailsItem = (props) => {
   let inCart = props.inCart;
   let setInCart = props.setInCart;
   let orderedItem = props.orderedItem;
+  let cartItems=props.cartItems
 
+  
   const notify = () =>
     toast.success("Item Added To Fav List", {
       position: toast.POSITION.TOP_RIGHT,

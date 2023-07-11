@@ -23,7 +23,7 @@ const ROLES = {
   Admin: "admin",
 };
 
-const AppRoutes = () => {
+const AppRoutes = (props) => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -32,7 +32,17 @@ const AppRoutes = () => {
       <Route path="/favouriteList" element={<FavouriteList />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       <Route path="/ForgetPassword" element={<ForgotPassword />} />
-      <Route path="/products/product/:id" element={<ProductDetails />} />
+
+      <Route path="/products/product/:id" element={<ProductDetails 
+      cartItems={props.cartItems} 
+      addToCart={props.addToCart}
+      inCart={props.inCart}
+      setInCart={props.setInCart}
+      removeFromCart={props.removeFromCart}
+      orderedItem={props.orderedItem}
+      setOrderedItem={props.setOrderedItem}
+      />} />
+
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />
       <Route path="/orderStatus" element={<OrderStatus />} />
