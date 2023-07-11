@@ -211,7 +211,6 @@ export default function placeOrder() {
                         data-te-ripple-init
                         data-te-ripple-color="light">
                         Order
-                        {/* {isLoading == true ? <i className="">error</i> : 'Order'} */}
                     </button>
                 </form>
             </div>
@@ -221,4 +220,3 @@ export default function placeOrder() {
     );
 
 }
-// export default CheckOut;

@@ -40,7 +40,7 @@ const CartItem = () => {
     try {
       const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
       console.log(response.data);
-      // Refresh the cart items after successful delete
+
       setitem(item.filter((item) => item._id !== itemId));
       toast.success("Item removed from cart successfully");
     } catch (error) {
