@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
+
 import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Link, useNavigate } from "react-router-dom";
