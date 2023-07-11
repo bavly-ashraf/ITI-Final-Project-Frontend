@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import "./Header.css";
 import { Collapse, Dropdown, Ripple, initTE } from "tw-elements";
 
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 function Header() {
@@ -20,6 +21,34 @@ function Header() {
   useEffect(() => {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
+
+  const [item, setitem] = useState([]);
+
+  useEffect(() => {
+
+    axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+
+      setitem(response.data.orderItem);
+      console.log(response.data.orderItem)
+    });
+
+  }, []);
+
+  const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
+  const numOrderedItems = item.filter((item) => item.productId).length;
+
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
+      console.log(response.data);
+      // Refresh the cart items after successful delete
+      setitem(item.filter((item) => item._id !== itemId));
+      console.log("Item removed from cart successfully");
+    } catch (error) {
+      console.log(error);
+      console.log("Failed to remove item from cart");
+    }
+  }
 
   return (
     <header>
@@ -219,7 +248,7 @@ function Header() {
                   </div>
                 )}
 
-                {}
+                { }
               </ul>
             </div>
           </div>
@@ -251,7 +280,11 @@ function Header() {
                     />
                   </svg>
                   <span className="badge badge-sm indicator-item bg-orange-500">
-                    8
+                    {numOrderedItems > 0 ? (
+                      numOrderedItems
+                    ) : (
+                      <div>0</div>
+                    )}
                   </span>
                 </div>
               </label>
@@ -260,8 +293,12 @@ function Header() {
                 className="mt-1 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body w-100">
-                  <span className="font-bold text-lg">8 Items</span>
-                  <span className="text-orange-400">Subtotal: $999</span>
+                  <span className="font-bold text-lg"> {numOrderedItems > 0 ? (
+                    numOrderedItems
+                  ) : (
+                    <div>0</div>
+                  )} Item</span>
+                  <span className="text-orange-400">Subtotal: {totalPrice} EGP</span>
                   <div className="card-actions">
                     <Link to="CartItem">
                       <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full btn-block">
@@ -344,7 +381,7 @@ function Header() {
                 </ul>
               </div>
             )}
-            {}
+            { }
           </div>
         </div>
       </div>
