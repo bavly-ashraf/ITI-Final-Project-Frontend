@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -26,6 +26,21 @@ export default function placeOrder() {
         zip: null,
         phone: null
     })
+
+    const [item, setitem] = useState([]);
+
+    useEffect(() => {
+
+        axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+
+            setitem(response.data.orderItem);
+            console.log(response.data.orderItem)
+        });
+
+    }, []);
+
+    const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
+
     const checkEvent = (eventInfo) => {
         let userData = { ...userdata };
         userData[eventInfo.target.name] = eventInfo.target.value;
@@ -178,7 +193,7 @@ export default function placeOrder() {
 
                     <div className="relative mb-6" data-te-input-wrapper-init>
                         <div>Total Price:</div>
-                        <p className='text text-xl font-bold py-2'>{"EGP"}</p>
+                        <p className='text text-xl font-bold py-2'>{totalPrice} {"EGP"}</p>
 
                     </div>
 

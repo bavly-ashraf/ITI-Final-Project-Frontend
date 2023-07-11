@@ -6,18 +6,15 @@ import ReactDOM from "react-dom/client";
 import { Link, useNavigate } from "react-router-dom";
 const CHECKOUT_URL = '/orderedItems'
 import { AuthContext } from "../../context/AuthProvider";
-
+import CartItemList from "../cartItemList/CartItemList";
+import { toast } from "react-toastify";
 
 const CartItem = () => {
 
   let navigate = useNavigate()
   const { auth } = useContext(AuthContext)
 
-  async function onsubmit() {
-    navigate("/checkout");
-  }
-
-  const [item, setitem] = useState(0);
+  const [item, setitem] = useState([]);
 
   useEffect(() => {
 
@@ -28,6 +25,29 @@ const CartItem = () => {
     });
 
   }, []);
+
+  const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
+
+  const handleCheckout = () => {
+    if (totalPrice !== 0) {
+      navigate('/checkout');
+    } else {
+      toast.error("Cannot checkout with a subtotal of zero.");
+    }
+  };
+
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
+      console.log(response.data);
+      // Refresh the cart items after successful delete
+      setitem(item.filter((item) => item._id !== itemId));
+      toast.success("Item removed from cart successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to remove item from cart");
+    }
+  }
   return (
     <div>
       <div className="p-40">
@@ -38,80 +58,46 @@ const CartItem = () => {
               Your Bag
             </h1>
 
-            <button className="m-7 btn btn-outline-orange-500 bg-orange-500 hover:bg-orange-600 text-white">
+            {/* <button className="m-7 btn btn-outline-orange-500 bg-project-main-color hover:bg-red-700 text-white">
               Remove All
-            </button>
+            </button> */}
           </div>
 
-          <section className="w-full flex flex-wrap justify-around">
+          <section className="w-full flex flex-wrap justify-around mt-10">
+            {/* <div className="block">
+              {item.map((items, idx) => <CartItemList className="my-10" index={idx} handleDelete={handleDelete} product={items} key={items._id} />)}
+            </div> */}
+
             <div className="block">
-              <section className="flex shadow-lg shadow-bg-slate-200-500/50  my-3">
-                <figure className="">
-                  <img
-                    className="w-40 h-20 "
-                    src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80.png"
-                    alt="sofa"
+              {item.length > 0 ? (
+                item.map((items, idx) => (
+                  <CartItemList
+                    className="my-10"
+                    index={idx}
+                    handleDelete={handleDelete}
+                    product={items}
+                    key={items._id}
                   />
-                </figure>
-
-                <div className="px-3">
-                  <h2 className="custom-font-bold text-xl">KLIPPAN</h2>
-                  <div className="custom-font-bold text-xl">$225</div>
+                ))
+              ) : (
+                <div className="text-center w-96 mt-10">
+                  <p className="custom-font-bold text-2xl text-project-main-color">Your cart is feeling a bit light. Keep browsing to find the perfect furniture pieces to fill it up!</p>
                 </div>
-
-                <div className="px-3">
-                  <button className="w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300">
-                    -
-                  </button>
-                  <button className="px-3">1</button>
-                  <button className="w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300">
-                    +
-                  </button>
-                </div>
-
-                <div className="px-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-
-                    className="w-6 h-6 bg-white text-orange-500 hover:bg-orange-500 hover:text-white"
-
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </div>
-              </section>
+              )}
             </div>
 
-
             {/* Order Summary */}
-            <section className="p-3 m-5 bg-orange-100">
+            <section className="p-3 bg-orange-100 h-52">
               <h2 className="custom-font-bold"> Order Summary</h2>
 
               <div className="flex justify-between my-5 pb-5 border-b-2 border-gray-400">
                 <p className="custom-font-bold">Subtotal:</p>
-                <p className="price custom-font-bold">$3300</p>
-              </div>
+                <p className="price custom-font-bold">{totalPrice} EGP</p>
 
-              <div className="flex justify-center">
-                <input type="checkbox" className="p-4" />
-                <label htmlFor="" className="text-gray-600 p-4">
-                  I agree to Feather's
-                  <Link to="#" className="underline decoration-solid">
-                    Terms & Conditions
-                  </Link>
-                </label>
               </div>
 
               <div className="flex justify-center py-5 ">
-                <button onClick={onsubmit} className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full">
+                <button onClick={handleCheckout} className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full">
                   Checkout
                 </button>
               </div>
@@ -119,118 +105,10 @@ const CartItem = () => {
 
           </section>
 
-
         </section>
       </div>
-    </div>
+    </div >
   );
 };
 
 export default CartItem;
-
-
-// import React, { useState } from "react";
-// import ReactDOM from "react-dom/client";
-// import { Link, useNavigate } from "react-router-dom";
-
-// const CHECKOUT_URL = "/orderedItems";
-
-// const CartItem = () => {
-//   const [subtotal, setSubtotal] = useState(3300);
-//   const navigate = useNavigate();
-
-//   const handleCheckout = () => {
-//     if (subtotal !== 0) {
-//       navigate('/checkout');
-//     } else {
-//       console.log("Cannot checkout with a subtotal of zero.");
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <div className="p-40">
-//         <section className="flex flex-wrap">
-//           {/* header */}
-//           <div className="w-full flex justify-between">
-//             <h1 className="m-10 mr-18 lg:m-6 lg:ml-6 custom-font-bold text-2xl">
-//               Your Bag
-//             </h1>
-
-//             <button className="m-7 btn btn-outline-orange-500 bg-orange-500 hover:bg-orange-600 text-white">
-//               Remove All
-//             </button>
-//           </div>
-
-//           <section className="w-full flex flex-wrap justify-around">
-//             <div className="block">
-//               <section className="flex shadow-lg shadow-bg-slate-200-500/50  my-3">
-//                 <figure className="">
-//                   <img
-//                     className="w-40 h-20 "
-//                     src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80.png"
-//                     alt="sofa"
-//                   />
-//                 </figure>
-
-//                 <div className="px-3">
-//                   <h2 className="custom-font-bold text-xl">KLIPPAN</h2>
-//                   <div className="custom-font-bold text-xl">$225</div>
-//                 </div>
-
-//                 <div className="px-3">
-//                   <button className="w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300">
-//                     -
-//                   </button>
-//                   <button className="px-3">1</button>
-//                   <button className="w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300">
-//                     +
-//                   </button>
-//                 </div>
-
-//                 <div className="px-3">
-//                   <svg
-//                     xmlns="http://www.w3.org/2000/svg"
-//                     fill="none"
-//                     viewBox="0 0 24 24"
-//                     strokeWidth={1.5}
-//                     stroke="currentColor"
-//                     className="w-6 h-6 bg-white text-orange-500 hover:bg-orange-500 hover:text-white"
-//                   >
-//                     <path
-//                       strokeLinecap="round"
-//                       strokeLinejoin="round"
-//                       d="M6 18L18 6M6 6l12 12"
-//                     />
-//                   </svg>
-//                 </div>
-//               </section>
-//             </div>
-
-//             {/* Order Summary */}
-//             <section className="p-3 m-5 bg-orange-100">
-//               <h2 className="custom-font-bold"> Order Summary</h2>
-
-//               <div className="flex justify-between my-5 pb-5 border-b-2 border-gray-400">
-//                 <p className="custom-font-bold">Subtotal:</p>
-//                 <p className="price custom-font-bold">${subtotal}</p>
-//               </div>
-
-//               <div className="flex justify-center py-5 ">
-//                 <button
-//                   onClick={handleCheckout}
-//                   disabled={subtotal === 0}
-//                   className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full"
-//                 >
-//                   Checkout
-//                 </button>
-//               </div>
-//             </section>
-//           </section>
-//         </section>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CartItem;
