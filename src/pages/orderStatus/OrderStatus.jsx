@@ -12,7 +12,6 @@ const OrderStatus = () => {
         (async()=>{
             try{
                 const {userOrders} = (await axios.get(`http://localhost:3000/orders/user/${auth?.user?._id}`)).data;
-                console.log(userOrders);
                 setOrderStatusList(userOrders);
             }catch(e){
                 toast.error("error fetching orders, please refresh and try again");
