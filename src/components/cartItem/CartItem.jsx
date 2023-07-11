@@ -58,15 +58,9 @@ const CartItem = () => {
               YOUR BAG
             </h1>
 
-            {/* <button className="m-7 btn btn-outline-orange-500 bg-project-main-color hover:bg-red-700 text-white">
-              Remove All
-            </button> */}
           </div>
 
           <section className="w-full flex flex-wrap justify-between mt-10">
-            {/* <div className="block">
-              {item.map((items, idx) => <CartItemList className="my-10" index={idx} DeleteItem={DeleteItem} product={items} key={items._id} />)}
-            </div> */}
 
             <div className="block">
               {item.length > 0 ? (
