@@ -7,35 +7,36 @@ import LoadingAnimation from '../../components/loadingAnimation/LoadingAnimation
 
 
 const FavouriteList = () => {
-    const {auth} = useContext(AuthContext)
-    const [favList,setFavList] = useState([]);
+    const { auth } = useContext(AuthContext)
+    const [favList, setFavList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(()=>{
-        (async()=>{
-            try{
-                const {wishList} = (await axios.get("http://localhost:3000/users/getuser",{headers:{Authorization:auth?.accessToken}})).data;
+    useEffect(() => {
+        (async () => {
+            try {
+                const { wishList } = (await axios.get("http://localhost:3000/users/getuser", { headers: { Authorization: auth?.accessToken } })).data;
                 setFavList(wishList);
                 setIsLoading(false);
-            }catch(e){
+            } catch (e) {
                 toast.error("an error happened, please refresh and try again");
             }
         })();
-    },[])
+    }, [])
 
-    const handleDelete = async(id)=>{
-        try{
-            await axios.patch(`http://localhost:3000/products/unfav/${id}`,{status: "confirmed"},{headers:{Authorization:auth.accessToken}})
-            const deletedFavItem = favList.filter((el)=>el._id != id);
+    const handleDelete = async (id) => {
+        try {
+            await axios.patch(`http://localhost:3000/products/unfav/${id}`, { status: "confirmed" }, { headers: { Authorization: auth.accessToken } })
+            const deletedFavItem = favList.filter((el) => el._id != id);
             setFavList(deletedFavItem);
             toast.success("item deleted successfully");
-        }catch(e){
+        } catch (e) {
             toast.error("error deleting item, please refresh and try again")
         }
     }
 
     return (
         <>
+
             {isLoading? <div className='w-full'><LoadingAnimation /></div> : favList.length > 0?
             <>
             <div className='flex justify-center'>
@@ -51,6 +52,7 @@ const FavouriteList = () => {
                 </svg>
                 <h1 className='text-project-main-color custom-font custom-font-bold !text-4xl'>No items in your Favourite List yet</h1>
             </div> 
+
             }
         </>
     );

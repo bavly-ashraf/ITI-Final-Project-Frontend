@@ -36,8 +36,8 @@ export default function App() {
   const navigate = useNavigate();
   const { auth, persist } = useContext(AuthContext);
 
-  const notify = () =>
-    toast.success(`Welcome  ${auth?.user?.username}`, {
+  const notify = (name) =>
+    toast.success(`Welcome  ${name}`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -72,7 +72,7 @@ export default function App() {
         console.log("Sending login request...");
         const response = await axios.post(LOGIN_URL, data);
         console.log("Login successful:", response.data, response.data.message);
-
+        const name = response.data.user.username;
         const { token, user } = response.data; // Extract token and user from the response
         console.log(response.data);
         // console.log(islogged);
@@ -83,7 +83,7 @@ export default function App() {
         // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
         persist({ user, roles, islogged, accessToken: token });
 
-        notify();
+        notify(name);
         navigate("/"); // Programmatically navigate to the login page
 
         setValidationErrors({});

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import ImageSlider from "../../components/imageSlider/ImageSlider";
@@ -9,61 +11,48 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
-
-const ProductDetails = () => {
+const ProductDetails = (props) => {
   const { auth } = useContext(AuthContext);
   const { id } = useParams();
   const [product, setProduct] = useState(0);
   let [addedToFav, setAddedToFav] = useState(
-    auth?.user?.wishList.includes(id) ? true : false
+    auth?.user?.wishList.some((item) => item._id == id)
   );
-  const notify = (msg) =>
-    toast.success(msg, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-
-
-  const errorMsg = (err) =>
-    toast.error(err, {
-
-      position: toast.POSITION.TOP_RIGHT,
-    });
+  let cartItems = props.cartItems;
+  let addToCart = props.addToCart;
+  let inCart = props.inCart;
+  let setInCart = props.setInCart;
+  let orderedItem = props.orderedItem;
+  let removeFromCart = props.removeFromCart;
+  let setOrderedItem = props.setOrderedItem;
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/products/product/${id}`)
-      .then((response) => {
-        setProduct(response.data.product);
-        console.log(response.data.product);
-      })
-      .catch(() => {
-        console.log("error fetching data");
-      });
-  }, []);
+    getProduct(id);
+    ifInCart(id, cartItems);
+  }, [cartItems, inCart, orderedItem]);
 
-  const addToCart = async (id,no_of_items) => {
+  const getProduct = async (id) => {
     try {
-      if(no_of_items>0)
-      {
-        const response = await axios.post(
-          `http://localhost:3000/orderedItems/`,
-          {
-            productId: id,
-            quantity:no_of_items
-          },
-          {
-            headers: { Authorization: auth.accessToken },
-          }
-        );
-        notify("Item Successfully Added To Cart")
+      const response = await axios.get(
+        `http://localhost:3000/products/product/${id}`,
+        {
+          headers: { Authorization: auth.accessToken },
+        }
+      );
+      setProduct(response.data.product);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const ifInCart = async (id, itemsArray) => {
+    for (let i = 0; i < itemsArray.length; i++) {
+      if (itemsArray[i].productId._id == id) {
+        // setOrderedItem(itemsArray[i]._id)
+        console.log("from inside if conidtion.......");
+        setInCart(true);
+        setOrderedItem(itemsArray[i]._id);
+        console.log(itemsArray[i]._id);
       }
-      else
-      {
-        errorMsg("you have to add at least 1 item to the cart");
-      
-      }
-    } catch (error) {
-      console.error(error);
-      errorMsg("Items could not be added to cart sorry");
     }
   };
 
@@ -109,12 +98,17 @@ const ProductDetails = () => {
             <ImageSlider product={product} />
             <ProductDetailsItem
               id={id}
+              cartItems={props.cartItems}
               addToCart={addToCart}
               removeFromFavServerSide={removeFromFavServerSide}
               addToFavServerSide={addToFavServerSide}
               addedToFav={addedToFav}
               setAddedToFav={setAddedToFav}
               product={product}
+              inCart={inCart}
+              setInCart={setInCart}
+              removeFromCart={removeFromCart}
+              orderedItem={orderedItem}
               className="col-span-4"
             />
           </div>

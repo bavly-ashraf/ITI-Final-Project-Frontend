@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
 import LoadingAnimation from "../components/loadingAnimation/LoadingAnimation";
+import NotFound from "../pages/errorpage/Error";
 const dataUrl = "/users/userdata";
 const logout = "/users/logout";
 
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const accessToken = getCookie("accessToken");
     if (accessToken) {
-      setAuth((prevAuth) => ({ ...prevAuth, accessToken }));
+      // setAuth((prevAuth) => ({ ...prevAuth, accessToken }));
       fetchUserData(accessToken);
     } else {
       setLoading(false);
@@ -40,9 +41,16 @@ export const AuthProvider = ({ children }) => {
       console.log(response.data);
       // console.log(user, roles);
       const islogged = response?.data?.user.isLogged;
-
+      console.log(response.data.token);
+      const accessToken = response.data.token;
       if (user && roles) {
-        setAuth((prevAuth) => ({ ...prevAuth, user, roles, islogged }));
+        setAuth((prevAuth) => ({
+          ...prevAuth,
+          user,
+          roles,
+          islogged,
+          accessToken,
+        }));
         setUserDataFetched(true);
       }
     } catch (error) {
@@ -53,7 +61,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const persist = async ({ user, roles, accessToken }) => {
-    await setAuth((prevAuth) => ({ ...prevAuth, user, roles, accessToken }));
+    setAuth((prevAuth) => ({
+      ...prevAuth,
+      user,
+      roles,
+      accessToken,
+    }));
+    console.log(auth);
     if (accessToken) {
       setCookie("accessToken", accessToken, 7);
     } else {
@@ -105,6 +119,7 @@ export const AuthProvider = ({ children }) => {
       ) : (
         <div>
           {children}
+          {/* <NotFound /> */}
           {/* <p>Error fetching user data</p> */}
         </div>
       )}

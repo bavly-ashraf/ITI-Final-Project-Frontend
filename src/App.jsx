@@ -4,19 +4,96 @@ import Footer from "./components/footer/Footer";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./pages/forgetPassword/ForgetPassword";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "./context/AuthProvider";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
+  const { auth } = useContext(AuthContext);
+  let [cartItems, setCartItems] = useState([]);
+  let [inCart, setInCart] = useState(false);
+  let [orderedItem, setOrderedItem] = useState(0);
+  //getting cart items
+  useEffect(() => {
+    console.log("getting cart items....");
+    getCartItems();
+  }, []);
+
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+
+  const errorMsg = (err) =>
+    toast.error(err, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+
+  const getCartItems = async () => {
+    const response = await axios.get("http://localhost:3000/orderedItems", {
+      headers: { Authorization: auth.accessToken },
+    });
+    setCartItems(response.data.orderItem);
+    console.log(response.data.orderItem)
+  };
+
+  const addToCart = async (id, no_of_items) => {
+    try {
+      if (no_of_items > 0) {
+        const response = await axios.post(
+          `http://localhost:3000/orderedItems/`,
+          {
+            productId: id,
+            quantity: no_of_items,
+          },
+          {
+            headers: { Authorization: auth.accessToken },
+          }
+        );
+        setInCart(true);
+        setOrderedItem(response.data.orderItem._id);
+        setCartItems([response.data.orderItem,...cartItems])
+        console.log(response);
+        notify("Item Successfully Added To Cart");
+      } else {
+        errorMsg("you have to add at least 1 item to the cart");
+      }
+    } catch (error) {
+      console.error(error);
+      errorMsg("Items could not be added to cart sorry");
+    }
+  };
+
+  const removeFromCart = async (orderedItem) => {
+    try {
+      let response=await axios.delete(`http://localhost:3000/orderedItems/${orderedItem}`, {
+        headers: { Authorization: auth.accessToken },
+      });
+      setInCart(false);
+      setCartItems(cartItems.filter((items)=>items._id!=response.data.deletedorderItem._id))
+      notify("Item Deleted Successfully!");
+    } catch (err) {
+      errorMsg(err.message);
+    }
+  };
   return (
     <>
       <div>
         <ToastContainer />
-
-        <Header />
+        <Header cartItems={cartItems}/>
         <div className="py-32">
-          <AppRoutes />
+          <AppRoutes 
+          cartItems={cartItems}
+          addToCart={addToCart}
+          inCart={inCart}
+          setInCart={setInCart}
+          removeFromCart={removeFromCart}
+          orderedItem={orderedItem}
+          setOrderedItem={setOrderedItem}
+          />
         </div>
         <Footer />
         {/* <AdminDashBoard/> */}
