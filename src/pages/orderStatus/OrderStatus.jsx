@@ -7,15 +7,19 @@ import { toast } from 'react-toastify';
 const OrderStatus = () => {
     const {auth} = useContext(AuthContext);
     const [orderStatusList,setOrderStatusList] = useState([]);
-
+    
     useEffect(()=>{
         (async()=>{
-            const {userOrders} = (await axios.get(`http://localhost:3000/orders/user/${auth?.user?._id}`)).data;
-            console.log(userOrders);
-            setOrderStatusList(userOrders);
+            try{
+                const {userOrders} = (await axios.get(`http://localhost:3000/orders/user/${auth?.user?._id}`)).data;
+                setOrderStatusList(userOrders);
+            }catch(e){
+                toast.error("error fetching orders, please refresh and try again");
+            }
         })();
     },[auth?.user?._id]);
-
+    
+    const pending = orderStatusList
 
     const handleDelete = async(id)=>{
         try{
@@ -69,7 +73,19 @@ const OrderStatus = () => {
                                 </td>
                                 <td>{order.dateOfOrder}</td>
                                 <th>
-                                {order.status == "pending" && <button onClick={()=>handleDelete(order._id)} className="btn hover:btn-error btn-xs">cancel order</button>}
+                                {order.status == "pending" && <><button onClick={()=>window[`my_modal_deleteOrder${order._id}`].showModal()} className="btn hover:btn-error btn-xs">cancel order</button>
+                                <dialog id={`my_modal_deleteOrder${order._id}`} className="modal">
+                                    <form method="dialog" className="modal-box">
+                                        <h3 className="font-bold text-lg">Cancel Confirmation!</h3>
+                                        <p className="py-4">{`Are you sure you want to cancel order with ticket id [${order._id}]?`}</p>
+                                        <div className="modal-action">
+                                            {/* if there is a button in form, it will close the modal */}
+                                            <button className='btn btn-error' onClick={()=>handleDelete(order._id)}>Cancel Order</button>
+                                            <button className="btn">Close</button>
+                                        </div>
+                                    </form>
+                                </dialog>
+                                </>}
                                 </th>
                             </tr>)}
                             {/* row 2 */}

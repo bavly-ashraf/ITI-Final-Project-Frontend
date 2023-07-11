@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Joi from 'joi';
 
 
-const AddEditModal = ({index,edit,product,handleAdd,allCategories,handleEdit}) => {
+const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
     const [form,setForm] = useState({name:product?.name || "",description:product?.description || "",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
     const [catName,setCatName] = useState("Choose category");
     const [availability,setAvailability] = useState(product?.availability || "Availability");
@@ -11,7 +11,6 @@ const AddEditModal = ({index,edit,product,handleAdd,allCategories,handleEdit}) =
 
     const handleAction = (e)=>{
         setForm({...form,[e.target.name]:e.target.value});
-        console.log({...form,[e.target.name]:e.target.value});
     }
 
     const handleFormAdd = ()=>{
@@ -61,7 +60,7 @@ const AddEditModal = ({index,edit,product,handleAdd,allCategories,handleEdit}) =
         }
 }
     return ( 
-        <dialog id={`my_modal${edit? "_edit": ""}`} className="modal">
+        <dialog id={`my_modal${edit?"_edit"+product._id:""}`} className="modal">
             <form method="dialog" encType="multipart/form-data" className="modal-box">
                 <h3 className="font-bold text-lg">{edit? 'Edit product':'Add new product!'}</h3>
                 {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
@@ -87,7 +86,7 @@ const AddEditModal = ({index,edit,product,handleAdd,allCategories,handleEdit}) =
                     <details className="dropdown">
                         <summary className="m-1 btn">{catName}</summary>
                         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                            {allCategories.map((category)=><li onClick={()=>{setForm({...form,category:category._id});setCatName(category.name);console.log({...form,category:category._id})}} key={category._id}><a>{category.name}</a></li>)}
+                            {allCategories.map((category)=><li onClick={()=>{setForm({...form,category:category._id});setCatName(category.name)}} key={category._id}><a>{category.name}</a></li>)}
                         </ul>
                     </details>
                     <br />
@@ -103,11 +102,11 @@ const AddEditModal = ({index,edit,product,handleAdd,allCategories,handleEdit}) =
                     <>
                     <label>Images:</label>
                     <br />
-                    <input name="photo_url" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);console.log("this is photo_url",e.target.files);}} className='input' type='file' accept="image/*" multiple/>
+                    <input name="photo_url" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files})}} className='input' type='file' accept="image/*" multiple/>
                     <br />
                     <label>Detailed Images:</label>
                     <br />
-                    <input name="details_images" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);console.log("this is details_images",e.target.files);}} className='input' type='file' accept="image/*" multiple/>
+                    <input name="details_images" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files})}} className='input' type='file' accept="image/*" multiple/>
                     </>}
                     {edit &&
                     <>
