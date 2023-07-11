@@ -199,10 +199,7 @@ export default function placeOrder() {
 
                     </div>
 
-                    <div
-                        className="mb-6 flex min-h-[1.5rem] items-center justify-center pl-[1.5rem]">
-
-                    </div>
+                    <div className="mb-6 flex min-h-[1.5rem] items-center justify-center pl-[1.5rem]">  </div>
 
 
                     <button
