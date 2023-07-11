@@ -36,7 +36,8 @@ export default function ProductReview(props) {
         const reviewsCopy = [...reviews];
         reviewsCopy.unshift(response.data.foundedAddedReview);
         setReviews(reviewsCopy);
-        setReviewContent(" ");
+        setReviewContent("");
+        setRating("");
         toast.success("reviews added successfully");
       })
       .catch((error) => {
@@ -76,7 +77,8 @@ export default function ProductReview(props) {
         const reviewsCopy = reviews.map((review) => review._id == id ?  { ...review,  reviewContent,rating,userId} : review );
         console.log(reviewsCopy);
         setReviews(reviewsCopy);
-        setReviewContent(" ");
+        setReviewContent("");
+        setRating("")
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -232,6 +234,7 @@ export default function ProductReview(props) {
                           return (
                             <label key={index}>
                               <input
+                                style={{display:"none"}}
                                 type="radio"
                                 name="rating"
                                 value={currentRating}
@@ -367,6 +370,7 @@ export default function ProductReview(props) {
                 return (
                   <label key={index}>
                     <input
+                      style={{display:"none"}}
                       type="radio"
                       name="rating"
                       value={currentRating}
@@ -405,7 +409,7 @@ export default function ProductReview(props) {
             </div>
 
 
-<input type="text" placeholder=" Describe your experience" className="input input-bordered input-warning w-full max-w-xs" value={reviewContent}
+<input type="text" placeholder=" Describe your experience" className="input input-bordered input-warning w-full" value={reviewContent}
                 onChange={(e) => setReviewContent(e.target.value)} />
 
             <div className="modal-action mt-0"></div>
