@@ -104,7 +104,7 @@ export default function ProductReview(props) {
                 Write a review
               </Link>
             ) : (
-              <h1>loading</h1>
+              null
             )}
           </div>
           {reviews.map((review, index) => {
@@ -133,7 +133,7 @@ export default function ProductReview(props) {
                   </div>
                   {/* icons start */}
                   <div>
-                    {(auth.user._id === review.userId._id ||
+                    {(auth.user?._id === review.userId._id ||
                       auth.roles === "admin") && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +154,7 @@ export default function ProductReview(props) {
                       </svg>
                     )}
 
-                    {auth.user._id === review.userId._id && (
+                    {auth.user?._id === review.userId._id && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -214,11 +214,11 @@ export default function ProductReview(props) {
                             borderRadius: "50%",
                           }}
                         >
-                          {auth.user.username.slice(0, 1)}
+                          {auth.user?.username.slice(0, 1)}
                         </div>
                         <div className="">
                           <h2 className="font-semibold">
-                            {auth.user.username}
+                            {auth.user?.username}
                           </h2>
                           <p className="font-light	">
                             Reviews are public and include your acount info
@@ -351,10 +351,10 @@ export default function ProductReview(props) {
                 className=" bg-green-500 p-3 text-xl text-center text-white "
                 style={{ width: "50px", height: "50px", borderRadius: "50%" }}
               >
-                {auth.user.username.slice(0, 1)}
+                {auth.user?.username.slice(0, 1)}
               </div>
-              <div className="">
-                <h2 className="font-semibold">{auth.user.username}</h2>
+              <div >
+                <h2 className="font-semibold">{auth.user?.username}</h2>
                 <p className="font-light	">
                   Reviews are public and include your acount info
                 </p>
