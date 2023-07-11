@@ -58,18 +58,15 @@ const ProductListing = () => {
     
     // filteration
     let filteredProducts = currentCat._id == 0? products : products.filter((el)=>el.category == currentCat._id);
-    console.log("category filterProducts object :",filteredProducts);
     filteredProducts = filteredProducts.filter((product)=> product.price >= selectedPrice.min && product.price <= selectedPrice.max);
-    console.log("price filterProducts object :",filteredProducts);
 
     // search
     const searchStringRegExp = new RegExp(searchString,"i")
     filteredProducts = (searchString == "")? filteredProducts : filteredProducts.filter((product)=>product.name.match(searchStringRegExp));
-    console.log("search filterProducts object :",filteredProducts);
 
     // pagination
-    const PAGE_SIZE = 9;
-    const noOfItems = products.length;
+    const PAGE_SIZE = 12;
+    const noOfItems = filteredProducts.length;
     const noOfPages = Math.ceil(noOfItems/PAGE_SIZE);
     const pageArr = range(noOfPages);
     const startProdNum = (currentPage -1) * PAGE_SIZE;
@@ -146,9 +143,9 @@ const ProductListing = () => {
 
 
     return ( 
-        <div className='pt-28'>
+        <div >
         {/* Header */}
-        <h1 className='text-5xl text-center text-black m-3'>{currentCat.name}</h1>
+        <h1 className='!text-5xl text-center text-black m-5 custom-font custom-font-black'>{currentCat.name}</h1>
         {/* Page Buttons (Add & sort) */}
         <div className='flex justify-end me-32'>
             {isAdmin && <>
@@ -173,9 +170,9 @@ const ProductListing = () => {
                         <label htmlFor="my-drawer-2" className="btn border-2 border-project-main-color hover:text-white hover:bg-project-main-color hover:border-project-main-color text-black drawer-button mx-2 lg:hidden">Filter by</label>
                     
                     </div> 
-                    <div className="drawer-side">
+                    <div className="drawer-side pt-10 lg:pt-0 h-full">
                         <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
-                        <ul className="menu bg-base-200 rounded-box">
+                        <ul className="menu h-full bg-base-200 rounded-box">
                         <div className="divider"></div>
                             <li>
                                 <details open>
@@ -207,12 +204,12 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Shop by category</summary>
                                 <ul>
-                                    {allCategories.map((cat)=><li className={currentCat._id == cat._id? "bg-project-main-color":""} onClick={()=>{setCurrentCat(cat);setCurrentPage(1)}} key={cat._id}><a>{cat.name}</a></li>)}
+                                    {allCategories.map((cat)=><li className={currentCat._id == cat._id? "bg-project-main-color":""} onClick={()=>{setCurrentCat(cat);setCurrentPage(1); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} key={cat._id}><a>{cat.name}</a></li>)}
                                 </ul>
                                 </details>
                             </li>
                             <div className="divider"></div>
-                            <a onClick={()=>{setCurrentCat({_id:0,name:"All Categories"});setCurrentPage(1);}} className={`text-lg cursor-pointer underline ${currentCat._id == 0? "bg-project-main-color":""}`}>Or, browse all furniture</a>
+                            <a onClick={()=>{setCurrentCat({_id:0,name:"All Categories"});setCurrentPage(1); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`text-lg cursor-pointer underline ${currentCat._id == 0? "bg-project-main-color":""}`}>Or, browse all furniture</a>
                         </ul>
                     </div>
                 </div>

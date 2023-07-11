@@ -42,7 +42,7 @@ const FavouriteList = () => {
             <h1 className='text-5xl custom-font custom-font-black !text-[2.5rem] text-black p-3'>Favourite List</h1>
             </div>
             <div className='flex justify-center md:justify-normal gap-5 m-6 flex-wrap'>
-                {favList.map((item,idx) => <FavouriteListItem index={idx} handleDelete={handleDelete} product={item} key={item._id} />)}
+                {favList.map((item,idx) => <FavouriteListItem handleDelete={handleDelete} product={item} key={item._id} />)}
             </div> 
             </>:
             <div className='flex flex-col w-full items-center justify-center gap-4'>

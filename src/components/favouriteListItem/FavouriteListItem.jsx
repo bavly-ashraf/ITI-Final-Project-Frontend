@@ -2,7 +2,7 @@ import React from 'react'
 import './FavouriteListItem.css';
 import { Link } from 'react-router-dom';
 
-const FavouriteListItem = ({index,product,handleDelete}) => {
+const FavouriteListItem = ({product,handleDelete}) => {
     return (
         <>
             {/* Favourite list item card */}
