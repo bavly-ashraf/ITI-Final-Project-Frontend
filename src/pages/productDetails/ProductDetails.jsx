@@ -9,57 +9,95 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const ProductDetails = () => {
   const { auth } = useContext(AuthContext);
   const { id } = useParams();
   const [product, setProduct] = useState(0);
+  let [inCart, setInCart] = useState(false);
+  let [orderedItem, setOrderedItem] = useState({});
   let [addedToFav, setAddedToFav] = useState(
     auth?.user?.wishList.includes(id) ? true : false
   );
+
+  useEffect(() => {
+    console.log("use effect...");
+    getProduct(id);
+    ifInCart(id);
+  }, []);
+
   const notify = (msg) =>
     toast.success(msg, {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-
   const errorMsg = (err) =>
     toast.error(err, {
-
       position: toast.POSITION.TOP_RIGHT,
     });
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/products/product/${id}`)
-      .then((response) => {
-        setProduct(response.data.product);
-        console.log(response.data.product);
-      })
-      .catch(() => {
-        console.log("error fetching data");
-      });
-  }, []);
 
-  const addToCart = async (id,no_of_items) => {
+  const getProduct = async (id) => {
     try {
-      if(no_of_items>0)
-      {
+      const response = await axios.get(
+        `http://localhost:3000/products/product/${id}`,
+        {
+          headers: { Authorization: auth.accessToken },
+        }
+      );
+      setProduct(response.data.product);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const ifInCart = async (id) => {
+    const response = await axios.get("http://localhost:3000/orderedItems", {
+      headers: { Authorization: auth.accessToken },
+    });
+    console.log(response.data.orderItem);
+    let itemsArray = response.data.orderItem;
+    setInCart(
+      itemsArray.some((item) => {
+        setOrderedItem(item.productId._id == id ? item._id : {});
+        return item.productId._id == id;
+      })
+        ? true
+        : false
+    );
+  };
+
+  const removeFromCart = async (orderedItem) => {
+    try {
+      console.log(orderedItem);
+      const token = auth.accessToken;
+      await axios.delete(`http://localhost:3000/orderedItems/${orderedItem}`, {
+        headers: { Authorization: auth.accessToken },
+      });
+      setInCart(false);
+      notify("Item Deleted Successfully!");
+    } catch (err) {
+      errorMsg(err.message);
+    }
+  };
+
+  const addToCart = async (id, no_of_items) => {
+    try {
+      if (no_of_items > 0) {
         const response = await axios.post(
           `http://localhost:3000/orderedItems/`,
           {
             productId: id,
-            quantity:no_of_items
+            quantity: no_of_items,
           },
           {
             headers: { Authorization: auth.accessToken },
           }
         );
-        notify("Item Successfully Added To Cart")
-      }
-      else
-      {
+        setInCart(true);
+        setOrderedItem(response.data.orderItem._id);
+        console.log(response);
+        notify("Item Successfully Added To Cart");
+      } else {
         errorMsg("you have to add at least 1 item to the cart");
-      
       }
     } catch (error) {
       console.error(error);
@@ -115,6 +153,10 @@ const ProductDetails = () => {
               addedToFav={addedToFav}
               setAddedToFav={setAddedToFav}
               product={product}
+              inCart={inCart}
+              setInCart={setInCart}
+              removeFromCart={removeFromCart}
+              orderedItem={orderedItem}
               className="col-span-4"
             />
           </div>

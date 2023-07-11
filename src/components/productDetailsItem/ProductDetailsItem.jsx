@@ -21,6 +21,9 @@ const ProductDetailsItem = (props) => {
   let currentId = props.id;
   let addToFavServerSide = props.addToFavServerSide;
   let removeFromFavServerSide = props.removeFromFavServerSide;
+  let inCart = props.inCart;
+  let setInCart = props.setInCart;
+  let orderedItem = props.orderedItem;
 
   const notify = () =>
     toast.success("Item Added To Fav List", {
@@ -34,7 +37,6 @@ const ProductDetailsItem = (props) => {
 
   function addToFav(id) {
     setAddedToFav(!addedToFav);
-    // addToFavServerSide(id);
     addedToFav ? removeFromFavServerSide(id) : addToFavServerSide(id);
     addedToFav ? errorMsg() : notify();
   }
@@ -65,15 +67,15 @@ const ProductDetailsItem = (props) => {
             {name}
           </h5>
           <h3 className="mb-2 text-3xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-            Price:<span style={{ color: "#E9672B" }}> ${price}/mo</span>
+            Price:<span style={{ color: "#E9672B" }}> {price} EGP</span>
           </h3>
-          <h2 className="my-6 text-md leading-tight text-neutral-800 dark:text-neutral-50">
+          {/* <h2 className="my-6 text-md leading-tight text-neutral-800 dark:text-neutral-50">
             <strong>Color</strong> : Oak
           </h2>
           <img
             className="hover:outline-gray-400 rounded-full w-14 h-14 outline outline-2 outline-black cursor-pointer border-4 border-white"
             src="src\assets\Images\ProductDetails\Button\gea-cof-05_swatch.webp"
-          />
+          /> */}
           <h2 className="my-6 text-md leading-tight text-neutral-800 dark:text-neutral-50">
             <strong>Quantity:</strong>
           </h2>
@@ -109,12 +111,30 @@ const ProductDetailsItem = (props) => {
               ""
             )}
           </div>
-          <div className="mt-14 font-medium leading-tight  flex">
+          {inCart ? (
+            <div className="mt-6 text-md leading-tight text-neutral-800 dark:text-neutral-50">
+              <strong>Item is in Cart</strong>
+              <button
+                type="button"
+                className="bg-[#EA6C31] mx-5 hover:bg-[#DE5312] font-medium text-sm w-30   text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2"
+                onClick={() => {
+                  props.removeFromCart(orderedItem);
+                  setCounter(0);
+                }}
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+
+          <div className="mt-6 font-medium leading-tight  flex">
             {isAvailable ? (
               <button
                 type="button"
                 className="bg-[#EA6C31] hover:bg-[#DE5312] text-xl w-80 h-14 text-black focus:outline-none rounded-full  px-5 py-2.5 text-center mr-2"
-                onClick={()=>props.addToCart(currentId,shownNumber)}
+                onClick={() => props.addToCart(currentId, shownNumber)}
               >
                 Add to Cart
               </button>
