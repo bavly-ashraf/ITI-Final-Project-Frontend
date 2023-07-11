@@ -5,11 +5,12 @@ import axios from 'axios';
 import AddEditModal from '../../components/add_EditModal/Add_EditModal';
 import { AuthContext } from '../../context/AuthProvider';
 import LoadingAnimation from '../../components/loadingAnimation/LoadingAnimation';
+import { toast } from 'react-toastify';
 
 const ProductListing = () => {
     const {auth} = useContext(AuthContext);
-    console.log(auth.roles);
-    const isAdmin = auth.roles == "admin"? true:false;
+
+    const isAdmin = auth?.roles == "admin"? true:false;
     const [products, setProducts] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [allCategories,setAllCategories] = useState([]);
@@ -21,9 +22,13 @@ const ProductListing = () => {
     useEffect(()=>{
         (async()=>{
             //get products
+            try{
             const {data} = await axios.get('http://localhost:3000/products/all');
             setIsLoading(false);
             setProducts(data);
+            }catch(e){
+                toast.error("error fetching product list, please refresh the page and try again")
+            }
         })()
     }
     ,[]);
@@ -31,32 +36,37 @@ const ProductListing = () => {
     useEffect(()=>{
         (async()=>{
             //get categories
-            const {categories} = (await axios.get("http://localhost:3000/categories")).data;
-            setAllCategories(categories);
+            try{
+                const {categories} = (await axios.get("http://localhost:3000/categories")).data;
+                setAllCategories(categories);
+            }catch(e){
+                toast.error("error fetching category list, please refresh the page and try again")
+            }
         })()
     }
     ,[]);
 
     // sorting
     const handleSorting = async(sortingOrder)=>{
-        const {data} = await axios.get(`http://localhost:3000/products/${sortingOrder}`);
-        setProducts(data);
+        try{
+            const {data} = await axios.get(`http://localhost:3000/products/${sortingOrder}`);
+            setProducts(data);
+        }catch(e){
+            toast.error("error contacing the server, please refresh the page and try again")
+        }
     }
     
     // filteration
     let filteredProducts = currentCat._id == 0? products : products.filter((el)=>el.category == currentCat._id);
-    console.log("category filterProducts object :",filteredProducts);
     filteredProducts = filteredProducts.filter((product)=> product.price >= selectedPrice.min && product.price <= selectedPrice.max);
-    console.log("price filterProducts object :",filteredProducts);
 
     // search
     const searchStringRegExp = new RegExp(searchString,"i")
     filteredProducts = (searchString == "")? filteredProducts : filteredProducts.filter((product)=>product.name.match(searchStringRegExp));
-    console.log("search filterProducts object :",filteredProducts);
 
     // pagination
-    const PAGE_SIZE = 9;
-    const noOfItems = products.length;
+    const PAGE_SIZE = 12;
+    const noOfItems = filteredProducts.length;
     const noOfPages = Math.ceil(noOfItems/PAGE_SIZE);
     const pageArr = range(noOfPages);
     const startProdNum = (currentPage -1) * PAGE_SIZE;
@@ -65,6 +75,8 @@ const ProductListing = () => {
 
     // adding new product
     const handleAdd = async(product)=>{
+        
+        //appending to formData
         const {name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock} = product;
         const formData = new FormData();
         formData.append("name",name);
@@ -81,13 +93,21 @@ const ProductListing = () => {
             formData.append("photo_url",photo_url[i]);
         }
         formData.append("no_of_items_in_stock",no_of_items_in_stock);
-        const addedProduct = (await axios.post(`http://localhost:3000/products/${category}`,formData,{headers:{Authorization:auth.accessToken}})).data.product;
-        //clone
-        const newProdArr = [...products];
-        //edit
-        newProdArr.push(addedProduct);
-        //setState
-        setProducts(newProdArr);
+
+        //adding to database
+        try
+        {
+            const addedProduct = (await axios.post(`http://localhost:3000/products/${category}`,formData,{headers:{Authorization:auth?.accessToken}})).data.product;
+            //clone
+            const newProdArr = [...products];
+            //edit
+            newProdArr.push(addedProduct);
+            //setState
+            setProducts(newProdArr);
+            toast.success("product added successfully");
+        }catch(e){
+            toast.error("error adding the product, please try again")
+        }
     }
 
     // editing product
@@ -95,13 +115,14 @@ const ProductListing = () => {
         const fallBackClone = [...products];
         const {name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability } = product;
         try{
-            const {updatedProduct} = (await axios.patch(`http://localhost:3000/products/${id}`,{name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability },{headers:{Authorization:auth.accessToken}})).data
+            const {updatedProduct} = (await axios.patch(`http://localhost:3000/products/${id}`,{name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability },{headers:{Authorization:auth?.accessToken}})).data
             const newProdArr = [...products];
             const index = newProdArr.findIndex((el)=>el._id == id);
             newProdArr[index] = updatedProduct
             setProducts(newProdArr);
+            toast.success("product edited successfully");
         }catch(e){
-            console.log("edit error");
+            toast.error("error editing the product, please try again")
             setProducts(fallBackClone);
         }
     }
@@ -110,20 +131,21 @@ const ProductListing = () => {
     const handleDelete = async(id) =>{
         const productsClone = [...products];
         try{
-            await axios.delete(`http://localhost:3000/products/${id}`,{headers:{Authorization:auth.accessToken}});
+            await axios.delete(`http://localhost:3000/products/${id}`,{headers:{Authorization:auth?.accessToken}});
             const deletedProductArr = productsClone.filter((prod)=>prod._id != id);
             setProducts(deletedProductArr);
+            toast.success("product deleted successfully");
         }catch(e){
-            console.log("delete error");
+            toast.error("error deleting the product, please try again")
             setProducts(productsClone);
         }
      }
 
 
     return ( 
-        <div className='pt-28'>
+        <div >
         {/* Header */}
-        <h1 className='text-5xl text-center text-black m-3'>{currentCat.name}</h1>
+        <h1 className='!text-5xl text-center text-black m-5 custom-font custom-font-black'>{currentCat.name}</h1>
         {/* Page Buttons (Add & sort) */}
         <div className='flex justify-end me-32'>
             {isAdmin && <>
@@ -148,9 +170,9 @@ const ProductListing = () => {
                         <label htmlFor="my-drawer-2" className="btn border-2 border-project-main-color hover:text-white hover:bg-project-main-color hover:border-project-main-color text-black drawer-button mx-2 lg:hidden">Filter by</label>
                     
                     </div> 
-                    <div className="drawer-side">
+                    <div className="drawer-side pt-10 lg:pt-0 h-full">
                         <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
-                        <ul className="menu bg-base-200 rounded-box">
+                        <ul className="menu h-full bg-base-200 rounded-box">
                         <div className="divider"></div>
                             <li>
                                 <details open>
@@ -182,12 +204,12 @@ const ProductListing = () => {
                                 <details open>
                                 <summary className='text-xl'>Shop by category</summary>
                                 <ul>
-                                    {allCategories.map((cat)=><li className={currentCat._id == cat._id? "bg-project-main-color":""} onClick={()=>{setCurrentCat(cat);setCurrentPage(1)}} key={cat._id}><a>{cat.name}</a></li>)}
+                                    {allCategories.map((cat)=><li className={currentCat._id == cat._id? "bg-project-main-color":""} onClick={()=>{setCurrentCat(cat);setCurrentPage(1); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} key={cat._id}><a>{cat.name}</a></li>)}
                                 </ul>
                                 </details>
                             </li>
                             <div className="divider"></div>
-                            <a onClick={()=>{setCurrentCat({_id:0,name:"All Categories"});setCurrentPage(1);}} className={`text-lg cursor-pointer underline ${currentCat._id == 0? "bg-project-main-color":""}`}>Or, browse all furniture</a>
+                            <a onClick={()=>{setCurrentCat({_id:0,name:"All Categories"});setCurrentPage(1); scrollTo({left:'0px',top:'0px',behavior:"smooth"})}} className={`text-lg cursor-pointer underline ${currentCat._id == 0? "bg-project-main-color":""}`}>Or, browse all furniture</a>
                         </ul>
                     </div>
                 </div>

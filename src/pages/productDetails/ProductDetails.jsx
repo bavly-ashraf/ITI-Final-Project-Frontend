@@ -16,7 +16,7 @@ const ProductDetails = () => {
   let [inCart, setInCart] = useState(false);
   let [orderedItem, setOrderedItem] = useState({});
   let [addedToFav, setAddedToFav] = useState(
-    auth.user.wishList.includes(id) ? true : false
+    auth?.user?.wishList.includes(id) ? true : false
   );
 
   useEffect(() => {

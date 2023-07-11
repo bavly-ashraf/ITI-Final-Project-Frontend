@@ -1,25 +1,70 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import Joi from 'joi';
+
 
 const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
     const [form,setForm] = useState({name:product?.name || "",description:product?.description || "",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
     const [catName,setCatName] = useState("Choose category");
     const [availability,setAvailability] = useState(product?.availability || "Availability");
+    const [validationErrors,setValidationErrors] = useState(undefined);
 
     const handleAction = (e)=>{
         setForm({...form,[e.target.name]:e.target.value});
-        console.log({...form,[e.target.name]:e.target.value});
     }
 
-    const handleForm = ()=>{
-        handleAdd(form);
-        setForm({...form,name:product?.name || "",description:product?.description || "",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
+    const handleFormAdd = ()=>{
+                //Data Validation
+                const schema = Joi.object({
+                    name: Joi.string().required(),
+                    description: Joi.string().required(),
+                    height: Joi.number().required(),
+                    width: Joi.number().required(),
+                    depth: Joi.number().required(),
+                    details_images: Joi.object().min(1).max(2).required(),
+                    price: Joi.number().required(),
+                    vendor: Joi.string().required(),
+                    category: Joi.string().alphanum().required(),
+                    photo_url: Joi.object().min(1).max(7).required(),
+                    no_of_items_in_stock: Joi.number().integer().required()
+                });
+                const {name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock} = form;
+                const value = schema.validate({name , description , height , width , depth , details_images , price , vendor , category , photo_url , no_of_items_in_stock},{abortEarly:false});
+                setValidationErrors(value.error?.details);
+                if(!value.error){
+                    handleAdd(form);
+                    setForm({...form,name:product?.name || "",description:product?.description || "",height:product?.height || "",width:product?.width || "",depth:product?.depth || "",price:product?.price || "",category:product?.category || "",vendor:product?.vendor || "",no_of_items_in_stock:product?.no_of_items_in_stock || "", availability:product?.availability});
+                    window.my_modal.close();
+                }
     }
+
+    const handleFormEdit = ()=>{
+        //Data Validation
+        const schema = Joi.object({
+            name: Joi.string().required(),
+            description: Joi.string().required(),
+            height: Joi.number().required(),
+            width: Joi.number().required(),
+            depth: Joi.number().required(),
+            price: Joi.number().required(),
+            vendor: Joi.string().required(),
+            no_of_items_in_stock: Joi.number().integer().required(),
+            availability: Joi.string().required()
+        });
+        const {name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability } = form;
+        const value = schema.validate({name, description , height, width, depth , price , vendor, no_of_items_in_stock, availability },{abortEarly:false});
+        setValidationErrors(value.error?.details);
+        if(!value.error){
+            handleEdit(product._id,form)
+            window.my_modal_edit[index].close();
+        }
+}
     return ( 
-        <dialog id={`my_modal${edit? "_edit": ""}`} className="modal">
+        <dialog id={`my_modal${edit?"_edit"+product._id:""}`} className="modal">
             <form method="dialog" encType="multipart/form-data" className="modal-box">
                 <h3 className="font-bold text-lg">{edit? 'Edit product':'Add new product!'}</h3>
                 {/* <p className="py-4">Press ESC key or click the button below to close</p> */}
+                {validationErrors && validationErrors.map((err)=><div className='bg-red-700 rounded-lg m-1' key={err.context.key}>{err.message}</div>)}
                     <label htmlFor='prod_name' className='text-lg'>Name:</label>
                     <input name='name' onChange={handleAction} id='prod_name' type="text" placeholder="Product Name" defaultValue={edit? product?.name : ""} className="input input-bordered input-warning w-full max-w-xs m-2" />
                     <br />
@@ -41,7 +86,7 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
                     <details className="dropdown">
                         <summary className="m-1 btn">{catName}</summary>
                         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                            {allCategories.map((category)=><li onClick={()=>{setForm({...form,category:category._id});setCatName(category.name);console.log({...form,category:category._id})}} key={category._id}><a>{category.name}</a></li>)}
+                            {allCategories.map((category)=><li onClick={()=>{setForm({...form,category:category._id});setCatName(category.name)}} key={category._id}><a>{category.name}</a></li>)}
                         </ul>
                     </details>
                     <br />
@@ -57,11 +102,11 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
                     <>
                     <label>Images:</label>
                     <br />
-                    <input name="photo_url" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);console.log("this is photo_url",e.target.files);}} className='input' type='file' accept="image/*" multiple/>
+                    <input name="photo_url" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files})}} className='input' type='file' accept="image/*" multiple/>
                     <br />
                     <label>Detailed Images:</label>
                     <br />
-                    <input name="details_images" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files});console.log(form);console.log("this is details_images",e.target.files);}} className='input' type='file' accept="image/*" multiple/>
+                    <input name="details_images" onChange={(e)=>{setForm({...form,[e.target.name]:e.target.files})}} className='input' type='file' accept="image/*" multiple/>
                     </>}
                     {edit &&
                     <>
@@ -78,7 +123,7 @@ const AddEditModal = ({edit,product,handleAdd,allCategories,handleEdit}) => {
                     <div className='w-full flex justify-center'><Link to="/addcategory" className='link link-warning'>Want to Add/Edit Category?</Link></div>
                 <div className="modal-action">
                     {/* if there is a button in form, it will close the modal */}
-                    <button className={`btn ${edit? "btn-warning": "btn-success"}`} onClick={edit? ()=>handleEdit(product._id,form):()=>handleForm()}>{edit? "Edit":"Add"}</button>
+                    <div className={`btn ${edit? "btn-warning": "btn-success"}`} onClick={edit? ()=>handleFormEdit():()=>handleFormAdd()}>{edit? "Edit":"Add"}</div>
                     <button className="btn">Close</button>
                 </div>
             </form>

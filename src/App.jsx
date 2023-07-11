@@ -6,6 +6,7 @@ import AppRoutes from "./routes/AppRoutes";
 import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgotPassword from "./pages/forgetPassword/ForgetPassword";
 
 function App() {
   return (

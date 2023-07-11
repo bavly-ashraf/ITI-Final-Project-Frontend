@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
+import { toast } from "react-toastify";
 
-import "./SignUP.css";
+import "./SignUp.css";
 import axios from "../../api/axios";
 const SignUpURL = "/users/signup";
 
@@ -46,7 +47,17 @@ export default function SignUp() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
+  const notify = () =>
+    toast.success(`You signed Up succesfully`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      toastClassName: "custom-toast",
+    });
   // const onSubmit = (data) => {
   //   const { error } = schema.validate(data, {
   //     abortEarly: false,
@@ -98,7 +109,8 @@ export default function SignUp() {
         setValidationErrors({});
         await axios.post(SignUpURL, data);
         console.log("Data sent successfully");
-        navigate("/");
+        notify();
+        navigate("/verifyemail");
       }
     } catch (error) {
       if (error.response) {
