@@ -32,7 +32,7 @@ export default function App() {
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { auth, persist } = useContext(AuthContext);
+  const { persist } = useContext(AuthContext);
 
   const notify = (name) =>
     toast.success(`Welcome  ${name}`, {
@@ -286,7 +286,6 @@ export default function App() {
                   Sign in
                 </button>
               </div>
-
               <p
                 style={{ color: "#E9672B" }}
                 className="text-center text-lg text-gray-500 dark:text-gray-400"
