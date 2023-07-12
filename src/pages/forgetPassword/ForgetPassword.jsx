@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
+const forgotPassword_URL = "/users/forgotPassword";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -25,10 +25,7 @@ export default function ForgotPassword() {
       setValidationErrors(validationErrors);
     } else {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/forgot-password",
-          data
-        );
+        const response = await axios.post(forgotPassword_URL, data);
         console.log("Password reset email sent:", response.data);
         setValidationErrors({});
       } catch (error) {

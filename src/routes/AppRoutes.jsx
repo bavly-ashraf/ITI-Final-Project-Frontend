@@ -13,7 +13,7 @@ import OrderStatus from "../pages/orderStatus/OrderStatus";
 import FavouriteList from "../pages/favouriteList/FavouriteList";
 import Category from "../pages/category/Category";
 import CheckOut from "../pages/checkout/Checkout";
-
+import ResetPassword from "../pages/resetPasword/ResetPassord";
 import RequireAuth from "../context/RequireAuth";
 import Unauthorized from "../pages/unauthorised/Unauthorized";
 import ProductListing from "../pages/productsListing/ProductsListing";
@@ -32,16 +32,22 @@ const AppRoutes = (props) => {
       <Route path="/favouriteList" element={<FavouriteList />} />
       <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       <Route path="/ForgetPassword" element={<ForgotPassword />} />
+      <Route path="/resetPassword" element={<ResetPassword />} />
 
-      <Route path="/products/product/:id" element={<ProductDetails 
-      cartItems={props.cartItems} 
-      addToCart={props.addToCart}
-      inCart={props.inCart}
-      setInCart={props.setInCart}
-      removeFromCart={props.removeFromCart}
-      orderedItem={props.orderedItem}
-      setOrderedItem={props.setOrderedItem}
-      />} />
+      <Route
+        path="/products/product/:id"
+        element={
+          <ProductDetails
+            cartItems={props.cartItems}
+            addToCart={props.addToCart}
+            inCart={props.inCart}
+            setInCart={props.setInCart}
+            removeFromCart={props.removeFromCart}
+            orderedItem={props.orderedItem}
+            setOrderedItem={props.setOrderedItem}
+          />
+        }
+      />
 
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/ProductListing" element={<ProductListing />} />

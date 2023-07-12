@@ -3,9 +3,7 @@ import Footer from "./components/footer/Footer";
 // import ReactDOM from "react-dom";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
-import AdminDashBoard from "./pages/adminDashboard/AdminDashboard";
 import "react-toastify/dist/ReactToastify.css";
-import ForgotPassword from "./pages/forgetPassword/ForgetPassword";
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./context/AuthProvider";
 import axios from "axios";
@@ -37,7 +35,7 @@ function App() {
       headers: { Authorization: auth.accessToken },
     });
     setCartItems(response.data.orderItem);
-    console.log(response.data.orderItem)
+    console.log(response.data.orderItem);
   };
 
   const addToCart = async (id, no_of_items) => {
@@ -55,7 +53,7 @@ function App() {
         );
         setInCart(true);
         setOrderedItem(response.data.orderItem._id);
-        setCartItems([response.data.orderItem,...cartItems])
+        setCartItems([response.data.orderItem, ...cartItems]);
         console.log(response);
         notify("Item Successfully Added To Cart");
       } else {
@@ -69,11 +67,18 @@ function App() {
 
   const removeFromCart = async (orderedItem) => {
     try {
-      let response=await axios.delete(`http://localhost:3000/orderedItems/${orderedItem}`, {
-        headers: { Authorization: auth.accessToken },
-      });
+      let response = await axios.delete(
+        `http://localhost:3000/orderedItems/${orderedItem}`,
+        {
+          headers: { Authorization: auth.accessToken },
+        }
+      );
       setInCart(false);
-      setCartItems(cartItems.filter((items)=>items._id!=response.data.deletedorderItem._id))
+      setCartItems(
+        cartItems.filter(
+          (items) => items._id != response.data.deletedorderItem._id
+        )
+      );
       notify("Item Deleted Successfully!");
     } catch (err) {
       errorMsg(err.message);
@@ -83,16 +88,16 @@ function App() {
     <>
       <div>
         <ToastContainer />
-        <Header cartItems={cartItems}/>
+        <Header cartItems={cartItems} />
         <div className="py-32">
-          <AppRoutes 
-          cartItems={cartItems}
-          addToCart={addToCart}
-          inCart={inCart}
-          setInCart={setInCart}
-          removeFromCart={removeFromCart}
-          orderedItem={orderedItem}
-          setOrderedItem={setOrderedItem}
+          <AppRoutes
+            cartItems={cartItems}
+            addToCart={addToCart}
+            inCart={inCart}
+            setInCart={setInCart}
+            removeFromCart={removeFromCart}
+            orderedItem={orderedItem}
+            setOrderedItem={setOrderedItem}
           />
         </div>
         <Footer />
