@@ -57,10 +57,15 @@ const AppRoutes = (props) => {
       <Route path="/orderedItems" element={<Category />} />
       <Route path="verifyemail" element={<VerificationForm />} />
 
-      <Route path="/checkout" element={<CheckOut />} />
+      <Route path="/checkout" element={<CheckOut 
+            cartItems={props.cartItems}
+      />} />
       {/* restrict access to this route to users with the 'Admin' role */}
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/CartItem" element={<CartItem />} />
+      <Route path="/CartItem" element={<CartItem 
+            cartItems={props.cartItems}
+            removeFromCart={props.removeFromCart}
+      />} />
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         {/*inside we put routes for admins and users */}
       </Route>

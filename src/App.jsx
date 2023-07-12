@@ -31,37 +31,44 @@ function App() {
     });
 
   const getCartItems = async () => {
-    const response = await axios.get("http://localhost:3000/orderedItems", {
-      headers: { Authorization: auth.accessToken },
-    });
-    setCartItems(response.data.orderItem);
-    console.log(response.data.orderItem);
+    if(auth.accessToken){      
+      const response = await axios.get("http://localhost:3000/orderedItems", {
+        headers: { Authorization: auth.accessToken },
+      });
+      setCartItems(response.data.orderItem);
+      console.log(response.data.orderItem);
+    }
   };
 
   const addToCart = async (id, no_of_items) => {
-    try {
-      if (no_of_items > 0) {
-        const response = await axios.post(
-          `http://localhost:3000/orderedItems/`,
-          {
-            productId: id,
-            quantity: no_of_items,
-          },
-          {
-            headers: { Authorization: auth.accessToken },
-          }
-        );
-        setInCart(true);
-        setOrderedItem(response.data.orderItem._id);
-        setCartItems([response.data.orderItem, ...cartItems]);
-        console.log(response);
-        notify("Item Successfully Added To Cart");
-      } else {
-        errorMsg("you have to add at least 1 item to the cart");
+    if(auth.accessToken){
+      try {
+        if (no_of_items > 0) {
+          const response = await axios.post(
+            `http://localhost:3000/orderedItems/`,
+            {
+              productId: id,
+              quantity: no_of_items,
+            },
+            {
+              headers: { Authorization: auth.accessToken },
+            }
+          );
+          setInCart(true);
+          setOrderedItem(response.data.orderItem._id);
+          setCartItems([response.data.orderItem, ...cartItems]);
+          console.log(response);
+          notify("Item Successfully Added To Cart");
+        } else {
+          errorMsg("you have to add at least 1 item to the cart");
+        }
+      } catch (error) {
+        console.error(error);
+        errorMsg("Items could not be added to cart sorry");
       }
-    } catch (error) {
-      console.error(error);
-      errorMsg("Items could not be added to cart sorry");
+    }
+    else{
+      toast.error("Please login to add to cart")
     }
   };
 

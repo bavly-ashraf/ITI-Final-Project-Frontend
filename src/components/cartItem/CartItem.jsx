@@ -9,22 +9,23 @@ import { AuthContext } from "../../context/AuthProvider";
 import CartItemList from "../cartItemList/CartItemList";
 import { toast } from "react-toastify";
 
-const CartItem = () => {
+const CartItem = (props) => {
 
   let navigate = useNavigate()
   const { auth } = useContext(AuthContext)
 
-  const [item, setitem] = useState([]);
+  // const [item, setitem] = useState([]);
+  const item = props.cartItems
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+  //   axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
 
-      setitem(response.data.orderItem);
-      console.log(response.data.orderItem)
-    });
+  //     setitem(response.data.orderItem);
+  //     console.log(response.data.orderItem)
+  //   });
 
-  }, []);
+  // }, []);
 
   const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
 
@@ -36,18 +37,18 @@ const CartItem = () => {
     }
   };
 
-  const DeleteItem = async (itemId) => {
-    try {
-      const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
-      console.log(response.data);
+  // const DeleteItem = async (itemId) => {
+  //   try {
+  //     const response = await axios.delete(`http://localhost:3000/orderedItems/${itemId}`, { headers: { "Authorization": auth?.accessToken } });
+  //     console.log(response.data);
 
-      setitem(item.filter((item) => item._id !== itemId));
-      toast.success("Item removed from cart successfully");
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to remove item from cart");
-    }
-  }
+  //     setitem(item.filter((item) => item._id !== itemId));
+  //     toast.success("Item removed from cart successfully");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Failed to remove item from cart");
+  //   }
+  // }
   return (
     <div>
       <div className="p-40">
@@ -65,7 +66,7 @@ const CartItem = () => {
             <div className="block">
               {item.length > 0 ? (
                 item.map((items, idx) => (
-                  <CartItemList className="my-10" index={idx} DeleteItem={DeleteItem} product={items} key={items._id} />
+                  <CartItemList className="my-10" index={idx} DeleteItem={props.removeFromCart} product={items} key={items._id} />
                 ))
               ) : (
                 <div className="text-center w-96 mt-10">

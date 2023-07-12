@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { useState } from "react";
 import ProductReview from "../productReview.jsx/ProductReview";
 import { ToastContainer, toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthProvider";
 
 const ProductDetailsItem = (props) => {
+  const {auth} = useContext(AuthContext)
   const [counter, setCounter] = useState(0);
   let name = props.product.name;
   let price = props.product.price;
@@ -38,9 +40,14 @@ const ProductDetailsItem = (props) => {
     });
 
   function addToFav(id) {
-    setAddedToFav(!addedToFav);
-    addedToFav ? removeFromFavServerSide(id) : addToFavServerSide(id);
-    addedToFav ? errorMsg() : notify();
+    if(auth.accessToken){
+      setAddedToFav(!addedToFav);
+      addedToFav ? removeFromFavServerSide(id) : addToFavServerSide(id);
+      addedToFav ? errorMsg() : notify();
+    }
+    else{
+      toast.error("Please login to add to Fav List");
+    }
   }
 
   function increament() {
