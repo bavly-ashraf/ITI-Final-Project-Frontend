@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
+import { useNavigate } from "react-router-dom";
+
 import axios from "../../api/axios";
 const forgotPassword_URL = "/users/forgotPassword";
 
@@ -14,6 +16,7 @@ const schema = Joi.object({
 export default function ForgotPassword() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
@@ -28,6 +31,7 @@ export default function ForgotPassword() {
         const response = await axios.post(forgotPassword_URL, data);
         console.log("Password reset email sent:", response.data);
         setValidationErrors({});
+        navigate("/resetpassword"); // Programmatically navigate to the login page
       } catch (error) {
         console.error("An error occurred:", error);
         if (error.response && error.response.data) {

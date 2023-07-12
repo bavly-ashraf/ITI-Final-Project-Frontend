@@ -42,7 +42,8 @@ export default function ResetPassword() {
       try {
         const response = await axios.post(resetpassword_URL, data);
 
-        // navigate("/login");
+        navigate("/login");
+        setValidationErrors({});
       } catch (error) {
         if (error.response && error.response.data) {
           setValidationErrors({
@@ -147,7 +148,7 @@ export default function ResetPassword() {
                     validationErrors.password ? "text-red-500" : ""
                   }`}
                 >
-                  Password
+                  New Password
                 </label>
               </div>
               {validationErrors.password && (
