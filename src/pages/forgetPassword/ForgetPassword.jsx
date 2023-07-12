@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import axios from "../../api/axios";
 const forgotPassword_URL = "/users/forgotPassword";
@@ -17,7 +18,17 @@ export default function ForgotPassword() {
   const [validationErrors, setValidationErrors] = useState({});
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
+  const notify = () =>
+    toast.success(`A code has been sent to your email check it`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      toastClassName: "custom-toast",
+    });
   const onSubmit = async (data) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
@@ -30,6 +41,7 @@ export default function ForgotPassword() {
       try {
         const response = await axios.post(forgotPassword_URL, data);
         console.log("Password reset email sent:", response.data);
+        notify();
         setValidationErrors({});
         navigate("/resetpassword"); // Programmatically navigate to the login page
       } catch (error) {

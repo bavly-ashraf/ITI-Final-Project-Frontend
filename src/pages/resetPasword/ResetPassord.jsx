@@ -4,6 +4,8 @@ import Joi from "joi";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
+import { toast } from "react-toastify";
+
 const resetpassword_URL = "/users/resetpassword";
 
 const schema = Joi.object({
@@ -29,6 +31,17 @@ export default function ResetPassword() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
+  const notify = () =>
+    toast.success(`You have reset your password successfully`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      toastClassName: "custom-toast",
+    });
   const onSubmit = async (data) => {
     console.log(data);
     const { error } = schema.validate(data, { abortEarly: false });
@@ -41,7 +54,7 @@ export default function ResetPassword() {
     } else {
       try {
         const response = await axios.post(resetpassword_URL, data);
-
+        notify();
         navigate("/login");
         setValidationErrors({});
       } catch (error) {

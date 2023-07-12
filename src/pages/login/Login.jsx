@@ -2,10 +2,8 @@ import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import "./Login.css";
-// import { Link } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
-// import useAuth from "../../hooks/useAuth";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
 
