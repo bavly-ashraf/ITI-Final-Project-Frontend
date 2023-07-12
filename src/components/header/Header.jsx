@@ -22,17 +22,18 @@ function Header(props) {
     initTE({ Collapse, Dropdown, Ripple });
   }, []);
 
-  const [item, setitem] = useState([]);
+  // const [item, setitem] = useState(props.cartItems);
+  const item = props.cartItems;
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+  //   axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
 
-      setitem(response.data.orderItem);
-      console.log(response.data.orderItem)
-    });
+  //     setitem(response.data.orderItem);
+  //     console.log(response.data.orderItem)
+  //   });
 
-  }, []);
+  // }, []);
 
   const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
   const numOrderedItems = item.filter((item) => item.productId).length;
@@ -262,8 +263,6 @@ function Header(props) {
                     />
                   </svg>
                   <span className="badge badge-sm indicator-item bg-orange-500">
-                    {props.cartItems.length}
-
                     {numOrderedItems > 0 ? (
                       numOrderedItems
                     ) : (

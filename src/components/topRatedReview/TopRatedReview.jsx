@@ -90,7 +90,7 @@ function TopRatedReview() {
                   </div>
                   <div>
                     <p className="pb-8 text-base">{review.reviewContent}</p>
-                    <strong className="pb-8	">- {review.userId.username}</strong>
+                    <strong className="pb-8	">- {review.userId?.username}</strong>
                   </div>
                 </div>
               ))

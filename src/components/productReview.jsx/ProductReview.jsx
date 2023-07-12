@@ -127,15 +127,15 @@ export default function ProductReview(props) {
                         borderRadius: "50%",
                       }}
                     >
-                      {review.userId.username.slice(0, 1)}
+                      {review.userId?.username.slice(0, 1)}
                     </div>
                     <h4 className="w-full md:w-auto text-xl font-heading font-medium">
-                      {review.userId.username.replace(/([A-Z])/g, " $1").trim()}
+                      {review.userId?.username.replace(/([A-Z])/g, " $1").trim()}
                     </h4>
                   </div>
                   {/* icons start */}
                   <div>
-                    {(auth.user?._id === review.userId._id ||
+                    {(auth.user?._id === review.userId?._id ||
                       auth.roles === "admin") && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +156,7 @@ export default function ProductReview(props) {
                       </svg>
                     )}
 
-                    {auth.user?._id === review.userId._id && (
+                    {auth.user?._id === review.userId?._id && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
