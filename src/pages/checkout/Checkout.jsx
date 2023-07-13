@@ -8,10 +8,9 @@ import axios from "../../api/axios";
 import Joi from "joi";
 const DATA_URL = "/orders"
 import { AuthContext } from "../../context/AuthProvider";
-import { toast } from "react-toastify";
 
 
-export default function placeOrder(props) {
+export default function placeOrder() {
 
     const { auth } = useContext(AuthContext)
     let navigate = useNavigate()
@@ -27,18 +26,17 @@ export default function placeOrder(props) {
         phone: null
     })
 
-    // const [item, setitem] = useState([]);
-    const item = props.cartItems;
+    const [item, setitem] = useState([]);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+        axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
 
-    //         setitem(response.data.orderItem);
-    //         console.log(response.data.orderItem)
-    //     });
+            setitem(response.data.orderItem);
+            console.log(response.data.orderItem)
+        });
 
-    // }, []);
+    }, []);
 
     const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
 
@@ -76,12 +74,7 @@ export default function placeOrder(props) {
             setErrorList(validation.error.details)
         }
         else {
-            if (auth.roles == "admin") {
-                toast.error("Only users can create orders.")
-            }
-            else {
-                sendUserDataToApi()
-            }
+            sendUserDataToApi()
         }
     }
 
@@ -133,7 +126,7 @@ export default function placeOrder(props) {
                             name="address"
                             placeholder="address" />
                         <label
-                            htmlFor="exampleInput7"
+                            for="exampleInput7"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >
                             Address
@@ -149,7 +142,7 @@ export default function placeOrder(props) {
                             name="city"
                             placeholder="city" />
                         <label
-                            htmlFor="exampleInput8"
+                            for="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >City
                         </label>
@@ -163,7 +156,7 @@ export default function placeOrder(props) {
                             name="country"
                             placeholder="country" />
                         <label
-                            htmlFor="exampleInput8"
+                            for="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >Country
                         </label>
@@ -177,7 +170,7 @@ export default function placeOrder(props) {
                             name="zip"
                             placeholder="zip" />
                         <label
-                            htmlFor="exampleInput8"
+                            for="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >Zip
                         </label>
@@ -192,7 +185,7 @@ export default function placeOrder(props) {
                             placeholder="phone"
                         />
                         <label
-                            htmlFor="exampleInput8"
+                            for="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >
                             Phone
