@@ -56,6 +56,7 @@ function App() {
           );
           setInCart(true);
           setOrderedItem(response.data.orderItem._id);
+          cartItems = cartItems.filter(item=>item._id != response.data.orderItem._id);
           setCartItems([response.data.orderItem, ...cartItems]);
           console.log(response);
           notify("Item Successfully Added To Cart");
