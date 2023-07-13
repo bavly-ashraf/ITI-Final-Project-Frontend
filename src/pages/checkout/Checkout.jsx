@@ -76,10 +76,10 @@ export default function placeOrder(props) {
             setErrorList(validation.error.details)
         }
         else {
-            if(auth.roles == "admin"){
+            if (auth.roles == "admin") {
                 toast.error("Only users can create orders.")
             }
-            else{
+            else {
                 sendUserDataToApi()
             }
         }
@@ -91,7 +91,7 @@ export default function placeOrder(props) {
             city: Joi.string().required(),
             country: Joi.string().required(),
             zip: Joi.number().required(),
-            phone: Joi.number().required(),
+            phone: Joi.number().min(10).required(),
         })
         console.log(schema.validate(userdata, { abortEarly: false }))
         return schema.validate(userdata, { abortEarly: false });
