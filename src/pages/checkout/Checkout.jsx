@@ -53,6 +53,7 @@ export default function placeOrder(props) {
     async function sendUserDataToApi() {
         let { data } = await axios.post(DATA_URL, userdata, { headers: { "Authorization": auth?.accessToken } })
         if (data.message == 'success') {
+            props.removeAllCartItems([]);
             navigate("/ProductListing");
             // setLoading(false)
 
