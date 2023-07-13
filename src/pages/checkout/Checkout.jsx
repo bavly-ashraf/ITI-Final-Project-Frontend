@@ -51,7 +51,8 @@ export default function placeOrder(props) {
     };
 
     async function sendUserDataToApi() {
-        let { data } = await axios.post(DATA_URL, userdata, { headers: { "Authorization": auth?.accessToken } })
+        const order = {...userdata,totalPrice}
+        let { data } = await axios.post(DATA_URL, order, { headers: { "Authorization": auth?.accessToken } })
         if (data.message == 'success') {
             props.removeAllCartItems([]);
             navigate("/ProductListing");
@@ -92,7 +93,7 @@ export default function placeOrder(props) {
             city: Joi.string().required(),
             country: Joi.string().required(),
             zip: Joi.number().required(),
-            phone: Joi.number().required(),
+            phone: Joi.number().min(10).required(),
         })
         console.log(schema.validate(userdata, { abortEarly: false }))
         return schema.validate(userdata, { abortEarly: false });
