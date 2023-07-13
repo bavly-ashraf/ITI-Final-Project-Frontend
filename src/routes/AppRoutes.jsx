@@ -74,11 +74,12 @@ const AppRoutes = (props) => {
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         {/*inside we put routes for admins and users */}
       </Route>
-      <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-      <Route path="/addcategory" element={<Category />} />
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
         {/*inside we put routes for admins */}
+        <Route path="/addcategory" element={<Category />} />
+
+        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       </Route>
 
       <Route path="/about" element={<About />} />

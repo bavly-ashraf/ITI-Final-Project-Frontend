@@ -129,6 +129,12 @@ export default function App() {
               className="space-y-4 md:space-y-6"
               action="#"
               onSubmit={handleSubmit(onSubmit)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleSubmit(onSubmit)();
+                }
+              }}
               noValidate
             >
               <div
@@ -218,7 +224,7 @@ export default function App() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
-                  <div className="flex items-center h-5">
+                  {/* <div className="flex items-center h-5">
                     <input
                       id="remember"
                       aria-describedby="remember"
@@ -226,15 +232,15 @@ export default function App() {
                       className="w-4 h-4 border border-gray-300 rounded bg-black dark:bg-gray-700 dark:border-gray-600 dark:"
                       required
                     />
-                  </div>
-                  <div className="ml-3 text-sm">
+                  </div> */}
+                  {/* <div className="ml-3 text-sm">
                     <label
                       htmlFor="remember"
                       className="text-gray-500 dark:text-gray-300"
                     >
                       Remember me
                     </label>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Open the modal using ID.showModal() method */}
