@@ -58,7 +58,7 @@ const AppRoutes = (props) => {
 
       <Route
         path="/checkout"
-        element={<CheckOut cartItems={props.cartItems} />}
+        element={<CheckOut cartItems={props.cartItems} removeAllCartItems={props.removeAllCartItems} />}
       />
       {/* restrict access to this route to users with the 'Admin' role */}
       <Route path="/signup" element={<SignUp />} />

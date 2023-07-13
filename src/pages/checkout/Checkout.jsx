@@ -8,9 +8,10 @@ import axios from "../../api/axios";
 import Joi from "joi";
 const DATA_URL = "/orders"
 import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
 
 
-export default function placeOrder() {
+export default function placeOrder(props) {
 
     const { auth } = useContext(AuthContext)
     let navigate = useNavigate()
@@ -26,17 +27,18 @@ export default function placeOrder() {
         phone: null
     })
 
-    const [item, setitem] = useState([]);
+    // const [item, setitem] = useState([]);
+    const item = props.cartItems;
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
+    //     axios.get(`http://localhost:3000/orderedItems/`, { headers: { "Authorization": auth?.accessToken } }).then((response) => {
 
-            setitem(response.data.orderItem);
-            console.log(response.data.orderItem)
-        });
+    //         setitem(response.data.orderItem);
+    //         console.log(response.data.orderItem)
+    //     });
 
-    }, []);
+    // }, []);
 
     const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
 
@@ -49,8 +51,10 @@ export default function placeOrder() {
     };
 
     async function sendUserDataToApi() {
-        let { data } = await axios.post(DATA_URL, userdata, { headers: { "Authorization": auth?.accessToken } })
+        const order = {...userdata,totalPrice}
+        let { data } = await axios.post(DATA_URL, order, { headers: { "Authorization": auth?.accessToken } })
         if (data.message == 'success') {
+            props.removeAllCartItems([]);
             navigate("/ProductListing");
             // setLoading(false)
 
@@ -74,7 +78,12 @@ export default function placeOrder() {
             setErrorList(validation.error.details)
         }
         else {
-            sendUserDataToApi()
+            if(auth.roles == "admin"){
+                toast.error("Only users can create orders.")
+            }
+            else{
+                sendUserDataToApi()
+            }
         }
     }
 
@@ -126,7 +135,7 @@ export default function placeOrder() {
                             name="address"
                             placeholder="address" />
                         <label
-                            for="exampleInput7"
+                            htmlFor="exampleInput7"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >
                             Address
@@ -142,7 +151,7 @@ export default function placeOrder() {
                             name="city"
                             placeholder="city" />
                         <label
-                            for="exampleInput8"
+                            htmlFor="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >City
                         </label>
@@ -156,7 +165,7 @@ export default function placeOrder() {
                             name="country"
                             placeholder="country" />
                         <label
-                            for="exampleInput8"
+                            htmlFor="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >Country
                         </label>
@@ -170,7 +179,7 @@ export default function placeOrder() {
                             name="zip"
                             placeholder="zip" />
                         <label
-                            for="exampleInput8"
+                            htmlFor="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >Zip
                         </label>
@@ -185,7 +194,7 @@ export default function placeOrder() {
                             placeholder="phone"
                         />
                         <label
-                            for="exampleInput8"
+                            htmlFor="exampleInput8"
                             className="pointer-events-none absolute left-3 top-0 mb-0 bg-[#FBF8F5] max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out -translate-y-[0.9rem] scale-[0.8] text-project-main-color peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >
                             Phone

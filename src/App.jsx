@@ -106,6 +106,7 @@ function App() {
             removeFromCart={removeFromCart}
             orderedItem={orderedItem}
             setOrderedItem={setOrderedItem}
+            removeAllCartItems={setCartItems}
           />
         </div>
         <Footer />
