@@ -9,9 +9,9 @@ const ProductDescription = (props) => {
   let width = props.product.width;
   let depth = props.product.depth;
   return (
-    <div className=" bg-[#F3F0EC] px-11 border border-transparent">
+    <div className=" bg-[#F3F0EC] px-11 border border-transparent ">
       <div className="mt-10 mb-20">
-        <div className="flex flex-col justify-center justify-items-center mt-28 mb-20">
+        <div className="flex flex-col  justify-center justify-items-center mt-28 mb-20">
           <h1 className="mb-2 text-center text-4xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
             Product Details
           </h1>
@@ -19,7 +19,7 @@ const ProductDescription = (props) => {
             {description}
           </p>
         </div>
-        <div className="grid lg:grid-cols-3 gap-1 md:grid-cols-1">
+        <div className="grid lg:grid-cols-2  gap-1 md:grid-cols-1">
           <div className="p-6 border rounded-lg">
             <div className="flex justify-between mt-4 whitespace-pre">
               <div className="text-center text-lg font-medium leading-tight text-neutral-800 dark:text-neutral-50">
@@ -46,8 +46,8 @@ const ProductDescription = (props) => {
               <div>{depth}&quot;</div>
             </div>
           </div>
-          <div className="lg:col-span-2  ">
-            <img src={photo_url[0]} />
+          <div className="lg:col-span-1 ">
+            <img className="mx-auto" src={photo_url[0]} />
           </div>
         </div>
       </div>

@@ -112,8 +112,8 @@ const ProductDetails = (props) => {
               className="col-span-4"
             />
           </div>
-          <div>
-            <ProductDescription product={product} />
+          <div >
+            <ProductDescription product={product}/>
           </div>
           <div>
             <ProductReview reviews={product.reviews.slice().reverse()} />
