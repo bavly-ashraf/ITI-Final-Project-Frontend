@@ -78,8 +78,11 @@ export default function App() {
         const roles = response?.data?.user.role;
         const islogged = response?.data?.user.isLogged;
         console.log(user, token, roles);
+
         // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
-        persist({ user, roles, islogged, accessToken: token });
+        const refresh_Token = response.data.refreshToken;
+        // setAuth({ user, roles, accessToken }); // Pass user and token to setAuth
+        persist({ user, roles, islogged, refresh_Token, accessToken: token });
 
         notify(name);
         navigate("/"); // Programmatically navigate to the login page
