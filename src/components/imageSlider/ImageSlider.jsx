@@ -114,8 +114,8 @@ const ImageSlider = (props) => {
           ></div>
         ))}
       </div>
-      <div className="md:flex justify-center hidden  h-16 ">
-        <div className="grid lg:grid-cols-5 gap-4 md:grid-cols-8">
+      <div className="md:flex justify-center  hidden  h-16 ">
+        <div className="  flex justify-center gap-4 ">
           {images.map((image) => (
             <img
               key={image.id}

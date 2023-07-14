@@ -112,7 +112,7 @@ const ProductDetails = (props) => {
               className="col-span-4"
             />
           </div>
-          <div>
+          <div >
             <ProductDescription product={product} />
           </div>
           <div>
