@@ -22,12 +22,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const refreshtoken = getCookie("refreshToken");
+    const accessToken = getCookie("accessToken");
+
     console.log(refreshtoken);
     console.log(auth);
     console.log(auth.user);
 
     if (refreshtoken) {
-      fetchUserData(refreshtoken);
+      fetchUserData(refreshtoken, accessToken);
     } else {
       setLoading(false);
     }
@@ -80,9 +82,9 @@ export const AuthProvider = ({ children }) => {
   //     setLoading(false);
   //   }
   // };
-  const fetchUserData = async (token) => {
+  const fetchUserData = async (refreshtoken, accessToken) => {
     try {
-      const response = await axios.post(dataUrl, { token });
+      const response = await axios.post(dataUrl, { refreshtoken, accessToken });
 
       const newAccessToken = response.data.token;
       setCookie("accessToken", newAccessToken, 7);
