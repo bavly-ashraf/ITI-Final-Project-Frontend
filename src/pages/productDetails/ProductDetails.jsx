@@ -93,8 +93,8 @@ const ProductDetails = (props) => {
   return (
     <>
       {product ? (
-        <div className="md:flex-col pt-24">
-          <div className="flex justify-start bg-[#FBF8F5] lg:flex-row md:flex-row sm:flex-col mb-10">
+        <div className="md:flex-col sm:flex-col pt-18">
+          <div className="flex flex-col justify-start bg-[#FBF8F5] lg:flex-row md:flex-row sm:flex-col mb-10">
             <ImageSlider product={product} />
             <ProductDetailsItem
               id={id}
@@ -112,8 +112,8 @@ const ProductDetails = (props) => {
               className="col-span-4"
             />
           </div>
-          <div>
-            <ProductDescription product={product} />
+          <div >
+            <ProductDescription product={product}/>
           </div>
           <div>
             <ProductReview reviews={product.reviews.slice().reverse()} />

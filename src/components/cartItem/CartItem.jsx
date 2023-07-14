@@ -4,18 +4,17 @@ import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { Link, useNavigate } from "react-router-dom";
-const CHECKOUT_URL = '/orderedItems'
+const CHECKOUT_URL = "/orderedItems";
 import { AuthContext } from "../../context/AuthProvider";
 import CartItemList from "../cartItemList/CartItemList";
 import { toast } from "react-toastify";
 
 const CartItem = (props) => {
-
-  let navigate = useNavigate()
-  const { auth } = useContext(AuthContext)
+  let navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
 
   // const [item, setitem] = useState([]);
-  const item = props.cartItems
+  const item = props.cartItems;
 
   // useEffect(() => {
 
@@ -27,11 +26,14 @@ const CartItem = (props) => {
 
   // }, []);
 
-  const totalPrice = item.reduce((acc, cur) => acc + cur.productId.price * cur.quantity, 0);
+  const totalPrice = item.reduce(
+    (acc, cur) => acc + cur.productId.price * cur.quantity,
+    0
+  );
 
   const handleCheckout = () => {
     if (totalPrice !== 0) {
-      navigate('/checkout');
+      navigate("/checkout");
     } else {
       toast.error("Cannot checkout with a subtotal of zero.");
     }
@@ -58,19 +60,26 @@ const CartItem = (props) => {
             <h1 className="font-extrabold text-3xl text-project-main-color">
               YOUR BAG
             </h1>
-
           </div>
 
-          <section className="w-full flex flex-wrap justify-between mt-10">
-
+          <section className="w-full flex flex-wrap justify-around mt-10">
             <div className="block">
               {item.length > 0 ? (
                 item.map((items, idx) => (
-                  <CartItemList className="my-10" index={idx} DeleteItem={props.removeFromCart} product={items} key={items._id} />
+                  <CartItemList
+                    className="my-10"
+                    index={idx}
+                    DeleteItem={props.removeFromCart}
+                    product={items}
+                    key={items._id}
+                  />
                 ))
               ) : (
                 <div className="text-center w-96 mt-10">
-                  <p className="animate-pulse custom-font-bold text-2xl">Your cart is feeling a bit light. Keep browsing to find the perfect furniture pieces to fill it up!</p>
+                  <p className="animate-pulse custom-font-bold text-2xl">
+                    Your cart is feeling a bit light. Keep browsing to find the
+                    perfect furniture pieces to fill it up!
+                  </p>
                 </div>
               )}
             </div>
@@ -82,21 +91,21 @@ const CartItem = (props) => {
               <div className="flex justify-between my-5 pb-5 border-b-2 border-gray-400">
                 <p className="custom-font-bold">Subtotal:</p>
                 <p className="price custom-font-bold">{totalPrice} EGP</p>
-
               </div>
 
               <div className="flex justify-center py-5 ">
-                <button onClick={handleCheckout} className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full">
+                <button
+                  onClick={handleCheckout}
+                  className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full"
+                >
                   Checkout
                 </button>
               </div>
             </section>
-
           </section>
-
         </section>
       </div>
-    </div >
+    </div>
   );
 };
 
