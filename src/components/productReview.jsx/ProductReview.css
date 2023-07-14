@@ -6,3 +6,33 @@
 #exampleFormControlInput1:focus + #description{
     display: block;
 } */
+
+.delete-icon{
+color: rgb(228, 17, 17);
+}
+.edite-icon{
+    color:  #ffcd03;
+}
+.icons:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.delete-btn:hover{
+    transform: scale(1.1);
+    cursor: pointer; 
+    background-color: rgb(228, 17, 17);
+}
+.cancel-btn:hover{
+    transform: scale(1.1);
+    cursor: pointer; 
+    background-color: rgb(196, 193, 193);
+}
+.post-btn{
+    background-color:rgb(34 197 94);
+    color: white;
+}
+.post-btn:hover{
+    background-color:rgb(41, 221, 107);
+    color: white;
+    transform: scale(1.06);
+}
