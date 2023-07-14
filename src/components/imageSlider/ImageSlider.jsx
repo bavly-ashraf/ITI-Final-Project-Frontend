@@ -8,44 +8,7 @@ const ImageSlider = (props) => {
   let photo_url = props.product.photo_url;
   const [current, setCurrent] = useState(photo_url[0]);
   const [previous, setPrevious] = useState(photo_url[0]);
-  // let [images, changeImages] = useState([
-  //   {
-  //     id: 1,
-  //     className:
-  //       "border  cursor-pointer lg:col-span-1 md:col-span-2 shadow rounded-full h-16 w-16 outline outline-2 outline-black cursor-pointer border-4 border-white",
-  //     dotClass:
-  //     "dot border-gray-400 border-2 w-2 h-2 cursor-pointer rounded-full bg-gray-400",
-  //   },
-  //   {
-  //     id: 2,
-  //     className:
-  //       "border hover:border-gray-400 cursor-pointer lg:col-span-1 md:col-span-2 shadow rounded-full h-16 w-16",
-  //     dotClass:
-  //       "dot border-gray-400 border-2 w-2 h-2 cursor-pointer rounded-full",
-  //   },
-  //   {
-  //     id: 3,
-  //     className:
-  //       "border hover:border-gray-400 cursor-pointer lg:col-span-1 md:col-span-2 shadow rounded-full h-16 w-16",
-  //     dotClass:
-  //       "dot border-gray-400 border-2 w-2 h-2 cursor-pointer rounded-full",
-  //   },
-  //   {
-  //     id: 4,
-  //     className:
-  //       "border hover:border-gray-400 cursor-pointer lg:col-span-1 md:col-span-2 shadow rounded-full h-16 w-16",
-  //     dotClass:
-  //       "dot border-gray-400 border-2 w-2 h-2 cursor-pointer rounded-full",
-  //   },
-  //   {
-  //     id: 5,
-  //     className:
-  //       "border hover:border-gray-400 cursor-pointer lg:col-span-1 md:col-start-4 md:col-span-2 shadow rounded-full h-16 w-16",
-  //     dotClass:
-  //       "dot border-gray-400 border-2 w-2 h-2 cursor-pointer rounded-full",
-  //   },
-  // ]);
-  
+ 
   let [images, changeImages] = useState(photo_url.map((product,index)=>{
     let obj={
       id:index+1,
