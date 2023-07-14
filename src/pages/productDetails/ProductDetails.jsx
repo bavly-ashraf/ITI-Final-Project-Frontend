@@ -113,7 +113,7 @@ const ProductDetails = (props) => {
             />
           </div>
           <div >
-            <ProductDescription product={product} />
+            <ProductDescription product={product}/>
           </div>
           <div>
             <ProductReview reviews={product.reviews.slice().reverse()} />
