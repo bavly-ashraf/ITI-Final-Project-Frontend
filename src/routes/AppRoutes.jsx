@@ -30,7 +30,6 @@ const AppRoutes = (props) => {
       <Route path="/login" element={<Login />} />
       <Route path="/loading" element={<LoadingAnimation />} />
       <Route path="/favouriteList" element={<FavouriteList />} />
-      <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
       <Route path="/ForgetPassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
 
@@ -56,11 +55,6 @@ const AppRoutes = (props) => {
       <Route path="/orderedItems" element={<Category />} />
       <Route path="verifyemail" element={<VerificationForm />} />
 
-      <Route
-        path="/checkout"
-        element={<CheckOut cartItems={props.cartItems} removeAllCartItems={props.removeAllCartItems} />}
-      />
-      {/* restrict access to this route to users with the 'Admin' role */}
       <Route path="/signup" element={<SignUp />} />
       <Route
         path="/CartItem"
@@ -73,6 +67,16 @@ const AppRoutes = (props) => {
       />
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
         {/*inside we put routes for admins and users */}
+
+        <Route
+          path="/checkout"
+          element={
+            <CheckOut
+              cartItems={props.cartItems}
+              removeAllCartItems={props.removeAllCartItems}
+            />
+          }
+        />
       </Route>
 
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>

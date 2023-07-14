@@ -87,19 +87,39 @@ const CartItem = (props) => {
             {/* Order Summary */}
             <section className="p-3 bg-orange-100 h-52">
               <h2 className="custom-font-bold"> Order Summary</h2>
-
               <div className="flex justify-between my-5 pb-5 border-b-2 border-gray-400">
                 <p className="custom-font-bold">Subtotal:</p>
                 <p className="price custom-font-bold">{totalPrice} EGP</p>
               </div>
-
-              <div className="flex justify-center py-5 ">
+              {/* <div className="flex justify-center py-5 ">
                 <button
                   onClick={handleCheckout}
                   className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full"
                 >
                   Checkout
                 </button>
+              </div> */}
+              <div>
+                {/* Conditionally render the Checkout button */}
+                {auth?.user ? (
+                  <div className="flex justify-center py-5">
+                    <button
+                      onClick={handleCheckout}
+                      className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full"
+                    >
+                      Checkout
+                    </button>
+                  </div>
+                ) : (
+                  // Render the link to the login component
+                  <Link to="/login">
+                    <div className="flex justify-center py-5">
+                      <button className="w-80 h-10 text-lg bg-slate-300 hover:bg-slate-400 rounded-full">
+                        Login to Checkout
+                      </button>
+                    </div>
+                  </Link>
+                )}
               </div>
             </section>
           </section>

@@ -24,10 +24,6 @@ export const AuthProvider = ({ children }) => {
     const refreshtoken = getCookie("refreshToken");
     const accessToken = getCookie("accessToken");
 
-    console.log(refreshtoken);
-    console.log(auth);
-    console.log(auth.user);
-
     if (refreshtoken) {
       fetchUserData(refreshtoken, accessToken);
     } else {
@@ -44,44 +40,7 @@ export const AuthProvider = ({ children }) => {
       clearInterval(refreshAppInterval);
     };
   }, []);
-  ///////////////////////////
 
-  // const fetchUserData = async (token) => {
-  //   try {
-  //     const response = await axios.post(dataUrl, {
-  //       token,
-  //     });
-  //     if (!response.data.token) {
-  //       throw new Error("Token expired or invalid");
-  //     }
-  //     const roles = response?.data?.user.role;
-  //     const { user } = response.data;
-  //     console.log(response.data);
-  //     // console.log(user, roles);
-  //     const islogged = response?.data?.user.isLogged;
-  //     console.log(response.data.token);
-  //     const accessToken = response.data.token;
-  //     console.log(accessToken);
-  //     deleteCookie("accessToken");
-
-  //     setCookie("accessToken", accessToken, 7);
-
-  //     if (user && roles) {
-  //       setAuth((prevAuth) => ({
-  //         ...prevAuth,
-  //         user,
-  //         roles,
-  //         islogged,
-  //         accessToken,
-  //       }));
-  //       setUserDataFetched(true);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching user data:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const fetchUserData = async (refreshtoken, accessToken) => {
     try {
       const response = await axios.post(dataUrl, { refreshtoken, accessToken });
@@ -89,7 +48,6 @@ export const AuthProvider = ({ children }) => {
       const newAccessToken = response.data.token;
       setCookie("accessToken", newAccessToken, 7);
 
-      console.log(newAccessToken);
       console.log(response.data);
       const roles = response?.data?.user.role;
       const { user } = response.data;
@@ -102,7 +60,6 @@ export const AuthProvider = ({ children }) => {
         islogged,
         accessToken: newAccessToken, // Set the updated access token in the state
       }));
-      console.log(auth.user);
       setUserDataFetched(true);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -119,7 +76,6 @@ export const AuthProvider = ({ children }) => {
       refresh_Token,
       accessToken,
     }));
-    console.log(refresh_Token);
     if (refresh_Token) {
       setCookie("refreshToken", refresh_Token, 7);
     } else {

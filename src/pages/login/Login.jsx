@@ -44,14 +44,6 @@ export default function App() {
       draggable: true,
       progress: undefined,
       toastClassName: "custom-toast",
-      // style: {
-      //   background: "9BCDD2",
-      //   color: "black",
-      // },
-      style: { background: "#9BCDD2", color: "#FF8551" },
-      toastStyle: {
-        "--toastify-color-success": "orange",
-      },
     });
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
