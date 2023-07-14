@@ -1,10 +1,11 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Input, initTE } from "tw-elements";
 import { AuthContext } from "../../context/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "./ProductReview.css";
+import ReviewTime from "../reviewTime/ReviewTime";
 
 export default function ProductReview(props) {
 
@@ -18,11 +19,27 @@ export default function ProductReview(props) {
   const { id } = useParams();
   console.log(rating);
   console.log(reviewContent);
- const clearData=()=>{
-  setReviewContent("");
-  setRating("");
- }
+  const clearData = () => {
+    setReviewContent("");
+    setRating("");
+  }
 
+  const getProductReviews = (productId) => {
+    axios
+      .get(
+        `http://localhost:3000/review/${productId}`, { headers: { Authorization: auth?.accessToken } }
+
+      )
+      .then((response) => {
+        console.log(response.data.productReviews);
+        setReviews(response.data.productReviews.slice().reverse());
+
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        console.log(error);
+      });
+  }
 
   const handleAddReview = () => {
     axios
@@ -47,6 +64,7 @@ export default function ProductReview(props) {
   };
 
   const handleDeleteReview = (id) => {
+    console.log(id);
     axios
       .delete(`http://localhost:3000/review/${id}`, {
         headers: { Authorization: auth?.accessToken },
@@ -56,6 +74,7 @@ export default function ProductReview(props) {
         const reviewsCopy = [...reviews];
         reviewsCopy.splice(reviewsCopy.indexOf(response.data.deletedreview), 1);
         setReviews(reviewsCopy);
+        getProductReviews(response.data.deletedreview.productId)
         toast.success("reviews deleted successfully");
       })
       .catch((error) => {
@@ -65,16 +84,17 @@ export default function ProductReview(props) {
   };
 
   const handleEditeReview = (id) => {
-   console.log(id);
+    console.log(id);
     axios
-      .patch(`http://localhost:3000/review/${id}`, {reviewContent,rating},
-       { headers: { Authorization: auth?.accessToken },
-      })
+      .patch(`http://localhost:3000/review/${id}`, { reviewContent, rating },
+        {
+          headers: { Authorization: auth?.accessToken },
+        })
       .then((response) => {
         console.log(response.data.updatedreview);
-        const{reviewContent,rating,userId}=response.data.updatedreview
+        const { reviewContent, rating, userId } = response.data.updatedreview
         console.log(userId);
-        const reviewsCopy = reviews.map((review) => review._id == id ?  { ...review,  reviewContent,rating,userId} : review );
+        const reviewsCopy = reviews.map((review) => review._id == id ? { ...review, reviewContent, rating, userId } : review);
         console.log(reviewsCopy);
         setReviews(reviewsCopy);
         setReviewContent("");
@@ -109,214 +129,283 @@ export default function ProductReview(props) {
               null
             )}
           </div>
-          {reviews.map((review, index) => {
-          
-            return(
+          {reviews.map((review) => {
+
+            return (
               <div
-              key={review._id}
-              className="mb-2 shadow-lg rounded-t-8xl rounded-b-5xl overflow-hidden"
-            >
-              <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40">
-                <div className="flex flex-wrap items-center justify-between">
-                  <div className="flex items-center" style={{ gap: "10px" }}>
-                    <div
-                      className=" bg-green-500 p-3 text-xl text-center text-white mr-2 "
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                    >
-                      {review.userId?.username.slice(0, 1)}
-                    </div>
-                    <h4 className="w-full md:w-auto text-xl font-heading font-medium">
-                      {review.userId?.username.replace(/([A-Z])/g, " $1").trim()}
-                    </h4>
-                  </div>
-                  {/* icons start */}
-                  <div>
-                    {(auth.user?._id === review.userId?._id ||
-                      auth.roles === "admin") && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                        onClick={() => {
-                          handleDeleteReview(review._id);
+                key={review._id}
+                className="mb-2 shadow-lg rounded-t-8xl rounded-b-5xl overflow-hidden"
+              >
+                <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40">
+                  <div className="flex flex-wrap items-center justify-between">
+                    <div className="flex items-center" style={{ gap: "10px" }}>
+                      <div
+                        className=" bg-green-500 p-3 text-xl text-center text-white mr-2 "
+                        style={{
+                          minWidth: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
                         }}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                        />
-                      </svg>
-                    )}
-
-                    {auth.user?._id === review.userId?._id && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                        onClick={() =>{ window[`my_modal_2${review._id}`].showModal() ;setReviewContent(review.reviewContent) ;setRating(review.rating)}}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                      </svg>
-                    )}
-                  </div>
-                  {/* popup for edit review */}
-                  <dialog id={`my_modal_2${review._id}`} className="modal">
-                    <form
-                      method="dialog"
-                      className="modal-box flex flex-col gap-4 items-center"
-                    >
-                      <div className="flex justify-between w-full ">
+                        {review.userId?.username.slice(0, 1)}
+                      </div>
+                      <h4 className="w-full md:w-auto text-xl font-heading font-medium">
+                        {review.userId?.username.replace(/([A-Z])/g, " $1").trim()}
+                      </h4>
+                    </div>
+                    {/* icons start */}
+                    <div className="flex gap-2">
+                      {auth.user?._id === review.userId?._id && (
                         <svg
-                          onClick={() => {
-                            window[`my_modal_2${review._id}`].close();
-                            clearData();
-                          }}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6"
+                          className="w-6 h-6 edite-icon icons"
+                          onClick={() => { window[`my_modal_2${review._id}`].showModal(); setReviewContent(review.reviewContent); setRating(review.rating) }}
                         >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            d="M6 18L18 6M6 6l12 12"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                           />
                         </svg>
+                      )}
+                      {(auth.user?._id === review.userId?._id ||
+                        auth.roles === "admin") && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6 delete-icon icons"
+                            onClick={() => { window[`my_modal_3${review._id}`].showModal() }}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                            />
+                          </svg>
+                        )}
 
-                        <button className="btn" onClick={()=>{
-                          handleEditeReview(review._id)
-                        }}>
-                          Save
-                        </button>
-                      </div>
-
-                      <div className="flex gap-3 mb-2">
-                        <div
-                          className=" bg-green-500 p-3 text-xl text-center text-white "
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            borderRadius: "50%",
-                          }}
+                      {/* popup for confirm delet  */}
+                      <dialog id={`my_modal_3${review._id}`} className="modal">
+                        <form
+                          method="dialog"
+                          className="modal-box flex flex-col gap-4 items-center"
                         >
-                          {auth.user?.username.slice(0, 1)}
-                        </div>
-                        <div className="">
-                          <h2 className="font-semibold">
-                            {auth.user?.username}
-                          </h2>
-                          <p className="font-light	">
-                            Reviews are public and include your acount info
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex " style={{ gap: "62px" }}>
-                        {[...Array(5)].map((star, index) => {
-                          const currentRating = index + 1;
-                          return (
-                            <label key={index}>
-                              <input
-                                style={{display:"none"}}
-                                type="radio"
-                                name="rating"
-                                value={currentRating}
-                                onClick={() => {
-                                  setRating(currentRating);
-                                }}
+                          <div className="flex justify-between w-full ">
+                            <svg
+                              onClick={() => {
+                                window[`my_modal_3${review._id}`].close();
+                                clearData();
+                              }}
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
                               />
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                                color={
-                                  currentRating <= (hover || rating)
-                                    ? "#ffc107"
-                                    : "#e4e5e9"
-                                }
-   
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                            </svg>
+                          </div>
+
+                          <div className="flex gap-3 mb-2">
+
+                            <div className="">
+
+                              <p className="font-light text-xl	">
+                                Are you sure you want to delete this review
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex gap-6">
+
+                            <button className="btn bg-gray-400 cancel-btn  text-white" onClick={() => {
+                              window[`my_modal_3${review._id}`].close();
+
+                            }}>
+                              Cancel
+                            </button>
+                            <button className="btn delete-btn  bg-red-700 text-white" onClick={() => {
+                              handleDeleteReview(review?._id)
+                            }}>
+                              Delete
+                            </button>
+
+                          </div>
+
+                        </form>
+                      </dialog>
+
+
+
+                    </div>
+                    {/* popup for edit review */}
+                    <dialog id={`my_modal_2${review._id}`} className="modal">
+                      <form
+                        method="dialog"
+                        className="modal-box flex flex-col gap-4 items-center"
+                      >
+                        <div className="flex justify-between w-full mb-2">
+                          <button className="btn post-btn" onClick={() => {
+                            handleEditeReview(review._id)
+                          }}>
+                            Save
+                          </button>
+                          <svg
+                            onClick={() => {
+                              window[`my_modal_2${review._id}`].close();
+                              clearData();
+                            }}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+
+
+                        </div>
+
+                        <div className="flex gap-3 mb-2">
+                          <div
+                            className=" bg-green-500 p-3 text-xl text-center text-white "
+                            style={{
+                              minWidth: "50px",
+                              height: "50px",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {auth.user?.username.slice(0, 1)}
+                          </div>
+                          <div className="">
+                            <h2 className="font-semibold">
+                              {auth.user?.username}
+                            </h2>
+                            <p className="font-light	">
+                              Reviews are public and include your acount info
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex " style={{ gap: "62px" }}>
+                          {[...Array(5)].map((star, index) => {
+                            const currentRating = index + 1;
+                            return (
+                              <label key={index}>
+                                <input
+                                  style={{ display: "none" }}
+                                  type="radio"
+                                  name="rating"
+                                  value={currentRating}
+                                  onClick={() => {
+                                    setRating(currentRating);
+                                  }}
                                 />
-                              </svg>
-                            </label>
-                          );
-                        })}
-                      </div>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="w-6 h-6"
+                                  color={
+                                    currentRating <= (hover || rating)
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
+                                  }
 
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                                  />
+                                </svg>
+                              </label>
+                            );
+                          })}
+                        </div>
 
+                        <input type="text" placeholder=" Describe your experience" className="input input-bordered input-warning w-full " value={reviewContent}
+                          onChange={(e) => setReviewContent(e.target.value)} />
+                        <div className="modal-action mt-0"></div>
+                      </form>
+                    </dialog>
 
-
-<input type="text" placeholder=" Describe your experience" className="input input-bordered input-warning w-full "         value={reviewContent}
-                          onChange={(e) => setReviewContent(e.target.value)}/>
-
-
-            
-                      <div className="modal-action mt-0"></div>
-                    </form>
-                  </dialog>
-
-                  {/* icons end */}
-                </div>
-              </div>
-              <div className="px-4 overflow-hidden md:px-16 pt-2  bg-white">
-                <div
-                  className="flex flex-wrap flex-col"
-                  style={{ gap: "10px" }}
-                >
-                  <div className="inline-flex">
-                    {[...Array(review.rating)].map((star, index) => (
-                      <a key={index} className="inline-block mr-1" href="#">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M20 7.91677H12.4167L10 0.416763L7.58333 7.91677H0L6.18335 12.3168L3.81668 19.5834L10 15.0834L16.1834 19.5834L13.8167 12.3168L20 7.91677Z"
-                            fill="#FFCB00"
-                          ></path>
-                        </svg>
-                      </a>
-                    ))}
-                  </div>
-
-                  <div className="w-full md:w-2/3 md:mb-0">
-                    <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">
-                      {review.reviewContent}
-                    </p>
+                    {/* icons end */}
                   </div>
                 </div>
+                <div className="px-4 overflow-hidden md:px-16 pt-2  bg-white">
+                  <div
+                    className="flex flex-wrap flex-col"
+                    style={{ gap: "10px" }}
+                  >
+                    <div className="inline-flex">
+                      {[...Array(review.rating)].map((star, index) => (
+                        <a key={index} className="inline-block mr-1" >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M20 7.91677H12.4167L10 0.416763L7.58333 7.91677H0L6.18335 12.3168L3.81668 19.5834L10 15.0834L16.1834 19.5834L13.8167 12.3168L20 7.91677Z"
+                              fill="#FFCB00"
+                            ></path>
+                          </svg>
+                        </a>
+                      ))}
+
+                      {[...Array(5 - review.rating)].map((color, i) => (
+                        <a key={i} className="inline-block mr-1" >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M20 7.91677H12.4167L10 0.416763L7.58333 7.91677H0L6.18335 12.3168L3.81668 19.5834L10 15.0834L16.1834 19.5834L13.8167 12.3168L20 7.91677Z"
+                              fill="#D3D3D3"
+                            ></path>
+                          </svg>
+                        </a>
+                      ))}
+
+                    </div>
+
+                    <div className="w-full  md:mb-0 flex justify-between ">
+                      <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">
+                        {review.reviewContent}
+                      </p>
+                      <ReviewTime createdAt={review.createdAt}/>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
             )
-    
-})}
+
+          })}
         </div>
 
         {/* popup for add review */}
@@ -325,7 +414,11 @@ export default function ProductReview(props) {
             method="dialog"
             className="modal-box flex flex-col gap-4 items-center"
           >
-            <div className="flex justify-between w-full ">
+            <div className="flex justify-between w-full mb-2 ">
+
+              <button className="btn post-btn" onClick={handleAddReview}>
+                Post
+              </button>
               <svg
                 onClick={() => {
                   window.my_modal_1.close();
@@ -344,15 +437,12 @@ export default function ProductReview(props) {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-              <button className="btn" onClick={handleAddReview}>
-                Post
-              </button>
             </div>
 
             <div className="flex gap-3 mb-2">
               <div
                 className=" bg-green-500 p-3 text-xl text-center text-white "
-                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                style={{ minWidth: "50px", height: "50px", borderRadius: "50%" }}
               >
                 {auth.user?.username.slice(0, 1)}
               </div>
@@ -370,7 +460,7 @@ export default function ProductReview(props) {
                 return (
                   <label key={index}>
                     <input
-                      style={{display:"none"}}
+                      style={{ display: "none" }}
                       type="radio"
                       name="rating"
                       value={currentRating}
@@ -409,8 +499,8 @@ export default function ProductReview(props) {
             </div>
 
 
-<input type="text" placeholder=" Describe your experience" className="input input-bordered input-warning w-full" value={reviewContent}
-                onChange={(e) => setReviewContent(e.target.value)} />
+            <input type="text" placeholder=" Describe your experience" className="input input-bordered input-warning w-full" value={reviewContent}
+              onChange={(e) => setReviewContent(e.target.value)} />
 
             <div className="modal-action mt-0"></div>
           </form>
