@@ -93,7 +93,7 @@ const ProductDetails = (props) => {
   return (
     <>
       {product ? (
-        <div className="md:flex-col sm:flex-col pt-18">
+        <div className="md:flex-col sm:flex-col">
           <div className="flex flex-col justify-start bg-[#FBF8F5] lg:flex-row md:flex-row sm:flex-col mb-10">
             <ImageSlider product={product} />
             <ProductDetailsItem
