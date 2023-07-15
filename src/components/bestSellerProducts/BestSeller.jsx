@@ -21,7 +21,7 @@ export default function BestSeller() {
     <>
       <section className="flex justify-center flex-col items-center overflow-hidden">
         <h1 className="text-3xl	font-medium mt-12 mb-10 leading-10	">
-          Shop our Bestsellers
+          Top Rated Products
         </h1>
         <div className="flex flex-row justify-center flex-wrap gap-y-1 lg:w-full  mb-16 overflow-hidden">
           {products.length ? (
@@ -30,7 +30,10 @@ export default function BestSeller() {
                 key={index}
                 className="flex justify-center product-card living bg-white sm:w-8/12 lg:w-2/12 "
               >
-                <Link to={`/products/product/${product?._id}`} className="text-center">
+                <Link
+                  to={`/products/product/${product?._id}`}
+                  className="text-center"
+                >
                   <div>
                     <div className="mb-5">
                       <img
